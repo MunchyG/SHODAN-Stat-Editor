@@ -53,8 +53,9 @@ recharge is its "cool-down time after overheat".
 | Stratagem | Stats |
 |---|---|
 | All | Cooldown, and uses where limited |
-| Eagles | Uses per rearm, Eagle rearm time |
+| Eagles | Uses per rearm, Eagle rearm time; time between bombs (bombers), fire duration (Strafing Run, 110mm Rocket Pods), run length |
 | Orbital and Eagle strikes | For every projectile and blast they use: velocity, inner / outer / shockwave radius, and the full damage set above |
+| Orbital barrages and strikes | Salvos, shells per salvo, time between shells, time between salvos, spread area; the Walking Barrage's walking speed |
 | Orbital Laser | Duration, tracking speed, search radius, damage tick |
 | Guard Dogs (AR-23, Rover, Dog Breath, Hot Dog, K-9) | The drone's health, spotting range and target search interval, and the gun it carries, stat for stat like a weapon |
 | Sentries and emplacements (all ten sentries, HMG and Anti-Tank Emplacements, Grenadier Battlement) | Cooldown, health, spotting range, target search interval, turret turn speed, and their weapon stat for stat (the Tesla Tower's arc included) |
@@ -101,7 +102,7 @@ Multipliers show as the game stores them: 1 is no change, 0.5 damage taken is 50
 ## Install
 
 1. Install **Bingus Shared Loader** (v15 or newer).
-2. Download `SHODAN-Stat-Editor-v2.3.0.zip` from the [releases page](../../releases/latest).
+2. Download `SHODAN-Stat-Editor-v2.3.1.zip` from the [releases page](../../releases/latest).
 3. Install the zip with your Helldivers 2 mod manager, like any other mod package.
 
 ## Use
