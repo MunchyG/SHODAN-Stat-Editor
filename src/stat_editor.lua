@@ -1,6 +1,6 @@
 -- HD2-Addon: mods/shodan/stat_editor
--- SHODAN Stat Editor v2.3.0 by SHODAN. Requires Bingus Shared Loader (API 1).
-local MOD = { global = 'ShodanStatEditor', title = 'SHODAN Stat Editor', version = '2.3.0', author = 'SHODAN', log = 'SHODANStatEditor.log' }
+-- SHODAN Stat Editor v2.3.1 by SHODAN. Requires Bingus Shared Loader (API 1).
+local MOD = { global = 'ShodanStatEditor', title = 'SHODAN Stat Editor', version = '2.3.1', author = 'SHODAN', log = 'SHODANStatEditor.log' }
 -- ammunition types: the game's names, by the text id of the item (its English text)
 MOD.ammo_names = {
     [0x046FF548] = '5.5x50mm Ripper',
@@ -938,7 +938,7 @@ local TYPES = { arc_weapon = 0xB87BA9ED, arc = 0xAFDF0267, health = 0xB3915DE3, 
                 vehicle = 0xEAEB2B0D, mount = 0x3845B1E0, shield = 0x5154DB66,
                 rack = 0xA98BB156, charge = 0xEAC335A1, jumppack = 0x54270608, recharge = 0x1F42878E,
                 warp = 0xA7813546, deposit = 0xC435BA85, package = 0x7A858691, reload = 0x991D454E,
-                thrower = 0xA29A84D8, minefield = 0x74FEF89A, mine_spawner = 0x0697FED6 }
+                thrower = 0xA29A84D8, minefield = 0x74FEF89A, mine_spawner = 0x0697FED6, bombard = 0xCDBC43D8 }
 local KINDS = {
     [T_WEAPON] = { name = 'weapon', stride = 1232, keyed = true },
     [T_MAGAZINE] = { name = 'magazine', stride = 160, keyed = true },
@@ -1021,6 +1021,10 @@ KINDS[TYPES.reload] = { name = 'reload', stride = 80, keyed = true }
 KINDS[TYPES.thrower] = { name = 'mine thrower', stride = 752, keyed = true }
 KINDS[TYPES.minefield] = { name = 'minefield', stride = 44, keyed = true }
 KINDS[TYPES.mine_spawner] = { name = 'mine spawner', stride = 32, keyed = true }
+-- orbital barrages and strikes (BombardmentComponentData): +4 shells per salvo, +8 time between shells,
+-- +24 salvos, +28 time between salvos, +36 spread area, +64 the shells' projectile pattern (8), +96
+-- walking speed (the Walking Barrage)
+KINDS[TYPES.bombard] = { name = 'bombardment', stride = 192, keyed = true }
 -- the tables the panel waits for (stratagem groups are taken as they come)
 local KIND_ORDER = { T_WEAPON, T_MAGAZINE, T_ROUNDS, T_FIRE, T_PROJECTILE, T_DAMAGE, T_BEAM_WEAPON, T_BEAM,
                      T_EXPLOSION, T_ORBITAL, T_HEAT, T_SPRAY, T_STATUS, T_MELEE, TYPES.arc_weapon, TYPES.arc,
@@ -2497,6 +2501,23 @@ local function resolve_stratagem(entry)
     if s.family == 'eagle' and s.rearm then
         add_row(entry, 'Stratagem', 'rearm', 'Eagle rearm time (s)', 'f32',
                 { part('rearm', s.rearm.kind, s.rearm.off + 104, 'f32', 100000) }, 0, 10000, 1, 10)
+    end
+    for _, key in ipairs(s.payloads) do
+        local bomb = tables[TYPES.bombard] and tables[TYPES.bombard].index[key]
+        if bomb then
+            local function b(id, label, offset, storage, min, max, small, big)
+                add_row(entry, 'Barrage', id, label, storage, { part(id, TYPES.bombard, bomb + offset, storage, 100000) }, min, max, small, big)
+            end
+            b('barrage_salvos', 'Salvos', 24, 'u32', 1, 100, 1, 5)
+            b('barrage_shells', 'Shells per salvo', 4, 'u32', 1, 500, 1, 5)
+            b('barrage_shell_gap', 'Time between shells (s)', 8, 'f32', 0, 60, 0.05, 0.25)
+            b('barrage_salvo_gap', 'Time between salvos (s)', 28, 'f32', 0, 120, 0.5, 2)
+            b('barrage_area', 'Spread area (m)', 36, 'f32', 0, 500, 1, 5)
+            if (read_field(field_at(TYPES.bombard, bomb + 96, 'f32', 100000)) or 0) > 0 then
+                b('barrage_speed', 'Walking speed (m/s)', 96, 'f32', 0, 100, 0.5, 2)
+            end
+            break
+        end
     end
     for _, key in ipairs(s.payloads) do
         local beam = tables[T_ORBITAL] and tables[T_ORBITAL].index[key]
