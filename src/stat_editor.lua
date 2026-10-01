@@ -938,7 +938,7 @@ local TYPES = { arc_weapon = 0xB87BA9ED, arc = 0xAFDF0267, health = 0xB3915DE3, 
                 vehicle = 0xEAEB2B0D, mount = 0x3845B1E0, shield = 0x5154DB66,
                 rack = 0xA98BB156, charge = 0xEAC335A1, jumppack = 0x54270608, recharge = 0x1F42878E,
                 warp = 0xA7813546, deposit = 0xC435BA85, package = 0x7A858691, reload = 0x991D454E,
-                thrower = 0xA29A84D8, minefield = 0x74FEF89A, mine_spawner = 0x0697FED6, bombard = 0xCDBC43D8 }
+                thrower = 0xA29A84D8, minefield = 0x74FEF89A, mine_spawner = 0x0697FED6, bombard = 0xCDBC43D8, eagle = 0x556FF68B }
 local KINDS = {
     [T_WEAPON] = { name = 'weapon', stride = 1232, keyed = true },
     [T_MAGAZINE] = { name = 'magazine', stride = 160, keyed = true },
@@ -1025,6 +1025,9 @@ KINDS[TYPES.mine_spawner] = { name = 'mine spawner', stride = 32, keyed = true }
 -- +24 salvos, +28 time between salvos, +36 spread area, +64 the shells' projectile pattern (8), +96
 -- walking speed (the Walking Barrage)
 KINDS[TYPES.bombard] = { name = 'bombardment', stride = 192, keyed = true }
+-- Eagles (EagleComponentData): +16 payload (2 strafe, 4 rocket pods, 5 bombs), +20 drop pattern (fixes the
+-- bomb count; not offered), +40 fire duration (guns, rockets), +44 time between bombs, +108 run length (m)
+KINDS[TYPES.eagle] = { name = 'eagle', stride = 152, keyed = true }
 -- the tables the panel waits for (stratagem groups are taken as they come)
 local KIND_ORDER = { T_WEAPON, T_MAGAZINE, T_ROUNDS, T_FIRE, T_PROJECTILE, T_DAMAGE, T_BEAM_WEAPON, T_BEAM,
                      T_EXPLOSION, T_ORBITAL, T_HEAT, T_SPRAY, T_STATUS, T_MELEE, TYPES.arc_weapon, TYPES.arc,
@@ -2515,6 +2518,19 @@ local function resolve_stratagem(entry)
             b('barrage_area', 'Spread area (m)', 36, 'f32', 0, 500, 1, 5)
             if (read_field(field_at(TYPES.bombard, bomb + 96, 'f32', 100000)) or 0) > 0 then
                 b('barrage_speed', 'Walking speed (m/s)', 96, 'f32', 0, 100, 0.5, 2)
+            end
+            break
+        end
+        local eagle = tables[TYPES.eagle] and tables[TYPES.eagle].index[key]
+        if eagle then
+            local function e(id, label, offset, min, max, small, big)
+                add_row(entry, 'Eagle', id, label, 'f32', { part(id, TYPES.eagle, eagle + offset, 'f32', 100000) }, min, max, small, big)
+            end
+            local payload = read_field(field_at(TYPES.eagle, eagle + 16, 'u32', 100))
+            if payload == 5 then e('eagle_bomb_gap', 'Time between bombs (s)', 44, 0, 10, 0.05, 0.25)
+            else e('eagle_fire_time', 'Fire duration (s)', 40, 0, 30, 0.1, 0.5) end
+            if (read_field(field_at(TYPES.eagle, eagle + 108, 'f32', 100000)) or 0) > 0 then
+                e('eagle_run_length', 'Run length (m)', 108, 0, 500, 1, 5)
             end
             break
         end
