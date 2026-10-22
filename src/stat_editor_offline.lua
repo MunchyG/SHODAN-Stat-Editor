@@ -8107,9 +8107,9 @@ local KINDS = {
     [T_MELEE] = { name = 'melee weapon', stride = 192, keyed = true, explosions = { ['5F3EC9BDA2BD8553'] = 19 } },
     -- names: the status effects that deal damage, by type (the game's debug names Fire, Gas)
     [T_STATUS] = { name = 'status effect', stride = 160, tail = true,   -- 152 before game build 25988413
-                   names = { [5] = 'Burning', [32] = 'Heavy burning', [42] = 'Gas', [43] = 'Gas' },
-                   -- stuns deal no damage (no damage row of their own); the Illuminate one (41) no weapon applies
-                   stuns = { [37] = 'Stun (small)', [38] = 'Stun (medium)', [39] = 'Stun (large)', [40] = 'Stun (massive)' } },
+                   names = { [5] = 'Burning', [33] = 'Heavy burning', [43] = 'Gas', [44] = 'Gas' },
+                   -- stuns deal no damage (no damage row of their own); the Illuminate one (42) no weapon applies
+                   stuns = { [38] = 'Stun (small)', [39] = 'Stun (medium)', [40] = 'Stun (large)', [41] = 'Stun (massive)' } },
     [TYPES.arc_weapon] = { name = 'arc weapon', stride = 80, keyed = true },
     [TYPES.arc] = { name = 'arc', stride = 104 },
     [TYPES.health] = { name = 'health', stride = 22096, keyed = true,
@@ -8718,7 +8718,7 @@ end
 
 -- Game build 25988413 (2026-10-20) renumbered the components (weapon 236 -> 239, heat 266 -> 269, reload
 -- 113 -> 114) and moved the weapon's stat bonuses 8 bytes on (its records grew): `words` names them as before.
-KINDS[TYPES.items].RENUMBERED = { [239] = 236, [269] = 266, [114] = 113, [236] = false, [266] = false, [113] = false }
+KINDS[TYPES.items].RENUMBERED = { [239] = 236, [269] = 266, [114] = 113, [324] = 321, [236] = false, [266] = false, [113] = false, [321] = false }   -- + [324] = 321, [321] = false: see above
 KINDS[TYPES.items].words = function(t, r)
     local deltas, at, out = tables[TYPES.deltas], KINDS[TYPES.deltas].layout, {}
     local renumbered = KINDS[T_WEAPON].stride == 1240 and KINDS[TYPES.items].RENUMBERED
@@ -8790,6 +8790,7 @@ KINDS[TYPES.custom].projectile = function(key)
     local row = custom and deltas and at and custom.index[key]
     if not row then return nil end
     local base, d, out, out_at = custom.copies[1] + HEADER_BYTES + row, deltas.copies[1] + HEADER_BYTES, nil, nil
+    local renumbered = KINDS[T_WEAPON].stride == 1240 and spec.RENUMBERED
     for s = 0, 8 do
         local t, r = spec.find(peek4(base + s * 8 + 4))
         local slot = t and deltas.index[api.read(t.copies[1] + HEADER_BYTES + r + 32, 8) or '']
@@ -8797,7 +8798,9 @@ KINDS[TYPES.custom].projectile = function(key)
             local count, first = peek4(d + at[1] + slot * 8) or 0, peek4(d + at[1] + slot * 8 + 4) or 0
             local value, value_at = nil, nil
             for c = first, first + count - 1 do
-                if not value and peek4(d + at[2] + c * 12) == 321 then
+                local comp = peek4(d + at[2] + c * 12)
+                if renumbered and renumbered[comp] ~= nil then comp = renumbered[comp] end
+                if not value and comp == 321 then
                     local fd, nd = peek4(d + at[2] + c * 12 + 4) or 0, peek4(d + at[2] + c * 12 + 8) or 0
                     for x = fd, fd + nd - 1 do
                         if peek4(d + at[3] + x * 12) == 0 and peek4(d + at[3] + x * 12 + 4) == 4 then
