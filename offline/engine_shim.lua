@@ -37,6 +37,11 @@ for _, declaration in ipairs({
     'int IsIconic(void *window);',
     'int GetSystemMetrics(int index);',
     'int SetProcessDPIAware(void);',
+    'void *MonitorFromWindow(void *window, uint32_t flags);',
+    'void *MonitorFromRect(const int32_t *rect, uint32_t flags);',
+    'int GetMonitorInfoW(void *monitor, int32_t *info);',
+    'int GetWindowRect(void *window, int32_t *rect);',
+    'int SetWindowPos(void *window, void *after, int x, int y, int w, int h, uint32_t flags);',
     'int SetProcessDpiAwarenessContext(void *context);',
     'int MessageBoxW(void *window, const uint16_t *text, const uint16_t *title, uint32_t type);',
     'void Sleep(uint32_t ms);',
@@ -77,8 +82,57 @@ end
 
 -- ---------------------------------------------------------------- the window and its back buffer
 local PANEL_W, PANEL_H = 1060, 1080   -- the panel (1000 wide) and its margins, in 1080p units
+local STYLE = 0x00CA0000   -- WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX (no resizing)
 
-function M.open(title)
+-- the client for a work area (left, top, right, bottom) and a frame `extra_h` tall: as tall as it allows (at most
+-- 1350 px), panel-shaped
+local function client_for(work, extra_h)
+    local ch = math.floor(math.min(work[3] - work[1] - extra_h, 1.25 * 1080) * 0.95)
+    return math.floor(ch * PANEL_W / PANEL_H + 0.5), ch
+end
+
+local monitor_info = ffi.new('int32_t[10]')   -- MONITORINFO: size, the screen, its work area (+5), flags
+local function screen_work(screen)
+    monitor_info[0] = 40
+    return user.GetMonitorInfoW(screen, monitor_info) ~= 0
+end
+local function handle(p) return tonumber(ffi.cast('intptr_t', p)) end
+
+-- the back buffer: 32-bit, top-down, cw x ch
+local function back_buffer(cw, ch)
+    local info = ffi.new('host_bitmapinfo')
+    info.size, info.width, info.height, info.planes, info.bits = ffi.sizeof(info), cw, -ch, 1, 32
+    local bits = ffi.new('void *[1]')
+    local dib = gdi.CreateDIBSection(M.dc, info, 0, bits, nil, 0)
+    if dib == nil then return false end
+    gdi.SelectObject(M.dc, dib)
+    if M.dib then gdi.DeleteObject(M.dib) end
+    M.dib, M.bits, M.w, M.h = dib, ffi.cast('uint32_t *', bits[0]), cw, ch
+    M.version = (M.version or 0) + 1   -- everything is painted again
+    return true
+end
+
+-- Sizes the window for the work area of the screen it is on (its frame as that screen's scale draws it), inside
+-- that work area, and its back buffer with it (the panel follows Gui.resolution).
+local window_rect, client_rect = ffi.new('int32_t[4]'), ffi.new('int32_t[4]')
+local function fit()
+    local screen = user.MonitorFromWindow(M.window, 2)   -- MONITOR_DEFAULTTONEAREST
+    M.monitor = handle(screen)
+    if not screen_work(screen) then return end
+    local work = monitor_info + 5
+    user.GetWindowRect(M.window, window_rect)
+    user.GetClientRect(M.window, client_rect)
+    local extra_w = window_rect[2] - window_rect[0] - client_rect[2]
+    local extra_h = window_rect[3] - window_rect[1] - client_rect[3]
+    local cw, ch = client_for(work, extra_h)
+    local w, h = cw + extra_w, ch + extra_h
+    local x = math.max(work[0], math.min(window_rect[0], work[2] - w))
+    local y = math.max(work[1], math.min(window_rect[1], work[3] - h))
+    user.SetWindowPos(M.window, nil, x, y, w, h, 0x14)   -- SWP_NOZORDER | SWP_NOACTIVATE
+    if cw ~= M.w or ch ~= M.h or not M.dib then back_buffer(cw, ch) end
+end
+
+function M.open(title, place)
     M.title = title or M.title
     if not pcall(function() return user.SetProcessDpiAwarenessContext(ffi.cast('void *', -4)) end) then
         pcall(function() return user.SetProcessDPIAware() end)
@@ -95,32 +149,31 @@ function M.open(title)
     local name = wide('ShodanStatEditorOffline')
     cls.name = name
     user.RegisterClassExW(cls)
-    -- the client: as tall as the screen's work area allows (at most 1080 px a 1080p unit... scaled), panel-shaped
-    local work = ffi.new('int32_t[4]')
-    user.SystemParametersInfoW(0x30, 0, work, 0)   -- SPI_GETWORKAREA
-    local style = 0x00CA0000   -- WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX (no resizing)
+    -- the first guess (the main screen's work area, centred), or the work area of the screen `place` (x, y: the
+    -- window's top left when it last closed) is on; fit() sizes it for its screen once it is open
+    local work = ffi.new('int32_t[4]', place and place[1] or 0, place and place[2] or 0, place and place[1] + 1 or 1,
+                         place and place[2] + 1 or 1)
+    local screen = place and user.MonitorFromRect(work, 0)   -- MONITOR_DEFAULTTONULL: that screen is gone
+    if not (place and screen ~= nil and screen_work(screen)) then
+        place = nil
+        user.SystemParametersInfoW(0x30, 0, work, 0)   -- SPI_GETWORKAREA
+    else
+        ffi.copy(work, monitor_info + 5, 16)
+    end
     local frame = ffi.new('int32_t[4]', 0, 0, 100, 100)
-    user.AdjustWindowRectEx(frame, style, 0, 0)
+    user.AdjustWindowRectEx(frame, STYLE, 0, 0)
     local extra_w, extra_h = frame[2] - frame[0] - 100, frame[3] - frame[1] - 100
-    local ch = math.floor(math.min(work[3] - work[1] - extra_h, 1.25 * 1080) * 0.95)
-    local cw = math.floor(ch * PANEL_W / PANEL_H + 0.5)
-    M.w, M.h = cw, ch
-    local x = work[0] + math.floor((work[2] - work[0] - cw - extra_w) / 2)
-    local y = work[1] + math.floor((work[3] - work[1] - ch - extra_h) / 2)
-    M.window = user.CreateWindowExW(0, name, (wide(M.title)), style, x, y, cw + extra_w, ch + extra_h, nil, nil, instance, nil)
+    local cw, ch = client_for(work, extra_h)
+    local x = place and place[1] or work[0] + math.floor((work[2] - work[0] - cw - extra_w) / 2)
+    local y = place and place[2] or work[1] + math.floor((work[3] - work[1] - ch - extra_h) / 2)
+    M.window = user.CreateWindowExW(0, name, (wide(M.title)), STYLE, x, y, cw + extra_w, ch + extra_h, nil, nil, instance, nil)
     assert(M.window ~= nil, 'could not open the window')
     M.name = name
-    -- the back buffer: 32-bit, top-down
-    local info = ffi.new('host_bitmapinfo')
-    info.size, info.width, info.height, info.planes, info.bits = ffi.sizeof(info), cw, -ch, 1, 32
-    local bits = ffi.new('void *[1]')
-    local screen = user.GetDC(M.window)
-    M.dc = gdi.CreateCompatibleDC(screen)
-    user.ReleaseDC(M.window, screen)
-    M.dib = gdi.CreateDIBSection(M.dc, info, 0, bits, nil, 0)
+    local dc = user.GetDC(M.window)
+    M.dc = gdi.CreateCompatibleDC(dc)
+    user.ReleaseDC(M.window, dc)
+    fit()
     assert(M.dib ~= nil, 'no back buffer')
-    gdi.SelectObject(M.dc, M.dib)
-    M.bits = ffi.cast('uint32_t *', bits[0])
     gdi.SetBkMode(M.dc, 1)   -- TRANSPARENT
     gdi.SetTextAlign(M.dc, 24)   -- TA_BASELINE | TA_LEFT
     user.ShowWindow(M.window, 5)
@@ -129,13 +182,21 @@ function M.open(title)
 end
 
 local msg = ffi.new('uint8_t[64]')
--- Handles the window's messages; false once the window is closed.
+-- Handles the window's messages; false once the window is closed. A window moved onto another screen is sized
+-- for that one (moving it is Windows' own loop inside DispatchMessageW: this runs once it is let go).
+-- M.place: the window's top left, while it is not minimized.
 function M.pump()
     while user.PeekMessageW(msg, nil, 0, 0, 1) ~= 0 do
         user.TranslateMessage(msg)
         user.DispatchMessageW(msg)
     end
-    return M.window ~= nil and user.IsWindow(M.window) ~= 0
+    if M.window == nil or user.IsWindow(M.window) == 0 then return false end
+    if user.IsIconic(M.window) == 0 then
+        if handle(user.MonitorFromWindow(M.window, 2)) ~= M.monitor then fit() end
+        user.GetWindowRect(M.window, window_rect)
+        M.place = { window_rect[0], window_rect[1] }
+    end
+    return true
 end
 
 function M.sleep(ms) kernel.Sleep(ms) end

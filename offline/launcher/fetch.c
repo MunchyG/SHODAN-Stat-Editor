@@ -1,7 +1,8 @@
 /* SHODAN Stat Editor Offline: HTTPS downloads for the updater, on a thread of their own (the window keeps
    running). WinHTTP follows GitHub's redirects to its download host; nothing is cached.
    shodan_fetch(url, path) starts one and returns a handle; shodan_fetch_result(handle) is -1 while it runs, then
-   the HTTP status (200: the file is complete) or a negative error, and frees the handle. */
+   the HTTP status (200: the file is complete, its folder made if missing) or a negative error, and frees the
+   handle. */
 #include <windows.h>
 #include <winhttp.h>
 
@@ -41,6 +42,12 @@ static LONG fetch_run(fetch_job *job) {
                                WINHTTP_HEADER_NAME_BY_INDEX, &status, &size, WINHTTP_NO_HEADER_INDEX)) {
         result = (LONG)status;
         if (status == 200) {
+            wchar_t folder[1024];
+            int k;
+            for (k = 0; job->path[k] && k < 1023; k++) {   /* the folders on the way to the file */
+                folder[k] = job->path[k];
+                if (job->path[k] == L'\\' && k > 0 && job->path[k - 1] != L':') { folder[k] = 0; CreateDirectoryW(folder, NULL); folder[k] = L'\\'; }
+            }
             file = CreateFileW(job->path, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
             if (file == INVALID_HANDLE_VALUE) result = -5;
             else {

@@ -1,6 +1,6 @@
 -- HD2-Addon: mods/shodan/stat_editor
--- SHODAN Stat Editor v3.1.0 by SHODAN. Run by SHODAN Stat Editor Offline (offline/host.lua).
-local MOD = { global = 'ShodanStatEditor', title = 'SHODAN Stat Editor', version = '3.1.0', author = 'SHODAN', log = 'SHODANStatEditor.log' }
+-- SHODAN Stat Editor v3.2.0 by SHODAN. Run by SHODAN Stat Editor Offline (offline/host.lua).
+local MOD = { global = 'ShodanStatEditor', title = 'SHODAN Stat Editor', version = '3.2.0', author = 'SHODAN', log = 'SHODANStatEditor.log' }
 -- magazines, heatsinks and ammunition types: the game's names, by the text id of the item (its English text)
 MOD.item_names = {
     [0x046FF548] = '5.5x50mm Ripper',
@@ -8105,7 +8105,8 @@ local KINDS = {
     -- explosions: melee weapons whose strike explodes, by entity -> explosion id (the Breaching
     -- Hammer's; no settings table links it, the game sets it off from the strike itself)
     [T_MELEE] = { name = 'melee weapon', stride = 192, keyed = true, explosions = { ['5F3EC9BDA2BD8553'] = 19 } },
-    -- names: the status effects that deal damage, by type (the game's debug names Fire, Gas)
+    -- names: the status effects that deal damage, by type (the game's debug names Fire, Gas); game build 26088801
+    -- (2026-10-22) put a new status at 32, the ones from there on moved up one
     [T_STATUS] = { name = 'status effect', stride = 160, tail = true,   -- 152 before game build 25988413
                    names = { [5] = 'Burning', [33] = 'Heavy burning', [43] = 'Gas', [44] = 'Gas' },
                    -- stuns deal no damage (no damage row of their own); the Illuminate one (42) no weapon applies
@@ -8180,9 +8181,10 @@ KINDS[TYPES.mine_spawner] = { name = 'mine spawner', stride = 32, keyed = true }
 -- walking speed (the Walking Barrage)
 KINDS[TYPES.bombard] = { name = 'bombardment', stride = 192, keyed = true }
 -- Eagles (EagleComponentData): +16 payload (2 strafe, 4 rocket pods, 5 bombs), +20 drop pattern (fixes the
--- bomb count; not offered), +40 fire duration (guns, rockets), +44 time between bombs, +108 run length (m)
+-- bomb count; not offered), +40 fire duration (guns, rockets), +44 time between bombs, +52 / +56 the shortest /
+-- longest distance the jet starts its approach from (m), +76 its speed until it has fired (m/s), +108 run length (m)
 KINDS[TYPES.eagle] = { name = 'eagle', stride = 152, keyed = true,
-                       layouts = { { stride = 336, offsets = { [40] = 52, [44] = 56, [108] = 124 } } } }
+                       layouts = { { stride = 336, offsets = { [40] = 52, [44] = 56, [52] = 64, [56] = 68, [76] = 92, [108] = 124 } } } }
 -- Seeking missiles (SeekingMissileComponentData; the MS-11 Solo Silo's missile): +12 guidance on after (s),
 -- +28 guidance lost past this angle (deg), +56 / +60 movement / warhead on after (s; the silo's -1: by
 -- its script, not offered), +64 max lifetime (s),
@@ -8718,7 +8720,7 @@ end
 
 -- Game build 25988413 (2026-10-20) renumbered the components (weapon 236 -> 239, heat 266 -> 269, reload
 -- 113 -> 114) and moved the weapon's stat bonuses 8 bytes on (its records grew): `words` names them as before.
-KINDS[TYPES.items].RENUMBERED = { [239] = 236, [269] = 266, [114] = 113, [324] = 321, [236] = false, [266] = false, [113] = false, [321] = false }   -- + [324] = 321, [321] = false: see above
+KINDS[TYPES.items].RENUMBERED = { [239] = 236, [269] = 266, [114] = 113, [236] = false, [266] = false, [113] = false }
 KINDS[TYPES.items].words = function(t, r)
     local deltas, at, out = tables[TYPES.deltas], KINDS[TYPES.deltas].layout, {}
     local renumbered = KINDS[T_WEAPON].stride == 1240 and KINDS[TYPES.items].RENUMBERED
@@ -9080,7 +9082,41 @@ end
 -- The status effects damage row `drow` applies that deal damage (fire from flamers, incendiary rounds
 -- and grenades, gas) or stun: how much each hit applies (`per`: 'hit', 'blast'), then the status's damage
 -- row (none for a stun) and duration (every source of that status shares them). Ids: `prefix` .. 'status<type>_' .. stat.
+-- The status effects a hit can be given (issue #24): the ones player weapons already apply, by this build's type
+-- number (StatusEffectSettings rows, told apart by their durations), with a usual strength (written when an empty
+-- slot gets one). DamageInfo +44 + 8n: 4 slots of { type u32, strength f32 }, packed from the first.
+MOD.status = { choices = {
+    { 5, 'Burning', 3 }, { 33, 'Heavy burning', 50 }, { 6, 'Fire panic', 3 }, { 68, 'Flamethrower slow', 1 },
+    { 38, 'Stun (small)', 10 }, { 39, 'Stun (medium)', 50 }, { 40, 'Stun (large)', 25 },
+    { 43, 'Gas', 100 }, { 45, 'Gas confusion', 100 }, { 44, 'Gas (Sterilizer)', 1 }, { 46, 'Gas confusion (Sterilizer)', 1 },
+}, by = {} }
+for n, c in ipairs(MOD.status.choices) do MOD.status.by[c[1]] = { n = n, type = c[1], name = c[2], strength = c[3] } end
+function MOD.status.name(kind)
+    if kind == 0 then return 'none' end
+    return MOD.status.by[kind] and MOD.status.by[kind].name or KINDS[T_STATUS].stuns[kind] or ('status ' .. kind)
+end
+-- the next / previous choice (n steps; 0: none, before the first)
+function MOD.status.step(current, n)
+    local at = MOD.status.by[current] and MOD.status.by[current].n or 0
+    local to = math.max(0, math.min(#MOD.status.choices, at + n))
+    return to == 0 and 0 or MOD.status.choices[to][1]
+end
+-- why slot `row.slot` of `row.drow` can't take `target` (a gap in the slots, a status not offered), or nil
+function MOD.status.refused(row, target)
+    if target ~= 0 and not MOD.status.by[target] and target ~= default_of(row.parts[1].field) then
+        return 'Status effect ' .. tostring(target) .. ' is not one player weapons apply.'
+    end
+    local function at(i) return i >= 0 and i <= 3 and read_field(field_at(T_DAMAGE, row.drow + 44 + i * 8, 'u32', 100000)) or 0 end
+    if target ~= 0 and row.slot > 0 and at(row.slot - 1) == 0 then
+        return 'Give status effect ' .. row.slot .. ' first (the game reads them in order).'
+    end
+    if target == 0 and at(row.slot + 1) ~= 0 then
+        return 'Clear status effect ' .. (row.slot + 2) .. ' first (the game reads them in order).'
+    end
+end
+
 local function status_rows(entry, section, prefix, drow, per)
+    local strength_of = {}   -- slot -> its named strength row
     for i = 0, 3 do
         local kind = read_field(field_at(T_DAMAGE, drow + 44 + i * 8, 'u32', 100000))
         if not kind or kind == 0 then break end
@@ -9090,14 +9126,31 @@ local function status_rows(entry, section, prefix, drow, per)
         local stun = srow and not qrow and KINDS[T_STATUS].stuns[kind]
         if qrow or stun then
             local name, key = stun or KINDS[T_STATUS].names[kind] or ('Status ' .. kind), prefix .. 'status' .. kind
-            add_row(entry, section, key .. '_strength', name .. ' applied per ' .. per, 'f32',
-                    { part(key .. '_strength', T_DAMAGE, drow + 48 + i * 8, 'f32', 100000) }, 0, 1000, 0.1, 1)
+            strength_of[i] = add_row(entry, section, key .. '_strength', name .. ' applied per ' .. per, 'f32',
+                                     { part(key .. '_strength', T_DAMAGE, drow + 48 + i * 8, 'f32', 100000) }, 0, 1000, 0.1, 1)
             local first = qrow and damage_rows(entry, name, key .. '_', qrow, name, 6)   -- no forces: a status has none
             local duration = add_row(entry, name, key .. '_duration', name .. ' duration (s)', 'f32',
                                      { part(key .. '_duration', T_STATUS, srow + 40, 'f32', 100000) }, 0, 600, 0.5, 5)
             local by = qrow and '(other weapons, strikes, hazards, enemies)' or '(other weapons, grenades, strikes)'
             ;(first or duration).note = 'every ' .. name:lower() .. ' source shares ' .. (qrow and 'these ' or 'this ') .. by
         end
+    end
+    -- which status each slot applies: the used ones and the next empty one
+    local used = 0
+    for i = 0, 3 do
+        local f = field_at(T_DAMAGE, drow + 44 + i * 8, 'u32', 100000)
+        if (default_of(f) or 0) ~= 0 or (read_field(f) or 0) ~= 0 then used = i + 1 end
+    end
+    local own = section == 'Damage' and 'Status effects' or ('Status effects (' .. section .. ')')
+    for i = 0, math.min(3, used) do
+        local id = prefix .. 'slot' .. (i + 1)
+        local row = add_row(entry, own, id, 'Status effect ' .. (i + 1) .. ' (choice)', 'u32',
+                            { part(id, T_DAMAGE, drow + 44 + i * 8, 'u32', 100000) }, 0, 100000, 1, 1)
+        row.choice, row.drow, row.slot = 'status', drow, i
+        row.label_of = function() return 'Applies: ' .. MOD.status.name(read_field(row.parts[1].field) or 0) end
+        if i == 0 then row.note = 'what each hit applies; the slots go in order' end
+        row.strength = strength_of[i] or add_row(entry, own, id .. '_strength', 'Status effect ' .. (i + 1) .. ' strength per ' .. per,
+                                                 'f32', { part(id .. '_strength', T_DAMAGE, drow + 48 + i * 8, 'f32', 100000) }, 0, 1000, 0.1, 1)
     end
 end
 
@@ -10094,6 +10147,15 @@ KINDS[TYPES.vehicle].rows = function(entry, key, twins)
     end
     add_row(entry, 'Vehicle', 'health', 'Health', 'u32', parts('health', 0, 'u32', 10000000), 0, 1000000, 50, 500)
     add_row(entry, 'Vehicle', 'armor', 'Armor', 'u32', parts('armor', 280, 'u32', 100), 0, 10, 1, 1)
+    -- regeneration (issue #73, tested in game by its reporter): health per second +4 and its rate in the
+    -- regeneration phase +20, written together; it starts this long after the last damage +12 (all 0 on
+    -- vehicles). Damaged parts heal; a destroyed one (a wheel) stays destroyed: that state is not in the file
+    local regen_parts = parts('regen', 4, 'f32', 1000000)
+    for _, p in ipairs(parts('regen_phase', 20, 'f32', 1000000)) do regen_parts[#regen_parts + 1] = p end
+    local regen = add_row(entry, 'Vehicle', 'regen', 'Regeneration (health/s)', 'f32', regen_parts, 0, 100000, 5, 50)
+    regen.note = 'damaged parts heal; destroyed parts stay destroyed'
+    add_row(entry, 'Vehicle', 'regen_delay', 'Regeneration delay after damage (s)', 'f32',
+            parts('regen_delay', 12, 'f32', 3600), 0, 600, 0.1, 1)
     local n = 0
     for z = 0, 37 do
         local base = 520 + z * 552
@@ -10380,6 +10442,92 @@ KINDS[TYPES.minefield].rows = function(entry, key)
     return true
 end
 
+-- Extra stratagem (issue #64): StratagemInfo +200 additional_stratagem, a stratagem type (+0) given along when
+-- this one is in your loadout (the Eagles' is Eagle Rearm, so they are offered as extras only). The choices:
+-- every stratagem the game has (mission and President's reward ones too: the Dark Fluid and Medic backpacks
+-- work, tested), by name; 0: none. A choice that leads back to the stratagem is refused.
+MOD.extra = { FAMILIES = { support = true, backpack = true, sentry = true, emplacements = true, orbital = true,
+                           vehicles = true, eagle = true } }
+function MOD.extra.choices()
+    if MOD.extra.list then return MOD.extra.list, MOD.extra.by_type end
+    local list, by_type, names = {}, {}, {}
+    for _, w in ipairs(weapons) do
+        local def, family = w.stratagem and w.stratagem.def, w.stratagem and w.stratagem.family
+        if not w.stratagem and w.sentry_defs and w.sentry_defs[1] then def, family = w.sentry_defs[1], 'sentry' end
+        local t = def and peek4(def.at)
+        if t and t > 0 and not by_type[t] then
+            -- (a second stratagem with a name, e.g. the President's reward Health Pack Rack: its family after it)
+            local name = names[w.name] and (w.name .. ' (' .. family:sub(1, 1):upper() .. family:sub(2) .. ')') or w.name
+            names[w.name] = true
+            w.extra_id = t         -- (shown after its name in the list, for typing a choice in)
+            by_type[t] = { type = t, name = name, def = def, family = family }
+            list[#list + 1] = by_type[t]
+        end
+    end
+    table.sort(list, function(a, b) return a.name:lower() < b.name:lower() end)
+    for n, c in ipairs(list) do c.n = n end
+    MOD.extra.list, MOD.extra.by_type = list, by_type
+    return list, by_type
+end
+-- the next / previous choice by name for `def` (n steps; 0 sits before the first), skipping what it can't have
+-- (itself, a loop); nil: none that way
+function MOD.extra.step(def, current, n)
+    local list, by_type = MOD.extra.choices()
+    local at = current ~= 0 and by_type[current] and by_type[current].n or 0
+    local to = math.max(0, math.min(#list, at + n))
+    local dir = n > 0 and 1 or -1
+    while to > 0 and to <= #list and MOD.extra.refused(def, list[to].type) do to = to + dir end
+    if to > #list then return nil end
+    return to <= 0 and 0 or list[to].type
+end
+-- why `target` can't be `def`'s extra (itself, or a chain of extras back to it), or nil
+function MOD.extra.refused(def, target)
+    local _, by_type = MOD.extra.choices()
+    if target == 0 then return nil end
+    if not by_type[target] then return 'No stratagem ' .. tostring(target) .. ' to choose.' end
+    local own = peek4(def.at)
+    -- (itself included: the game follows extras with no end, and crashes as the mission starts; tested)
+    local t = target
+    for _ = 1, 64 do
+        if t == own then return 'That would make a loop of extra stratagems.' end
+        local c = by_type[t]
+        t = c and peek4(c.def.at + 200) or 0
+        if not t or t == 0 then return nil end
+    end
+    return 'That would make a loop of extra stratagems.'
+end
+function MOD.extra.row(entry, def)
+    local row = add_row(entry, 'Extra stratagem', 'extra', 'Extra stratagem (choice)', 'u32',
+                        { part('extra', def.kind, def.off + 200, 'u32', 100000) }, 0, 100000, 1, 10)
+    row.choice = 'stratagem'
+    row.def = def
+    -- the row shows the chosen stratagem's name (its number, shown in the list, is the value, for typing)
+    row.label_of = function()
+        local t = read_field(row.parts[1].field) or 0
+        local _, by_type = MOD.extra.choices()
+        if t == 0 then return 'None' end
+        return by_type[t] and by_type[t].name or ('Stratagem ' .. t)
+    end
+    row.note = 'also in your loadout when you bring this one'
+    row.after = { '- / + steps through the stratagems by name (-- / ++: 10 at a time).',
+                  "Or type the number shown after a stratagem's name in the list; 0 = none.",
+                  "It doesn't take a loadout slot, but the HUD's stratagem list can fill up." }
+    row.after_h = #row.after * 16 + 6
+end
+
+-- Call-in (issue #43), StratagemInfo +84 spawn_time: the beacon's countdown before the delivery is sent (every
+-- stratagem; ship upgrades take some off). The hellpod's fall (4.75 s), a Pelican's flight and an Eagle's are the
+-- game's own; +96 extra_travel_time and +100 (vehicles 10.5) change neither (tested in game). With every ship
+-- upgrade: the 380mm's countdown edit applies, the EAT's and the MG sentry's are skipped (tested).
+function MOD.callin_rows(entry, defs)
+    local parts = {}
+    for k, def in ipairs(defs) do parts[k] = part(k == 1 and 'callin' or 'callin' .. k, def.kind, def.off + 84, 'f32', 100000) end
+    local row = add_row(entry, 'Stratagem', 'callin', 'Countdown before delivery (s)', 'f32', parts, 0, 60, 0.5, 5)
+    row.tip = { "The beacon's countdown before the delivery is sent.",
+                "A hellpod lands this many seconds plus its 4.75 s fall after the beacon, so 0 is the fastest it gets.",
+                'Ship upgrades that make support weapons and sentries launch at once skip it (tested).' }
+end
+
 local function resolve_stratagem(entry)
     local s = entry.stratagem
     local def = s.def
@@ -10390,6 +10538,8 @@ local function resolve_stratagem(entry)
             add_row(entry, 'Stratagem', 'uses', s.family == 'eagle' and 'Uses per rearm' or 'Uses per mission', 'u32',
                     { part('uses', def.kind, def.off + 80, 'u32', 999) }, 0, 999, 1, 5)
         end
+        if s.family ~= 'eagle' then MOD.callin_rows(entry, { def }) end
+        if s.family ~= 'eagle' and MOD.extra.FAMILIES[s.family] then MOD.extra.row(entry, def) end
     end
     if s.family == 'eagle' and s.rearm then
         add_row(entry, 'Stratagem', 'rearm', 'Eagle rearm time (s)', 'f32',
@@ -10414,10 +10564,15 @@ local function resolve_stratagem(entry)
         local eagle = tables[TYPES.eagle] and tables[TYPES.eagle].index[key]
         if eagle then
             local moved = KINDS[TYPES.eagle].offsets or {}
-            local function e(id, label, offset, min, max, small, big)
-                offset = moved[offset] or offset
-                add_row(entry, 'Eagle', id, label, 'f32', { part(id, TYPES.eagle, eagle + offset, 'f32', 100000) }, min, max, small, big)
+            local function e(id, label, offset, min, max, small, big, also)
+                local parts = { part(id, TYPES.eagle, eagle + (moved[offset] or offset), 'f32', 100000) }
+                if also then parts[2] = part(id .. '_2', TYPES.eagle, eagle + (moved[also] or also), 'f32', 100000) end
+                return add_row(entry, 'Eagle', id, label, 'f32', parts, min, max, small, big)
             end
+            local approach = e('eagle_approach', 'Approach distance (m)', 52, 0, 10000, 10, 100, 56)
+            approach.tip = { 'How far away the jet starts its run. With its speed, it sets how long the Eagle takes to arrive.',
+                             "The beacon's timer still counts down the usual time (tested)." }
+            e('eagle_speed', 'Speed until it has fired (m/s)', 76, 0, 5000, 10, 50)
             local payload = read_field(field_at(TYPES.eagle, eagle + 16, 'u32', 100))
             if payload == 5 then e('eagle_bomb_gap', 'Time between bombs (s)', 44, 0, 10, 0.05, 0.25)
             else e('eagle_fire_time', 'Fire duration (s)', 40, 0, 30, 0.1, 0.5) end
@@ -10571,8 +10726,10 @@ local function resolve_throwable(entry, placed)
     local mode = read_field(field_at(TYPES.explosive, ex, 'u32', 100000))
     local fuse = read_field(field_at(TYPES.explosive, ex + 12, 'f32', 100000))
     local has = id and id > 0 and tables[T_EXPLOSION] and tables[T_EXPLOSION].index[id]
-    if has and (mode == 0 or mode == 3) and fuse and fuse > 0 then
-        add_row(entry, 'Throwable', 'fuse', 'Fuse time (s)', 'f32', { part('fuse', TYPES.explosive, ex + 12, 'f32', 100000) }, 0, 60, 0.1, 1)
+    -- (on an impact throwable, mode 2, +12 is the earliest it goes off: the Urchin, the G-31 Arc)
+    if has and (mode == 0 or mode == 2 or mode == 3) and fuse and fuse > 0 then
+        local row = add_row(entry, 'Throwable', 'fuse', 'Fuse time (s)', 'f32', { part('fuse', TYPES.explosive, ex + 12, 'f32', 100000) }, 0, 60, 0.1, 1)
+        if mode == 2 then row.note = 'goes off on impact, but not before this' end
     end
     -- a burning throwable (the Thermite): once the fuse is out, a timed status effect (+252: its effects
     -- from +256, lifetime +292) burns, then it explodes; it is removed +16 after going off (the burn +
@@ -10684,6 +10841,8 @@ local function resolve(weapon)
             parts[k] = part(k == 1 and 'cooldown' or 'cooldown' .. k, def.kind, def.off + 104, 'f32', 100000)
         end
         if parts[1] then add_row(weapon, 'Stratagem', 'cooldown', 'Cooldown (s)', 'f32', parts, 0, 10000, 1, 10) end
+        if weapon.sentry_defs[1] then MOD.callin_rows(weapon, weapon.sentry_defs) end
+        if weapon.sentry_defs[1] then MOD.extra.row(weapon, weapon.sentry_defs[1]) end
         unit_rows(weapon, KINDS[TYPES.health].body(weapon.key) or weapon.key, weapon.name:find('^E/') and 'Emplacement' or 'Sentry', 'unit_')
     end
     resolve_gun(weapon, weapon.key)
@@ -12103,6 +12262,38 @@ local function change(row, delta_sign, big, exact)
             ui.version = ui.version + 1
             return
         end
+        if row.choice == 'stratagem' then
+            local target = exact and math.floor(exact + 0.5) or MOD.extra.step(row.def, current, delta_sign * (big and 10 or 1))
+            if target == nil or target == current then return end
+            local why = MOD.extra.refused(row.def, target)
+            if why then ui.message = { text = why, till = api.now() + 4 }; return end
+            local p = row.parts[1]
+            local ok, err = write_field(p.field, target)
+            if ok then set_override(weapon, p, unless_default(target, default_of(p.field)))
+            else ui.message = { text = err, till = api.now() + 4 } end
+            ui.version = ui.version + 1
+            return
+        end
+        if row.choice == 'status' then
+            local target = exact and math.floor(exact + 0.5) or MOD.status.step(current, delta_sign * (big and 10 or 1))
+            if target == current then return end
+            local why = MOD.status.refused(row, target)
+            if why then ui.message = { text = why, till = api.now() + 4 }; return end
+            local p = row.parts[1]
+            local ok, err = write_field(p.field, target)
+            if ok then
+                set_override(weapon, p, unless_default(target, default_of(p.field)))
+                -- a status with no strength does nothing: it gets the usual one
+                local sp = row.strength and row.strength.parts[1]
+                if target ~= 0 and sp and (read_field(sp.field) or 0) == 0 and MOD.status.by[target] then
+                    if write_field(sp.field, MOD.status.by[target].strength) then
+                        set_override(weapon, sp, unless_default(MOD.status.by[target].strength, default_of(sp.field)))
+                    end
+                end
+            else ui.message = { text = err, till = api.now() + 4 } end
+            ui.version = ui.version + 1
+            return
+        end
         if row.choice == 'explosion' or row.choice == 'shrapnel' then
             -- an explosion id, or the projectile shrapnel pieces are: none (0) or any record of this build
             local kind = row.choice == 'explosion' and T_EXPLOSION or T_PROJECTILE
@@ -12633,6 +12824,7 @@ local function draw(width, height)
     local gui = ui.gui
     local regions = {}
     local shared_overlay = nil   -- set while the cursor is on a cut-short 'shared with' list
+    local tip_overlay = nil      -- set while the cursor is on a row with a tip (row.tip: its lines)
     local ink_font, ink_material = font.font, font.material
 
     local function color(r, g, b, a) return Color(a or 255, r, g, b) end
@@ -12854,7 +13046,10 @@ local function draw(width, height)
         if selected then rect(16, y, 318, 25, color(90, 74, 8), 951)
         elseif ui.hover == key then rect(16, y, 318, 25, color(40, 52, 64), 951) end
         local changed = modified(weapon)
-        text((changed and '* ' or '') .. weapon.name, 24, y + 4, 16, changed and GOLD or WHITE, searching and 226 or 302)
+        -- a stratagem: its number as an extra stratagem after its name
+        if (weapon.stratagem or weapon.sentry_defs) and not MOD.extra.list then MOD.extra.choices() end
+        local id = weapon.extra_id and ' (' .. weapon.extra_id .. ')' or ''
+        text((changed and '* ' or '') .. settings.tr(weapon.name) .. id, 24, y + 4, 16, changed and GOLD or WHITE, searching and 226 or 302)
         region(key, 16, y, 318, 25)
     end
     local py = 96 + LIST_ROWS * 26 + 8
@@ -13094,7 +13289,13 @@ local function draw(width, height)
                 local focus = n == ui.row
                 local bh = pitch - 3
                 if focus then rect(x0 - 6, y - 1, W - x0 - 10, pitch - 1, color(30, 38, 48), 951) end
-                text(row.label, x0, y + bh / 2 - 8, 16, focus and GOLD or WHITE, 236)
+                local label = row.label
+                if row.label_of then label = row.label_of() end
+                text(label, x0, y + bh / 2 - 8, 16, focus and GOLD or WHITE, 236)
+                if row.tip then
+                    text('(?)', x0 + math.min(width(label, 16), 236) + 6, y + bh / 2 - 7, 14, DIM)
+                    if ui.hover == 'row:' .. n then tip_overlay = { lines = row.tip, x = x0, y = y + bh + 2 } end
+                end
                 text(changed and ('was ' .. fmt(default, row.storage)) or '', 690, y + bh / 2 - 7, 14, DIM, 90, true)
                 local typing = ui.value and ui.value.n == n and ui.value.weapon == weapon
                 if typing or (ui.hover == 'value:' .. n and value ~= nil) then
@@ -13235,6 +13436,19 @@ local function draw(width, height)
         end
         if #choices == 0 then text('Every passive is in already.', x + 16, y + 80, 16, MUTED, w - 32, false, 960) end
         button('stack_cancel', 'Cancel', x + w - 16 - 104, y + h - 16 - 30, 104, 30, true, false, nil, 961)
+    end
+    -- a hovered row's tip, under it (above it near the bottom)
+    if tip_overlay then
+        local w, h = 0, #tip_overlay.lines * 18 + 16
+        for _, line in ipairs(tip_overlay.lines) do w = math.max(w, width(line, 15)) end
+        w = math.min(w + 24, W - 32)
+        local x = math.max(16, math.min(tip_overlay.x, W - 16 - w))
+        local y = tip_overlay.y
+        if y + h > H - 70 then y = math.max(56, tip_overlay.y - 30 - h) end
+        rect(x, y, w, h, color(8, 11, 15), 958)
+        rect(x, y, w, 2, GOLD, 959); rect(x, y + h - 2, w, 2, GOLD, 959)
+        rect(x, y, 2, h, GOLD, 959); rect(x + w - 2, y, 2, h, GOLD, 959)
+        for k, line in ipairs(tip_overlay.lines) do text(line, x + 12, y + 8 + (k - 1) * 18, 15, WHITE, w - 24, false, 960) end
     end
     -- every entry a hovered 'shared with' list names, in columns, over the rows below it (above, near the bottom)
     if shared_overlay then

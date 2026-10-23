@@ -52,8 +52,18 @@ local function fatal(text)
 end
 
 -- ---------------------------------------------------------------- start
+-- where the window was when it last closed: its top left (window.txt: x y)
+local PLACE = I.home .. '/window.txt'
+local function saved_place()
+    local f = io.open(PLACE, 'r')
+    local text = f and f:read('*a') or ''
+    if f then f:close() end
+    local x, y = text:match('^(%-?%d+) (%-?%d+)')
+    return x and { tonumber(x), tonumber(y) } or nil
+end
+
 local function main()
-    shim.open('SHODAN Stat Editor Offline')
+    shim.open('SHODAN Stat Editor Offline', saved_place())
     shim.pump()
     local migrated = I.migrate()
     if migrated then log('copied ' .. migrated .. ' files from the CowboyBingus folder') end
@@ -125,7 +135,7 @@ local function main()
             bar.buttons[3] = { key = 'update', label = 'Update to ' .. bar.release.label, x0 = x1 - 170 * s, x1 = x1,
                                y0 = 9 * s, y1 = 41 * s, gold = true }   -- top right, in the tagline's place
         end
-        bar.s = s
+        bar.s, bar.h = s, shim.h
     end
     layout()
 
@@ -298,6 +308,7 @@ local function main()
         local now = clock()
         update(math.min(0.1, now - last))
         last = now
+        if bar.h ~= shim.h then layout() end   -- moved onto another screen: sized for that one
         if state.phase == 'ready' and not said_ready then
             said_ready = true
             bar.base = installed_count() > 0 and state.writes or nil
@@ -357,6 +368,11 @@ local function main()
             paint()
         end
         shim.sleep(state.phase == 'ready' and 10 or 1)
+    end
+    if shim.place then
+        I.mkdirs(I.home)
+        local f = io.open(PLACE, 'w')
+        if f then f:write(shim.place[1], ' ', shim.place[2], '\n'); f:close() end
     end
     -- the editor saves its values a moment after a change
     local stop = clock() + 1.5

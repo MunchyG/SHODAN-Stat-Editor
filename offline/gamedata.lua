@@ -149,6 +149,16 @@ function M.pristine(p, n)
     end
     return true
 end
+-- undo another tool's hash correction (every header's reserved bytes back to flag 1 and zeros), so this editor's
+-- own correction can go in their place; true if there was one
+function M.clear_correction(p, n)
+    local cleared = false
+    for _, h in ipairs(M.headers(p, n)) do
+        if p[h.at + 16] ~= 1 then p[h.at + 16], cleared = 1, true end
+        for k = 17, 23 do if p[h.at + k] ~= 0 then p[h.at + k], cleared = 0, true end end
+    end
+    return cleared
+end
 
 -- ---------------------------------------------------------------- hash correction
 -- Solve: header X (X % 8 == 0): word X+16 = flag 0x01 + 7 free bytes -> one unmix per salt, 1 in 256 fit.

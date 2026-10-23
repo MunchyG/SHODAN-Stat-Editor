@@ -137,14 +137,15 @@ players' lobbies.
    `%LOCALAPPDATA%\SHODAN\StatEditor\game folder.txt` and start it again.
 3. Change values, press **Install into the game**, then start the game.
 
-**Restore the game's files** puts the game's own files back; your values stay saved, and Install
+**Restore the game's files** puts the files back as they were before SSEO (the game's own, or
+another mod's); your values stay saved, and Install
 puts them in again. After a game update or Steam's "Verify integrity of game files" the game's own
 files are back: start SSEO and press Install again.
 
 **Updates.** From v3.1.0 SSEO asks GitHub for its latest release at start. When there is a newer
 one, **Update to v…** appears at the top right: one click downloads it, swaps the new files in
 and restarts. Your values, presets and the game's originals stay as they are. (v3.0.0 has no
-updater: download v3.1.0 once by hand.)
+updater: download the latest release once by hand.)
 
 Windows SmartScreen or an antivirus may warn about the program the first time (it is not signed).
 
@@ -251,7 +252,15 @@ share the whole setup.
   Penetrator, Pacifier, Coyote, Adjudicator, Tenderizer, Hyena, Diligence Counter Sniper). Each is
   an entry on the Attachments tab, named after its weapon ("Muzzle brake (Liberator Penetrator)").
 - **In multiplayer** your changes exist only in your game.
-- **Other mods** that change the same stats will fight over them; use one or the other.
+- **Other mods.** SSEO should work alongside mods that change the same game files (other stat or
+  stratagem tools) without conflict, as long as they go in first: SSEO keeps their changes and
+  adds yours on top. This is not thoroughly tested yet.
+  1. Install or apply the other mod.
+  2. Start SSEO and press Install.
+  3. To change or remove the other mod later, press Restore in SSEO first, change the other mod,
+     then press Install in SSEO again.
+
+  Where both change the same stat, SSEO's value wins.
 - **SSEO changes the game's data files.** The changed files keep the checksum the game expects,
   and the originals are kept in `%LOCALAPPDATA%\SHODAN\StatEditor\originals` (Restore puts them
   back). Use it at your own risk, and keep to private games with friends if in doubt.
