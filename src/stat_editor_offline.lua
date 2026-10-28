@@ -2095,6 +2095,7 @@ MOD.langs = {
       ['Punisher Plasma'] = '等离子“制裁者”',
       ['Purifier'] = '净化者',
       ['Push force'] = '击退力',
+      ['Puts the built-in Enemy Editor presets back as they came. Your own presets stay.'] = '将敌人编辑器的内置预设恢复为原样。你自己的预设保持不变。',
       ['Pyro Trooper'] = '炙焰装甲兵',
       ['Pyrotech'] = '烟花术',
       ['Quasar Cannon'] = '类星体加农炮',
@@ -2185,6 +2186,7 @@ MOD.langs = {
       ['Reset spawning'] = '重置生成',
       ['Reset weapon'] = '重置武器',
       ['Resets all values from the current preset to default.'] = '将当前预设的全部数值恢复为默认值。',
+      ['Restore built-in presets'] = '恢复内置预设',
       ['Restore the game\'s files'] = '恢复游戏原始文件',
       ['Restoring the game\'s files...'] = '正在恢复游戏原始文件...',
       ['Resupply'] = '重新补给',
@@ -4168,6 +4170,7 @@ MOD.langs = {
       ['your changes are off: turn them on in settings to edit.'] = '你的改动当前处于关闭状态：请在设置里开启后再编辑。',
     },
     patterns = {
+      { '^(%d+) built%-in preset%(s%) restored$', '已恢复 %1 个内置预设' },
       { '^Set%. (.+)$', '已设置。%1' },
       { '^Status effects %((.+)%)$', '状态效果(%1)' },
       { '^STATUS EFFECTS %((.+)%)$', '状态效果(%1)' },
@@ -5780,6 +5783,7 @@ MOD.langs = {
       ['Punisher Plasma'] = '電漿制裁者',
       ['Purifier'] = '淨化者',
       ['Push force'] = '擊退力',
+      ['Puts the built-in Enemy Editor presets back as they came. Your own presets stay.'] = '將敵人編輯器的內建預設恢復為原樣。你自己的預設保持不變。',
       ['Pyro Trooper'] = '焰火騎兵',
       ['Pyrotech'] = '煙火表演',
       ['Quasar Cannon'] = '類星體大砲',
@@ -5870,6 +5874,7 @@ MOD.langs = {
       ['Reset spawning'] = '重置生成',
       ['Reset weapon'] = '重置武器',
       ['Resets all values from the current preset to default.'] = '將當前預設的全部數值恢復為預設值。',
+      ['Restore built-in presets'] = '恢復內建預設',
       ['Restore the game\'s files'] = '恢復遊戲原始檔案',
       ['Restoring the game\'s files...'] = '正在恢復遊戲原始檔案...',
       ['Resupply'] = '重新補給',
@@ -7853,6 +7858,7 @@ MOD.langs = {
       ['your changes are off: turn them on in settings to edit.'] = '你的改動當前處於關閉狀態：請在設定裡開啟後再編輯。',
     },
     patterns = {
+      { '^(%d+) built%-in preset%(s%) restored$', '已恢復 %1 個內建預設' },
       { '^Set%. (.+)$', '已設定。%1' },
       { '^Status effects %((.+)%)$', '狀態效果(%1)' },
       { '^STATUS EFFECTS %((.+)%)$', '狀態效果(%1)' },
@@ -9404,6 +9410,7 @@ MOD.langs = {
       ['Punisher Plasma'] = '«Плазменный каратель»',
       ['Purifier'] = '«Очиститель»',
       ['Push force'] = 'Сила толчка',
+      ['Puts the built-in Enemy Editor presets back as they came. Your own presets stay.'] = 'Возвращает встроенные пресеты редактора врагов в исходный вид. Ваши пресеты остаются.',
       ['Pyro Trooper'] = 'Пирокавалерист',
       ['Pyrotech'] = 'Пиротех',
       ['Quasar Cannon'] = 'Пушка «Квазар»',
@@ -9490,6 +9497,7 @@ MOD.langs = {
       ['Reset spawning'] = 'Сбросить появление',
       ['Reset weapon'] = 'Сброс оружия',
       ['Resets all values from the current preset to default.'] = 'Сбрасывает все значения текущего пресета к значениям по умолчанию.',
+      ['Restore built-in presets'] = 'Вернуть встроенные пресеты',
       ['Restore the game\'s files'] = 'Вернуть файлы игры',
       ['Restoring the game\'s files...'] = 'Возврат исходных файлов игры...',
       ['Resupply'] = '«Пополнение запасов»',
@@ -10810,6 +10818,7 @@ MOD.langs = {
       ['xenobite ardent'] = 'Ксенобит-приверженец',
     },
     patterns = {
+      { '^(%d+) built%-in preset%(s%) restored$', 'Восстановлено встроенных пресетов: %1' },
       { '^Set%. (.+)$', 'Задано. %1' },
       { '^Status effects %((.+)%)$', 'Состояния (%1)' },
       { '^STATUS EFFECTS %((.+)%)$', 'СОСТОЯНИЯ (%1)' },
@@ -24411,24 +24420,7 @@ do
         local marker = preset_file('enemy_examples.txt')
         local had = marker and io.open(marker, 'rb')
         if had then had:close() elseif marker then
-            local was = MOD.enemy.on
-            MOD.enemy.on = true
-            for _, ex in ipairs(MOD.enemy.EXAMPLES) do
-                local n = nil
-                for k = 1, FULL_PRESETS do if not presets.enemy[k] then n = k; break end end
-                if not n then break end
-                local values = {}
-                for _, v in ipairs(ex[2]) do
-                    for _, faction in ipairs(v[1] == 'all' and { 2, 8, 4 } or { v[1] }) do
-                        local hash = v[2] == 'page' and string.format('FFFFFFFB%08X', faction)
-                                     or v[2] == 'spawn' and string.format('FFFFFFFC%08X', faction) or 'FFFFFFFC000000FF'
-                        values[#values + 1] = { hash = hash, id = v[3], value = v[4] }
-                    end
-                end
-                presets.enemy[n] = { name = ex[1], values = values }
-                save_full_preset(n)
-            end
-            MOD.enemy.on = was
+            presets.restore_examples(false)
             write_lines(marker, { '# The example difficulties were added to the Enemy Editor presets once.' })
         end
         -- the Default difficulty (no changes), first in the list: added once to lists made before it existed,
@@ -24545,6 +24537,32 @@ do
             if MOD.is_enemy_value(o.hash) == MOD.enemy.on then values[#values + 1] = { hash = o.hash, id = o.id, value = o.value } end
         end
         return values
+    end
+    -- the example difficulties (MOD.enemy.EXAMPLES) into the Enemy Editor presets: first start, in free places;
+    -- overwrite (Settings' Restore button): a preset of the same name is replaced, the player's others stay
+    function presets.restore_examples(overwrite)
+        local was, done = MOD.enemy.on, 0
+        MOD.enemy.on = true
+        for _, ex in ipairs(MOD.enemy.EXAMPLES) do
+            local n = nil
+            for k = 1, overwrite and FULL_PRESETS or 0 do if presets.enemy[k] and presets.enemy[k].name == ex[1] then n = k; break end end
+            if not n then for k = 1, FULL_PRESETS do if not presets.enemy[k] then n = k; break end end end
+            if n then
+                local values = {}
+                for _, v in ipairs(ex[2]) do
+                    for _, faction in ipairs(v[1] == 'all' and { 2, 8, 4 } or { v[1] }) do
+                        local hash = v[2] == 'page' and string.format('FFFFFFFB%08X', faction)
+                                     or v[2] == 'spawn' and string.format('FFFFFFFC%08X', faction) or 'FFFFFFFC000000FF'
+                        values[#values + 1] = { hash = hash, id = v[3], value = v[4] }
+                    end
+                end
+                presets.enemy[n] = { name = ex[1], values = values }
+                save_full_preset(n)
+                done = done + 1
+            end
+        end
+        MOD.enemy.on = was
+        return done
     end
     presets.current_count = function() return #current_values() end
 
@@ -25108,6 +25126,9 @@ local function draw(width, height)
         button('reset_all', sure_reset and 'Sure?' or 'Reset all values', x0, y, 188, 28, #overrides > 0, sure_reset)
         text('Resets all values from the current preset to default.', x0 + 16, y + 30, 14, MUTED, W - x0 - 40)
         y = y + 50
+        button('restore_examples', 'Restore built-in presets', x0, y, 248, 28, true)
+        text('Puts the built-in Enemy Editor presets back as they came. Your own presets stay.', x0 + 16, y + 30, 14, MUTED, W - x0 - 40)
+        y = y + 50
         y = y + 16
         rect(x0, y, W - x0 - 16, 1, color(70, 82, 94), 951)
         y = y + 14
@@ -25561,6 +25582,10 @@ local function click(key)
             ui.confirm = nil
             reset_all()
         end
+    elseif kind == 'restore_examples' then
+        local n = presets.restore_examples(true)
+        ui.message = { text = n .. ' built-in preset(s) restored', till = api.now() + 4 }
+        ui.version = ui.version + 1
     elseif kind == 'reset_weapon' and weapon then reset_weapon(weapon)
     elseif kind == 'wslot' then ui.wslot = tonumber(arg) or 1
     elseif kind == 'wpreset' and weapon then
