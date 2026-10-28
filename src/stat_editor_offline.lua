@@ -1052,8 +1052,10 @@ MOD.langs = {
       ['Back face'] = '后面',
       ['Back hatch'] = '后舱盖',
       ['Back hip'] = '后髋部',
+      ['Back left wheel hub'] = '左后轮毂',
       ['Back periscope side 8'] = '潜望镜后侧 8',
       ['Back pump flamer'] = '后部喷火器泵',
+      ['Back right wheel hub'] = '右后轮毂',
       ['Background opacity'] = '背景不透明度',
       ['Backpack'] = '背包',
       ['Ballistic Missile'] = '弹道导弹',
@@ -1443,7 +1445,9 @@ MOD.langs = {
       ['Front face'] = '前面',
       ['Front hull'] = '前车体',
       ['Front left cockpit'] = '左前驾驶舱',
+      ['Front left wheel hub'] = '左前轮毂',
       ['Front right cockpit'] = '右前驾驶舱',
+      ['Front right wheel hub'] = '右前轮毂',
       ['Full charge'] = '充满',
       ['Full charge explosion'] = '满蓄力爆炸',
       ['Full charge shot'] = '满蓄力射击',
@@ -2290,7 +2294,7 @@ MOD.langs = {
       ['Shared by every armor with this passive. Multipliers: 1 = no change.'] = '所有带此被动的护甲共用。倍率：1 = 不变。',
       ['Shear'] = '切变',
       ['Shells per salvo'] = '每次齐射弹数',
-      ['Shield'] = '盾雷',
+      ['Shield'] = '护盾',
       ['Shield Generator Pack'] = '防护罩生成包',
       ['Shield Generator Relay'] = '防护罩生成中继器',
       ['Shield arm zone armor'] = '护盾臂部位护甲',
@@ -3814,7 +3818,7 @@ MOD.langs = {
       ['sh-51 directional shield'] = 'SH-51 定向护盾',
       ['shear'] = '切变',
       ['shells per salvo'] = '每次齐射弹数',
-      ['shield'] = '盾雷',
+      ['shield'] = '护盾',
       ['shield capacity'] = '护盾容量',
       ['shield emitter'] = '护盾发生器',
       ['shield generator pack'] = '防护罩生成包',
@@ -4614,8 +4618,10 @@ MOD.langs = {
       ['Back face'] = '後面',
       ['Back hatch'] = '後艙蓋',
       ['Back hip'] = '後髖部',
+      ['Back left wheel hub'] = '左後輪轂',
       ['Back periscope side 8'] = '潛望鏡後側 8',
       ['Back pump flamer'] = '後部噴火器泵',
+      ['Back right wheel hub'] = '右後輪轂',
       ['Background opacity'] = '背景不透明度',
       ['Backpack'] = '背包',
       ['Ballistic Missile'] = '彈道導彈',
@@ -5005,7 +5011,9 @@ MOD.langs = {
       ['Front face'] = '前面',
       ['Front hull'] = '前車體',
       ['Front left cockpit'] = '左前駕駛艙',
+      ['Front left wheel hub'] = '左前輪轂',
       ['Front right cockpit'] = '右前駕駛艙',
+      ['Front right wheel hub'] = '右前輪轂',
       ['Full charge'] = '充滿',
       ['Full charge explosion'] = '滿蓄力爆炸',
       ['Full charge shot'] = '滿蓄力射擊',
@@ -5852,7 +5860,7 @@ MOD.langs = {
       ['Shared by every armor with this passive. Multipliers: 1 = no change.'] = '所有帶此被動的護甲共用。倍率：1 = 不變。',
       ['Shear'] = '雷射剪',
       ['Shells per salvo'] = '每次齊射彈數',
-      ['Shield'] = '防護罩',
+      ['Shield'] = '護盾',
       ['Shield Generator Pack'] = '防護罩生成背包',
       ['Shield Generator Relay'] = '防護罩生成中繼器',
       ['Shield arm zone armor'] = '護盾臂部位護甲',
@@ -7376,7 +7384,7 @@ MOD.langs = {
       ['sh-51 directional shield'] = 'SH-51 定向護盾',
       ['shear'] = '雷射剪',
       ['shells per salvo'] = '每次齊射彈數',
-      ['shield'] = '防護罩',
+      ['shield'] = '護盾',
       ['shield capacity'] = '護盾容量',
       ['shield emitter'] = '護盾發生器',
       ['shield generator pack'] = '防護罩生成背包',
@@ -8168,8 +8176,10 @@ MOD.langs = {
       ['Back face'] = 'Задняя грань',
       ['Back hatch'] = 'Задний люк',
       ['Back hip'] = 'Заднее бедро',
+      ['Back left wheel hub'] = 'Ступица заднего левого колеса',
       ['Back periscope side 8'] = 'Задний перископ, сторона 8',
       ['Back pump flamer'] = 'Задний насос огнемёта',
+      ['Back right wheel hub'] = 'Ступица заднего правого колеса',
       ['Background opacity'] = 'Непрозрачность фона',
       ['Backpack'] = 'Рюкзак',
       ['Ballistic Missile'] = 'Баллистическая ракета',
@@ -8533,7 +8543,9 @@ MOD.langs = {
       ['Front face'] = 'Передняя грань',
       ['Front hull'] = 'Передняя часть корпуса',
       ['Front left cockpit'] = 'Кабина спереди слева',
+      ['Front left wheel hub'] = 'Ступица переднего левого колеса',
       ['Front right cockpit'] = 'Кабина спереди справа',
+      ['Front right wheel hub'] = 'Ступица переднего правого колеса',
       ['Full charge'] = 'Полный заряд',
       ['Full charge explosion'] = 'Взрыв с полным зарядом',
       ['Full charge shot'] = 'Выстрел с полным зарядом',
@@ -14486,7 +14498,18 @@ local function resolve_stratagem(entry)
         -- a minefield: the pod, or what the stratagem's hellpod carries
         for _, k in ipairs({ key, carried }) do KINDS[TYPES.minefield].rows(entry, k) end
         for _, k in ipairs({ key, carried }) do
-            if KINDS[TYPES.shield].rows(entry, string.format('%08X%08X', u32(k, 4), u32(k, 0))) then return end
+            if KINDS[TYPES.shield].rows(entry, string.format('%08X%08X', u32(k, 4), u32(k, 0))) then
+                -- how long it stays once deployed, as the sentries' (the Relay: issue #109)
+                local pt = tables[TYPES.payload]
+                local pat = pt and pt.index[k]
+                local life = pat and default_of(field_at(TYPES.payload, pat + 4, 'f32', 100000))
+                if life and life > 0 and life <= 7200 then
+                    local of = KINDS[TYPES.shield].OF[string.format('%08X%08X', u32(k, 4), u32(k, 0))]
+                    add_row(entry, of.bodies and of.bodies[1][2] or 'Shield', 'unit_lifetime', 'Time deployed (s)', 'f32',
+                            { part('unit_lifetime', TYPES.payload, pat + 4, 'f32', 100000) }, 1, 7200, 5, 30)
+                end
+                return
+            end
         end
     end
     -- a Guard Dog: its drone (health +0, spotting range +0, target search interval +0 / +4), then
