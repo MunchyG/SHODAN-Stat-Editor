@@ -11984,8 +11984,8 @@ end
 local function write_field(f, value)
     if f.storage == 'virtual' then
         default_of(f)
+        if read_field(f) ~= value then state.writes = state.writes + 1 end   -- (the host: changed since the last install)
         f.value = value
-        state.writes = state.writes + 1
         return true
     end
     local entry = tables[f.kind]
@@ -12019,7 +12019,8 @@ local function write_field(f, value)
             return false, 'write failed at ' .. hex(at)
         end
     end
-    state.writes = state.writes + 1
+    -- (the host: changed since the last install; the same bytes again, as a value box closed unchanged, are no change)
+    for _, undo in ipairs(done) do if undo[2] ~= bytes then state.writes = state.writes + 1; break end end
     if f.storage == 'grenade' then KINDS[TYPES.throwable].rearm() end
     if f.storage == 'tier' and f.death then write_field(f.death, u32(bytes, 8)) end   -- the health's type follows
     return true
