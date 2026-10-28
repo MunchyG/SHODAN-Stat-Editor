@@ -12171,6 +12171,15 @@ local function part(id, kind, offset, storage, limit)
     return { id = id, field = field_at(kind, offset, storage, limit) }
 end
 
+-- An explosion's cone (ExplosionInfo +28; the Orbital Airburst's 27 degrees, the Cluster Bomb's 45; 0: all round):
+-- a row where the game sets one. (No rows for +104 cloud time and the fire sizes: they did nothing in game.)
+function MOD.explosion_extras(entry, section, prefix, xrow)
+    if (default_of(field_at(T_EXPLOSION, xrow + 28, 'f32', 100000)) or 0) > 0 then
+        add_row(entry, section, prefix .. 'cone', 'Cone angle (deg)', 'f32',
+                { part(prefix .. 'cone', T_EXPLOSION, xrow + 28, 'f32', 100000) }, 0, 360, 1, 10)
+    end
+end
+
 local function read_text(address)
     local bytes = address and address > 65536 and api.read(address, 96)
     local text = bytes and bytes:match('^([^%z]*)%z')
@@ -13005,6 +13014,7 @@ local function resolve_gun(weapon, key)
                     local rid = blast.prefix .. '_' .. r[1]
                     add_row(weapon, blast.section, rid, r[2], 'f32', { part(rid, T_EXPLOSION, xrow + r[3], 'f32', 100000) }, 0, 200, 0.1, 1)
                 end
+                MOD.explosion_extras(weapon, blast.section, blast.prefix .. '_', xrow)
                 -- the shrapnel it throws: the projectile every piece is (+84, a choice: its own flight, damage and
                 -- explosion) and how many (+80)
                 MOD.records.shrapnel_rows(weapon, blast.section == 'Explosion' and 'Shrapnel' or (blast.section .. ' shrapnel'),
@@ -14142,6 +14152,7 @@ KINDS[TYPES.jumppack].backpack = function(entry, key, ammo)
                                  { 'shockwave', 'Shockwave radius (m)', 24 } }) do
                 r(section, 'bp_warp_x_' .. f[1], f[2], T_EXPLOSION, xrow + f[3], 'f32', 200, 0.1, 1)
             end
+            MOD.explosion_extras(entry, section, 'bp_warp_x_', xrow)
         end
     end
     local deposit = at(TYPES.deposit)
@@ -14215,6 +14226,7 @@ KINDS[TYPES.minefield].rows = function(entry, key)
                                  { 'shockwave', 'Shockwave radius (m)', 24 } }) do
                 r(section, 'mine_x_' .. f[1], f[2], T_EXPLOSION, xrow + f[3], 'f32', 0, 200, 0.1, 1)
             end
+            MOD.explosion_extras(entry, section, 'mine_x_', xrow)
         end
     end
     -- the pod itself (enemies go for it like a sentry): health, durable ratio, demolition force, armor +280
@@ -14497,6 +14509,7 @@ local function resolve_stratagem(entry)
                     local id = 'x' .. record .. '_' .. f[1]
                     add_row(entry, section, id, f[2], 'f32', { part(id, T_EXPLOSION, row + f[3], 'f32', 10000) }, 0, 500, 0.5, 2)
                 end
+                MOD.explosion_extras(entry, section, 'x' .. record .. '_', row)
             end
         elseif kind == 'D' then
             local row = tables[T_DAMAGE] and tables[T_DAMAGE].index[record]
@@ -14592,6 +14605,7 @@ local function resolve_throwable(entry, placed)
                              { 'shockwave', 'Shockwave radius (m)', 24 } }) do
             add_row(entry, section, prefix .. r[1], r[2], 'f32', { part(prefix .. r[1], T_EXPLOSION, xrow + r[3], 'f32', 100000) }, 0, 200, 0.1, 1)
         end
+        MOD.explosion_extras(entry, section, prefix, xrow)
         if not deep then return true end
         local arc = tables[TYPES.arc] and tables[TYPES.arc].index[read_field(field_at(T_EXPLOSION, xrow + 120, 'u32', 100000)) or -1]
         if arc then
@@ -14823,6 +14837,7 @@ function MOD.boosters.resolve(entry)
             add_row(entry, kind == 'smoke' and 'Smoke' or 'Explosion', 'x_' .. r[1], r[2], 'f32',
                     { part('x_' .. r[1], T_EXPLOSION, xrow + r[3], 'f32', 100000) }, 0, 200, 0.1, 1)
         end
+        MOD.explosion_extras(entry, kind == 'smoke' and 'Smoke' or 'Explosion', 'x_', xrow)
     elseif kind == 'turret' then
         resolve_gun(entry, hash_key(b[5]))
     elseif kind == 'eat' then
@@ -15447,6 +15462,7 @@ function MOD.enemy.blasts_resolve(entry)
                                  { 'shockwave', 'Shockwave radius (m)', 24 } }) do
                 add_row(entry, b[2], prefix .. r[1], r[2], 'f32', { part(prefix .. r[1], T_EXPLOSION, xrow + r[3], 'f32', 100000) }, 0, 200, 0.1, 1)
             end
+            MOD.explosion_extras(entry, b[2], prefix, xrow)
         end
     end
 end
