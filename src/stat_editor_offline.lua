@@ -962,6 +962,7 @@ MOD.langs = {
       ['Acid damage taken (x)'] = '受到的酸液伤害（x）',
       ['Acid splash (experimental)'] = '酸液飞溅（实验性）',
       ['Acid storm (experimental)'] = '酸雨风暴（实验性）',
+      ['Adds the speed of what fired it: the shooter, or for shrapnel the shell it burst from.'] = '加上发射它的物体的速度：射手，或者对弹片来说是它炸出来的母弹。',
       ['Adjudicator'] = '审判者',
       ['Adreno-Defibrillator'] = '肾上腺素除颤器',
       ['Advanced Filtration'] = '高级过滤能力',
@@ -1388,6 +1389,7 @@ MOD.langs = {
       ['Explosion'] = '爆炸',
       ['Explosion (expiry)'] = '爆炸（存续结束）',
       ['Explosion id'] = '爆炸编号',
+      ['Explosion inherits velocity'] = '爆炸继承速度',
       ['Explosive Barrel'] = '爆炸桶',
       ['Explosive damage taken'] = '受到爆炸伤害',
       ['Explosive damage taken (x)'] = '受到的爆炸伤害 (x)',
@@ -1629,6 +1631,7 @@ MOD.langs = {
       ['Incinerator FRV'] = '炽灼型快速侦察载具',
       ['Infested Tower'] = '侵染塔巢',
       ['Inflammable'] = '易燃易爆',
+      ['Inherits velocity'] = '继承速度',
       ['Injures you above heat (%)'] = '超过此热量会灼伤(%)',
       ['Inner body'] = '内身体',
       ['Inner radius (m)'] = '内半径(米)',
@@ -1646,6 +1649,7 @@ MOD.langs = {
       ['Iron fleet'] = '钢铁舰队',
       ['It doesn\'t take a loadout slot, but the HUD\'s stratagem list can fill up.'] = '不占配装栏位，但可能占满屏幕上的战略配备列表。',
       ['Its effects are added to every armor with this passive.'] = '其效果会添加到拥有此被动的所有护甲上。',
+      ['Its explosion keeps its speed, so shrapnel with Inherits velocity on flies on forward.'] = '它的爆炸保留它的速度，所以开启“继承速度”的弹片会继续向前飞。',
       ['Its stats above apply.'] = '上方的数值生效。',
       ['Ivory legion'] = '象牙军团',
       ['Ivory legion assault'] = '象牙军团突击',
@@ -4537,6 +4541,7 @@ MOD.langs = {
       ['Acid damage taken (x)'] = '受到的酸液傷害（x）',
       ['Acid splash (experimental)'] = '酸液飛濺（實驗性）',
       ['Acid storm (experimental)'] = '酸雨風暴（實驗性）',
+      ['Adds the speed of what fired it: the shooter, or for shrapnel the shell it burst from.'] = '加上發射它的物體的速度：射手，或者對彈片來說是它炸出來的母彈。',
       ['Adjudicator'] = '審判者',
       ['Adreno-Defibrillator'] = '腎上腺素除顫器',
       ['Advanced Filtration'] = '進階過濾',
@@ -4963,6 +4968,7 @@ MOD.langs = {
       ['Explosion'] = '爆炸',
       ['Explosion (expiry)'] = '爆炸（存續結束）',
       ['Explosion id'] = '爆炸編號',
+      ['Explosion inherits velocity'] = '爆炸繼承速度',
       ['Explosive Barrel'] = '爆炸桶',
       ['Explosive damage taken'] = '受到爆炸傷害',
       ['Explosive damage taken (x)'] = '受到的爆炸傷害 (x)',
@@ -5204,6 +5210,7 @@ MOD.langs = {
       ['Incinerator FRV'] = '焚燒者FRV',
       ['Infested Tower'] = '蟲巢塔',
       ['Inflammable'] = '易燃物',
+      ['Inherits velocity'] = '繼承速度',
       ['Injures you above heat (%)'] = '超過此熱量會灼傷(%)',
       ['Inner body'] = '內身體',
       ['Inner radius (m)'] = '內半徑(米)',
@@ -5221,6 +5228,7 @@ MOD.langs = {
       ['Iron fleet'] = '鋼鐵艦隊',
       ['It doesn\'t take a loadout slot, but the HUD\'s stratagem list can fill up.'] = '不佔配裝欄位，但可能佔滿螢幕上的戰略配備列表。',
       ['Its effects are added to every armor with this passive.'] = '其效果會新增到擁有此被動的所有護甲上。',
+      ['Its explosion keeps its speed, so shrapnel with Inherits velocity on flies on forward.'] = '它的爆炸保留它的速度，所以開啟「繼承速度」的彈片會繼續向前飛。',
       ['Its stats above apply.'] = '上方的數值生效。',
       ['Ivory legion'] = '象牙軍團',
       ['Ivory legion assault'] = '象牙軍團突擊',
@@ -8108,6 +8116,7 @@ MOD.langs = {
       ['Acid damage taken (x)'] = 'Получаемый урон от кислоты (x)',
       ['Acid splash (experimental)'] = 'Брызги кислоты (эксперимент.)',
       ['Acid storm (experimental)'] = 'Кислотный шторм (эксперимент.)',
+      ['Adds the speed of what fired it: the shooter, or for shrapnel the shell it burst from.'] = 'Добавляет скорость того, что его выпустило: стрелка, а для осколков — снаряда, из которого они вылетели.',
       ['Adjudicator'] = '«Эксперт»',
       ['Adreno-Defibrillator'] = 'Адрено-дефибрилятор',
       ['Advanced Filtration'] = 'Продвинутая фильтрация',
@@ -8510,6 +8519,7 @@ MOD.langs = {
       ['Explosion'] = 'Взрыв',
       ['Explosion (expiry)'] = 'Взрыв (по истечении)',
       ['Explosion id'] = 'ID взрыва',
+      ['Explosion inherits velocity'] = 'Взрыв наследует скорость',
       ['Explosive Barrel'] = 'Взрывающаяся бочка',
       ['Explosive damage taken'] = 'Получаемый урон от взрывов',
       ['Explosive damage taken (x)'] = 'Получаемый урон от взрывов (x)',
@@ -8730,6 +8740,7 @@ MOD.langs = {
       ['Incinerator FRV'] = 'Огнеметная МТР',
       ['Infested Tower'] = 'Зараженная башня',
       ['Inflammable'] = 'Огнеопасный',
+      ['Inherits velocity'] = 'Наследует скорость',
       ['Injures you above heat (%)'] = 'Ранит вас при нагреве выше (%)',
       ['Inner body'] = 'Внутреннее тело',
       ['Inner radius (m)'] = 'Внутренний радиус (м)',
@@ -8744,6 +8755,7 @@ MOD.langs = {
       ['Iron Sights'] = 'Механический прицел',
       ['Iron fleet'] = 'Железный флот',
       ['Its effects are added to every armor with this passive.'] = 'Его эффекты добавляются всей броне с этим пассивным эффектом.',
+      ['Its explosion keeps its speed, so shrapnel with Inherits velocity on flies on forward.'] = 'Его взрыв сохраняет его скорость, поэтому осколки с включённым «Наследует скорость» летят дальше вперёд.',
       ['Its stats above apply.'] = 'Его характеристики выше действуют.',
       ['Ivory legion'] = 'Костяной легион',
       ['Ivory legion assault'] = 'Костяной легион, штурм',
@@ -11993,11 +12005,12 @@ end
 local fields = {}       -- key -> field
 local defaults = {}     -- key -> value before this mod first wrote it
 
-local function field_at(kind, offset, storage, limit)
-    local key = kind .. ':' .. offset
+-- mask: one bit of a flag byte (several switches in one byte, each its own field)
+local function field_at(kind, offset, storage, limit, mask)
+    local key = kind .. ':' .. offset .. (mask and (':' .. mask) or '')
     local f = fields[key]
     if not f then
-        f = { key = key, kind = kind, offset = offset, storage = storage, limit = limit, users = {} }
+        f = { key = key, kind = kind, offset = offset, storage = storage, limit = limit, mask = mask, users = {} }
         fields[key] = f
     end
     return f
@@ -12036,6 +12049,7 @@ local function read_field(f)
     if f.storage == 'flag' then   -- a bool byte
         local b = api.read(entry.copies[1] + HEADER_BYTES + f.offset, 1)
         b = b and b:byte()
+        if b and f.mask then return math.floor(b / f.mask) % 2 end
         return b and b <= 1 and b or nil
     end
     local bits = peek4(entry.copies[1] + HEADER_BYTES + f.offset)
@@ -12051,6 +12065,14 @@ local function encode(f, value)
     if f.storage == 'grenade' then return KINDS[TYPES.throwable].entity_bytes(value) end
     if f.storage == 'gun' then local g = MOD.enemy.gun_choices().by_id[value]; return g and g.key end
     if f.storage == 'f32' then return f32_bytes(value) end
+    if f.storage == 'flag' and f.mask then   -- the byte with only that bit changed
+        local b = api.read(tables[f.kind].copies[1] + HEADER_BYTES + f.offset, 1)
+        b = b and b:byte()
+        if not b then return nil end
+        local on = math.floor(b / f.mask) % 2
+        local want = value >= 0.5 and 1 or 0
+        return string.char(b + (want - on) * f.mask)
+    end
     if f.storage == 'flag' then return value >= 0.5 and string.char(1) or string.char(0) end
     return u32_bytes(math.floor(value + 0.5))
 end
@@ -15980,6 +16002,15 @@ function MOD.records.rows(page)
                              { 'lifetime', 'Lifetime (s)', 56, 'f32', 1000, 0.1, 1 },
                              { 'pen_slowdown', 'Penetration slowdown', 64, 'f32', 100, 0.05, 0.25 } }) do
             num('Projectile', r[1], r[2], r[3], r[4], r[5], r[6], r[7])
+        end
+        -- +244 switches (issue #102): bit 0x01 inherit_velocity, 0x20 explosions_inherit_velocity. Both on (the shell's
+        -- explosion, its shrapnel) send the shrapnel forward with the shell's speed (the old Eruptor)
+        for _, r in ipairs({ { 'inherit_velocity', 'Inherits velocity', 1,
+                               'Adds the speed of what fired it: the shooter, or for shrapnel the shell it burst from.' },
+                             { 'explosion_inherits', 'Explosion inherits velocity', 32,
+                               'Its explosion keeps its speed, so shrapnel with Inherits velocity on flies on forward.' } }) do
+            add_row(page, 'Projectile', r[1], r[2], 'flag', { { id = r[1], field = field_at(kind, at + 244, 'flag', 1, r[3]) } },
+                    0, 1, 1, 1).tip = { r[4] }
         end
         hurt(60, 'Damage')
         local impact = add_row(page, 'Explosion id', 'impact_explosion', 'Impact explosion (id)', 'u32',
