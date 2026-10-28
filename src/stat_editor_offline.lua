@@ -22413,10 +22413,18 @@ local settings = { changes = true, block_input = true, size = 80, side = 'right'
 -- Each text is looked up once per language (the panel redraws often).
 do
     local LANG = {}
-    for _, l in ipairs(MOD.langs or {}) do   -- and by the upper / lower case English ('DAMAGE', sentences)
+    -- capitals in UTF-8: ASCII, Latin-1 accents (à-þ but ÷) and Cyrillic (а-я, ё); Chinese has none
+    local function caps(s)
+        return (s:upper():gsub('\195([\160-\190])', function(c) if c ~= '\183' then return '\195' .. string.char(c:byte() - 32) end end)
+                :gsub('\208([\176-\191])', function(c) return '\208' .. string.char(c:byte() - 32) end)
+                :gsub('\209([\128-\143])', function(c) return '\208' .. string.char(c:byte() + 32) end)
+                :gsub('\209\145', '\208\129'))
+    end
+    assert(caps('ação ёж efeito') == 'AÇÃO ЁЖ EFEITO')
+    for _, l in ipairs(MOD.langs or {}) do   -- and by the upper / lower case English ('DAMAGE' -> capitals too, sentences)
         LANG[l.id], l.upper = l, {}
         for e, t in pairs(l.exact) do
-            l.upper[e:upper()] = l.upper[e:upper()] or t
+            l.upper[e:upper()] = l.upper[e:upper()] or caps(t)
             l.lower[e:lower()] = l.lower[e:lower()] or t
         end
     end
@@ -24567,7 +24575,12 @@ local function draw(width, height)
         local px = ox + x * s
         if limit or align_right then
             local measure = measure_text(value, size)
-            if limit and measure > limit * s then size = size * limit * s / measure; measure = limit * s end
+            if limit and measure > limit * s then   -- (again: a host font rounds its size up)
+                size = size * limit * s / measure
+                local again = measure_text(value, size)
+                if again > limit * s then size = size * limit * s / again end
+                measure = limit * s
+            end
             if align_right then px = px - measure end
         end
         step('Gui.text')
@@ -25007,7 +25020,7 @@ local function draw(width, height)
                     local note, others = row.note or '', shared_with(weapon, row)
                     if type(note) == 'function' then note, others = note(others), {} end
                     -- the note after the section's name (long ones: 'PARTIAL CHARGE EXPLOSION')
-                    local nx = math.max(110, #section * 10 + 14)
+                    local nx = math.max(110, #section * 10 + 14, width(section:upper(), 15 * s) / s + 14)   -- (translated: measured)
                     local room, shown = W - x0 - 20 - nx, 0
                     if note == '' and #others > 0 then
                         -- as many names (up to 3) as fit at full size, then '+N' (one name at least)
@@ -25154,42 +25167,42 @@ local function draw(width, height)
     button('settings', ui.settings and (back == 'Back (button)' and 'Back' or back) or 'Settings', W - 16 - 104, H - 54, 104, 34, true, ui.settings)
     if ui.binding then
         text('Press the key that should open and close the panel: F1-F12, Insert, Home, End, Pause or Scroll Lock. Esc cancels.',
-             18, H - 56, 14, MUTED, W - 260)
+             18, H - 56, 14, MUTED, W - 280)
     elseif ui.code then
         text('Enter the new code with the arrow keys or WASD, 9 arrows at most. Enter or Done keeps it, Backspace takes ' ..
-             'one back, Esc cancels.', 18, H - 56, 14, MUTED, W - 260)
+             'one back, Esc cancels.', 18, H - 56, 14, MUTED, W - 280)
     elseif ui.settings then
-        text('Settings are saved at once, in config.txt with your changes.', 18, H - 56, 14, MUTED, W - 260)
+        text('Settings are saved at once, in config.txt with your changes.', 18, H - 56, 14, MUTED, W - 280)
     elseif ui.editing then
         text('Type the name: Enter keeps it, Esc cancels. The game sees these keys too, so name presets from a menu.',
-             18, H - 56, 14, MUTED, W - 260)
+             18, H - 56, 14, MUTED, W - 280)
     elseif ui.value and ui.value.setting then
         local r = settings.RANGE[ui.value.setting]
-        text(string.format('Type the percent (%d-%d): Enter sets it, Esc cancels.', r[1], r[2]), 18, H - 56, 14, MUTED, W - 260)
+        text(string.format('Type the percent (%d-%d): Enter sets it, Esc cancels.', r[1], r[2]), 18, H - 56, 14, MUTED, W - 280)
     elseif ui.value then
         text('Type the value: Enter sets it, Esc cancels. Values out of range are set to the nearest allowed one.',
-             18, H - 56, 14, MUTED, W - 260)
+             18, H - 56, 14, MUTED, W - 280)
     elseif ui.hover == 'search:edited' then
         text(ui.search.edited and 'Showing only what you changed, from every tab. Click * again to show everything.'
-             or 'Click * to show only what you changed, from every tab.', 18, H - 56, 14, MUTED, W - 260)
+             or 'Click * to show only what you changed, from every tab.', 18, H - 56, 14, MUTED, W - 280)
     elseif ui.search.active and not presets_tab then
         text('Type to search: Enter keeps the results, Esc clears the search. The game sees these keys too.',
-             18, H - 56, 14, MUTED, W - 260)
+             18, H - 56, 14, MUTED, W - 280)
     elseif presets_tab then
         text('Up/Down choose, Enter loads, Insert makes a new one, Shift+Insert saves into it, F2 renames, Del deletes.',
-             18, H - 56, 14, MUTED, W - 260)
+             18, H - 56, 14, MUTED, W - 280)
     else
         text('Up/Down choose a stat, Left/Right change it (Shift: bigger steps), click a value or press Enter to type it,',
-             18, H - 56, 14, MUTED, W - 260)
+             18, H - 56, 14, MUTED, W - 280)
     end
     if ui.message then
-        text(ui.message.text, 18, H - 34, 14, GOOD, W - 260)
+        text(ui.message.text, 18, H - 34, 14, GOOD, W - 280)
     elseif presets_tab then
         text('Overwriting and deleting ask twice. Changes apply at once and are saved; ' .. #overrides ..
-             ' value(s) changed.', 18, H - 34, 14, MUTED, W - 260)
+             ' value(s) changed.', 18, H - 34, 14, MUTED, W - 280)
     else
         text('PgUp/PgDn change weapon, Del resets, Ctrl+1-5 loads a weapon preset, Ctrl+Shift+1-5 saves one; ' .. #overrides ..
-             ' value(s) changed.', 18, H - 34, 14, MUTED, W - 260)
+             ' value(s) changed.', 18, H - 34, 14, MUTED, W - 280)
     end
     -- the passives to stack on the chosen one: over its page, until one is chosen (Cancel / Esc: none)
     if ui.stack_pick and ui.stack_pick == weapon and not ui.settings then
