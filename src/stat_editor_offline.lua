@@ -1806,6 +1806,7 @@ MOD.langs = {
       ['Limb injury avoidance'] = '避免肢体受伤的几率',
       ['Load'] = '读取',
       ['Loadout'] = '装备配置',
+      ['Lock-on range (m)'] = '锁定距离（米）',
       ['Log file'] = '日志文件',
       ['Log file path copied.'] = '已复制日志文件路径。',
       ['Logs'] = '日志',
@@ -2498,6 +2499,7 @@ MOD.langs = {
       ['Tank Reload Canister'] = '坦克霰弹补给',
       ['Tank Reload HE'] = '坦克高爆弹补给',
       ['Tank turret'] = '坦克炮塔',
+      ['Target lock'] = '目标锁定',
       ['Target search interval, max (s)'] = '索敌间隔，最大（秒）',
       ['Target search interval, min (s)'] = '索敌间隔，最小（秒）',
       ['Tcs'] = 'TCS',
@@ -5403,6 +5405,7 @@ MOD.langs = {
       ['Limb injury avoidance'] = '避免肢體受傷的機率',
       ['Load'] = '讀取',
       ['Loadout'] = '裝備配置',
+      ['Lock-on range (m)'] = '鎖定距離（米）',
       ['Log file'] = '日誌檔案',
       ['Log file path copied.'] = '已複製日誌檔案路徑。',
       ['Logs'] = '日誌',
@@ -6095,6 +6098,7 @@ MOD.langs = {
       ['Tank Reload Canister'] = '坦克霰彈補給',
       ['Tank Reload HE'] = '坦克高爆彈補給',
       ['Tank turret'] = '坦克炮塔',
+      ['Target lock'] = '目標鎖定',
       ['Target search interval, max (s)'] = '索敵間隔，最大（秒）',
       ['Target search interval, min (s)'] = '索敵間隔，最小（秒）',
       ['Tcs'] = 'TCS',
@@ -8945,6 +8949,7 @@ MOD.langs = {
       ['Limb injury avoidance'] = 'Защита конечностей от ранений',
       ['Load'] = 'Загрузить',
       ['Loadout'] = 'Снаряжение',
+      ['Lock-on range (m)'] = 'Дальность захвата (м)',
       ['Log file'] = 'Файл журнала',
       ['Log file path copied.'] = 'Путь к файлу журнала скопирован.',
       ['Logs'] = 'Журналы',
@@ -9594,6 +9599,7 @@ MOD.langs = {
       ['Talon'] = 'Коготь',
       ['Tank'] = 'Танк',
       ['Tank turret'] = 'Башня танка',
+      ['Target lock'] = 'Захват цели',
       ['Target search interval, max (s)'] = 'Интервал поиска цели, макс. (с)',
       ['Target search interval, min (s)'] = 'Интервал поиска цели, мин. (с)',
       ['Tcs'] = 'TCS',
@@ -12913,6 +12919,15 @@ local function resolve_gun(weapon, key)
         { 'spray_mines', 'Sets off mines', 208, 'flag', 1, 1, 1 },
     } or {}) do
         add_row(weapon, 'Spray', f[1], f[2], f[4], { part(f[1], T_SPRAY, spray + f[3], f[4], 100000) }, 0, f[5], f[6], f[7])
+    end
+    -- (from LovedeHua's fork) the guided weapons' lock-on range: their own SensorComponent +0, gated on its
+    -- stock value so a shifted record gets no row
+    local sight = ({ ['25AA2FD4643CF4EE'] = 300, ['CC786F6491FE7E65'] = 300,   -- FAF-14 Spear, StA-X3 W.A.S.P.
+                     ['CF8934FF6567A42D'] = 60, ['14D5D4506056C7A4'] = 100 })[weapon.key == key and weapon.hash or '']   -- P-92 Warrant, P-33 Missile Pistol
+    local at = sight and record(TYPES.sensor)
+    if at and math.abs((default_of(field_at(TYPES.sensor, at, 'f32', 10000)) or 0) - sight) < 0.01 then
+        add_row(weapon, 'Target lock', 'lock_range', 'Lock-on range (m)', 'f32',
+                { part('lock_range', TYPES.sensor, at, 'f32', 10000) }, 1, 2000, 10, 100)
     end
     -- its magazine attachments, each with rows of its own (KINDS[TYPES.items].item_rows); a magazine /
     -- reload / heat value of the weapon's own record ('component:offset') has a row while one of them
