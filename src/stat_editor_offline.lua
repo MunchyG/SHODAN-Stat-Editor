@@ -1096,6 +1096,7 @@ MOD.langs = {
       ['Body front'] = '身体前部',
       ['Body head'] = '头部',
       ['Body health'] = '躯干生命值',
+      ['Body part bleed-out drain (health/s)'] = '部位失血流失 (生命值/秒)',
       ['Body parts'] = '身体部位',
       ['Body rear'] = '身体后部',
       ['Bolt Pistol'] = '爆弹手枪',
@@ -2677,6 +2678,7 @@ MOD.langs = {
       ['heavycannon'] = '重炮',
       ['hellpod rack'] = '空投舱挂架',
       ['hexagon'] = '六边形',
+      ['how fast a body part\'s bleed-out health runs out'] = '部位失血生命值耗尽的速度',
       ['how fast the bleed-out health runs out'] = '失血生命值耗尽的速度',
       ['how long it keeps after you once you break line of sight'] = '脱离视线后它继续追击你的时长',
       ['how much gas it takes to confuse it'] = '使其混乱所需的毒气量',
@@ -4656,6 +4658,7 @@ MOD.langs = {
       ['Body front'] = '身體前部',
       ['Body head'] = '頭部',
       ['Body health'] = '軀幹生命值',
+      ['Body part bleed-out drain (health/s)'] = '部位失血流失 (生命值/秒)',
       ['Body parts'] = '身體部位',
       ['Body rear'] = '身體後部',
       ['Bolt Pistol'] = '爆彈手槍',
@@ -6237,6 +6240,7 @@ MOD.langs = {
       ['heavycannon'] = '重炮',
       ['hellpod rack'] = '空投艙掛架',
       ['hexagon'] = '六邊形',
+      ['how fast a body part\'s bleed-out health runs out'] = '部位失血生命值耗盡的速度',
       ['how fast the bleed-out health runs out'] = '失血生命值耗盡的速度',
       ['how long it keeps after you once you break line of sight'] = '脫離視線後它繼續追擊你的時長',
       ['how much gas it takes to confuse it'] = '使其混亂所需的毒氣量',
@@ -8208,6 +8212,7 @@ MOD.langs = {
       ['Body front'] = 'Передняя часть тела',
       ['Body head'] = 'Голова',
       ['Body health'] = 'Здоровье туловища',
+      ['Body part bleed-out drain (health/s)'] = 'Убывание здоровья части тела при кровотечении (здоровье/с)',
       ['Body parts'] = 'Части корпуса',
       ['Body rear'] = 'Задняя часть тела',
       ['Bolt Pistol'] = 'Болтострел',
@@ -9667,6 +9672,7 @@ MOD.langs = {
       ['gunships, Dragonroaches, Leviathans and the like, where a planet has them'] = 'штурмовики, дракораканы, левиафаны и т. п., где они есть на планете',
       ['heavycannon'] = 'тяжелая пушка',
       ['hexagon'] = 'шестигранник',
+      ['how fast a body part\'s bleed-out health runs out'] = 'как быстро заканчивается здоровье части тела при кровотечении',
       ['how fast the bleed-out health runs out'] = 'как быстро заканчивается здоровье при кровотечении',
       ['how long it keeps after you once you break line of sight'] = 'как долго он преследует вас после потери из виду',
       ['how much gas it takes to confuse it'] = 'сколько газа нужно, чтобы его дезориентировать',
@@ -15033,6 +15039,9 @@ function MOD.enemy.resolve(entry)
     local drain = row('Health', 'bleed_drain', 'Bleed-out drain (health/s)', 28, 'f32', 10000000, 1000000, 1, 10,
                       'how fast the bleed-out health runs out')
     if drain then drain.scale = -1 end
+    -- +36 the health lost per second by its body parts' bleed-out health (issue #91; positive, unlike +28)
+    row('Health', 'zone_drain', 'Body part bleed-out drain (health/s)', 36, 'f32', 10000000, 1000000, 1, 10,
+        "how fast a body part's bleed-out health runs out")
     row('Health', 'regen', 'Regeneration (health/s)', 4, 'f32', 1000000, 100000, 1, 10)
     row('Health', 'regen_delay', 'Regeneration delay after damage (s)', 12, 'f32', 3600, 600, 0.1, 1)
     demolition()
@@ -15048,6 +15057,8 @@ function MOD.enemy.resolve(entry)
             local section = MOD.enemy.zone_name(names[z]) or ('Body part ' .. count)
             local id = 'zone' .. z
             row(section, id .. '_health', 'Health', base + 232, 'u32', 10000000, 1000000, 10, 100)
+            row(section, id .. '_bleed', 'Bleed-out health', base + 236, 'u32', 10000000, 1000000, 10, 100,
+                'what it has left once its health is gone, lost over time')
             row(section, id .. '_armor', 'Armor', base + 216, 'u32', 100, 10, 1, 1)
             row(section, id .. '_durable', 'Durable ratio (0-1)', base + 204, 'f32', 1, 1, 0.05, 0.1)
             row(section, id .. '_explosive', 'Explosive damage taken (x)', base + 324, 'f32', 100, 100, 0.05, 0.25)
