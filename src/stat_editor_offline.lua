@@ -2346,6 +2346,7 @@ MOD.langs = {
       ['Sentry'] = '哨戒炮',
       ['Sentry aiming'] = '哨戒炮瞄准',
       ['Sentry: its cooldown, its body, then its weapon.'] = '哨戒炮：依次为冷却时间、本体、武器。',
+      ['Separate from the normal ground patrols. Does nothing on a mission without such a modifier.'] = '与普通地面巡逻分开。任务没有此类修正条件时不起作用。',
       ['Servo-Assisted'] = '伺服辅助',
       ['Sets off mines'] = '会引爆地雷',
       ['Settings'] = '设置',
@@ -2566,6 +2567,7 @@ MOD.langs = {
       ['The one you carry.'] = '你携带的那一把。',
       ['The one you carry. The CQC-20 Breaching Hammer is listed under Support.'] = '你携带的那一把。CQC-20 破拆锤列在“支援武器”下。',
       ['The one you carry. The CQC-72 support version is listed under Support.'] = '你携带的那一把。CQC-72 支援版本列在“支援武器”下。',
+      ['The patrols a planet or mission modifier adds: gunships, Dragonroaches, Leviathans and the like.'] = '星球或任务修正条件额外加入的巡逻：炮艇、龙蟑、利维坦等。',
       ['The pistol you carry. The One-Two\'s launcher is listed under the One-Two.'] = '你携带的手枪。“幺二”的发射器列在“幺二”下。',
       ['The range the sights are set for at this step (you switch steps in game). At that range the shot lands'] = '这一档瞄具归零的距离（在游戏中切换档位）。在该距离子弹正好',
       ['The recharge time is 0: set it above 0 first.'] = '充能时间为 0：请先设为大于 0 的值。',
@@ -5979,6 +5981,7 @@ MOD.langs = {
       ['Sentry'] = '哨戒炮',
       ['Sentry aiming'] = '哨戒炮瞄準',
       ['Sentry: its cooldown, its body, then its weapon.'] = '哨戒炮：依次為冷卻時間、本體、武器。',
+      ['Separate from the normal ground patrols. Does nothing on a mission without such a modifier.'] = '與普通地面巡邏分開。任務沒有此類修正條件時不起作用。',
       ['Servo-Assisted'] = '伺服輔助',
       ['Sets off mines'] = '會引爆地雷',
       ['Settings'] = '設定',
@@ -6199,6 +6202,7 @@ MOD.langs = {
       ['The one you carry.'] = '你攜帶的那一把。',
       ['The one you carry. The CQC-20 Breaching Hammer is listed under Support.'] = '你攜帶的那一把。CQC-20 破拆錘列在「支援武器」下。',
       ['The one you carry. The CQC-72 support version is listed under Support.'] = '你攜帶的那一把。CQC-72 支援版本列在「支援武器」下。',
+      ['The patrols a planet or mission modifier adds: gunships, Dragonroaches, Leviathans and the like.'] = '星球或任務修正條件額外加入的巡邏：炮艇、龍蟑、利維坦等。',
       ['The pistol you carry. The One-Two\'s launcher is listed under the One-Two.'] = '你攜帶的手槍。「么二」的發射器列在「么二」下。',
       ['The range the sights are set for at this step (you switch steps in game). At that range the shot lands'] = '這一檔瞄具歸零的距離（在遊戲中切換檔位）。在該距離子彈正好',
       ['The recharge time is 0: set it above 0 first.'] = '充能時間為 0：請先設為大於 0 的值。',
@@ -9529,6 +9533,7 @@ MOD.langs = {
       ['Sentry'] = 'Турель',
       ['Sentry aiming'] = 'Наведение турели',
       ['Sentry: its cooldown, its body, then its weapon.'] = 'Турель: перезарядка, корпус, затем оружие.',
+      ['Separate from the normal ground patrols. Does nothing on a mission without such a modifier.'] = 'Отдельно от обычных наземных патрулей. Без такого модификатора на миссии ничего не меняет.',
       ['Servo-Assisted'] = 'Сервопривод',
       ['Sets off mines'] = 'Подрывает мины',
       ['Settings'] = 'Настройки',
@@ -9730,6 +9735,7 @@ MOD.langs = {
       ['The one you carry.'] = 'То, что вы носите.',
       ['The one you carry. The CQC-20 Breaching Hammer is listed under Support.'] = 'То, что вы носите. CQC-20 Штурмовой молот — во вкладке «Поддержка».',
       ['The one you carry. The CQC-72 support version is listed under Support.'] = 'То, что вы носите. Версия поддержки CQC-72 — во вкладке «Поддержка».',
+      ['The patrols a planet or mission modifier adds: gunships, Dragonroaches, Leviathans and the like.'] = 'Патрули, которые добавляет модификатор планеты или миссии: десантные корабли, драконьи тараканы, левиафаны и т. п.',
       ['The pistol you carry. The One-Two\'s launcher is listed under the One-Two.'] = 'Пистолет, который вы носите. Гранатомет «Двоечки» указан у «Двоечки».',
       ['The range the sights are set for at this step (you switch steps in game). At that range the shot lands'] = 'Дальность, на которую выставлен прицел на этой ступени (ступени переключаются в игре). На этой дальности',
       ['The recharge time is 0: set it above 0 first.'] = 'Время восстановления равно 0: сначала задайте больше 0.',
@@ -15651,6 +15657,9 @@ end
 -- Automatons; FileDiver's names, the fields Little Enemy Kontrol and HD2Runtime 0.40 tested): multipliers over
 -- every record of the faction. Each scales the 4 player-count multipliers (1-4 players) of a mission-difficulty
 -- modifier; rows marked `inverse` hold a duration (shown as how often: 2 = twice as often).
+-- (s[7]: the row's (?) tip)
+MOD.enemy.MODIFIER_TIP = { "The patrols a planet or mission modifier adds: gunships, Dragonroaches, Leviathans and the like.",
+                           "Separate from the normal ground patrols. Does nothing on a mission without such a modifier." }
 MOD.enemy.SPAWN = {
     { 'Reinforcements', 'reinf_on', 'Reinforcements (flares, breaches, drops)', 1077, 'flag' },
     { 'Reinforcements', 'reinf_budget', 'Reinforcement size (x)', 316 },
@@ -15659,9 +15668,8 @@ MOD.enemy.SPAWN = {
       'the game holds back reinforcements past about 100 enemies at x1; it has crashed past 200-240 enemies alive' },
     { 'Patrols', 'patrol_rate', 'Patrol frequency (x)', 496 },
     { 'Patrols', 'patrol_max', 'Patrols at once (x)', 436, nil, '0: no patrols' },
-    { 'Patrols', 'traveler_rate', 'Modifier patrol frequency (x)', 976, 'inverse',
-      'gunships, Dragonroaches, Leviathans and the like, where a planet has them' },
-    { 'Patrols', 'traveler_size', 'Modifier patrol size (x)', 1036 },
+    { 'Patrols', 'traveler_rate', 'Modifier patrol frequency (x)', 976, 'inverse', nil, MOD.enemy.MODIFIER_TIP },
+    { 'Patrols', 'traveler_size', 'Modifier patrol size (x)', 1036, nil, nil, MOD.enemy.MODIFIER_TIP },
     { 'Outposts and spawners', 'guard', 'Outpost garrison size (x)', 856 },
     { 'Outposts and spawners', 'spawner_queue', 'Fabricator / bug hole queue (x)', 556 },
     { 'Outposts and spawners', 'spawner_count', 'Fabricator / bug hole batch size (x)', 676 },
@@ -15892,7 +15900,7 @@ function MOD.enemy.spawning_resolve(entry)
             for _, off in ipairs(records) do
                 for k = 0, s[5] == 'one' and 0 or 3 do fields[#fields + 1] = { TYPES.hivemind, off + s[4] + k * 4 } end
             end
-            MOD.enemy.mult_row(entry, s[1], s[2], s[3], fields, s[5] == 'one' and 10 or 20, s[5] == 'inverse', s[6])
+            MOD.enemy.mult_row(entry, s[1], s[2], s[3], fields, s[5] == 'one' and 10 or 20, s[5] == 'inverse', s[6]).tip = s[7]
         end
     end
 end
