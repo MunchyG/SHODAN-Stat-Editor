@@ -2598,6 +2598,7 @@ MOD.langs = {
       ['The support weapon. The CQC-73 is listed under Secondary.'] = '支援武器。CQC-73 列在“副武器”下。',
       ['Thermite'] = '铝热弹',
       ['Thermite (experimental)'] = '铝热（实验性）',
+      ['These values are shared by ALL bayonets: they change the Constitution, Sweeper and Amendment at once.'] = '这些数值由所有刺刀共用：会同时改变 Constitution、Sweeper 和 Amendment。',
       ['Throw range'] = '投掷距离',
       ['Throw spread (degrees)'] = '投掷散布(度)',
       ['Throw velocity, max (m/s)'] = '投掷速度上限(米/秒)',
@@ -6267,6 +6268,7 @@ MOD.langs = {
       ['The support weapon. The CQC-73 is listed under Secondary.'] = '支援武器。CQC-73 列在「副武器」下。',
       ['Thermite'] = '鋁熱彈',
       ['Thermite (experimental)'] = '鋁熱（實驗性）',
+      ['These values are shared by ALL bayonets: they change the Constitution, Sweeper and Amendment at once.'] = '這些數值由所有刺刀共用：會同時改變 Constitution、Sweeper 和 Amendment。',
       ['Throw range'] = '投擲距離',
       ['Throw spread (degrees)'] = '投擲散佈(度)',
       ['Throw velocity, max (m/s)'] = '投擲速度上限(米/秒)',
@@ -9846,6 +9848,7 @@ MOD.langs = {
       ['The support weapon. The CQC-73 is listed under Secondary.'] = 'Оружие поддержки. CQC-73 — во вкладке «Дополнительное».',
       ['Thermite'] = '«Термитная»',
       ['Thermite (experimental)'] = 'Термит (эксперимент.)',
+      ['These values are shared by ALL bayonets: they change the Constitution, Sweeper and Amendment at once.'] = 'Эти значения общие для ВСЕХ штыков: они меняют Constitution, Sweeper и Amendment сразу.',
       ['Throw range'] = 'Дальность броска',
       ['Throw spread (degrees)'] = 'Разброс броска (град.)',
       ['Throw velocity, max (m/s)'] = 'Скорость броска, макс. (м/с)',
@@ -12746,6 +12749,7 @@ MOD.langs = {
       ['The support weapon. The CQC-73 is listed under Secondary.'] = 'El arma de apoyo. El CQC-73 aparece en Secundaria.',
       ['Thermite'] = 'Termita',
       ['Thermite (experimental)'] = 'Termita (experimental)',
+      ['These values are shared by ALL bayonets: they change the Constitution, Sweeper and Amendment at once.'] = 'Estos valores los comparten TODAS las bayonetas: cambian la Constitution, la Sweeper y la Amendment a la vez.',
       ['Throw range'] = 'Alcance de lanzamiento',
       ['Throw spread (degrees)'] = 'Dispersión del lanzamiento (grados)',
       ['Throw velocity, max (m/s)'] = 'Velocidad de lanzamiento, máx. (m/s)',
@@ -15625,6 +15629,7 @@ MOD.langs = {
       ['The support weapon. The CQC-73 is listed under Secondary.'] = 'A arma de suporte. O CQC-73 aparece em Secundária.',
       ['Thermite'] = 'Termita',
       ['Thermite (experimental)'] = 'Termita (experimental)',
+      ['These values are shared by ALL bayonets: they change the Constitution, Sweeper and Amendment at once.'] = 'Estes valores são compartilhados por TODAS as baionetas: mudam a Constitution, a Sweeper e a Amendment de uma vez.',
       ['Throw range'] = 'Alcance do arremesso',
       ['Throw spread (degrees)'] = 'Dispersão do arremesso (graus)',
       ['Throw velocity, max (m/s)'] = 'Velocidade do arremesso, máx. (m/s)',
@@ -18741,15 +18746,24 @@ KINDS[TYPES.avatar].resolve = function(entry)
         { 'Every weapon you aim yourself, emplacements and vehicle guns too: the game\'s sway times this. 0 = no sway.',
           'A weapon whose own Sway multiplier you changed keeps it. Sway this row changes shows in blue.' }
     -- melee strikes: damage rows DamageInfoType_Ability_Avatar_Melee (560) and _Melee_Bayonet (568), shared by every weapon
-    for _, m in ipairs({ { 560, 'Melee', 'melee_' }, { 568, 'Bayonet melee', 'bayonet_' } }) do
-        local drow = tables[T_DAMAGE] and tables[T_DAMAGE].index[m[1]]
-        for _, s in ipairs(drow and { { 'damage', 'Damage', 4, 1, 10 }, { 'durable', 'Durable damage', 8, 1, 10 },
-                                      { 'ap', 'Armor penetration', 12, 1, 1 }, { 'stagger', 'Stagger force', 32, 1, 10 },
-                                      { 'push', 'Push force', 36, 1, 10 } } or {}) do
-            add_row(entry, m[2], m[3] .. s[1], s[2], 'u32', { part(m[3] .. s[1], T_DAMAGE, drow + s[3], 'u32', 1000000) }, 0,
-                    s[1] == 'ap' and 10 or 100000, s[4], s[5])
-        end
+    MOD.melee_rows(entry, 560, 'Melee', 'melee_')
+    MOD.melee_rows(entry, 568, 'Bayonet melee', 'bayonet_')
+end
+
+-- A melee strike's damage row (a DamageInfoType id) on a page: the Helldiver's, and the bayonet guns' (MOD.BAYONET,
+-- the same shared row). Returns its first row.
+MOD.BAYONET = { ['R-2124 Constitution'] = true, ['SG-97 Sweeper'] = true, ['R-2 Amendment'] = true }
+function MOD.melee_rows(entry, id, section, prefix)
+    local drow = tables[T_DAMAGE] and tables[T_DAMAGE].index[id]
+    local first = nil
+    for _, s in ipairs(drow and { { 'damage', 'Damage', 4, 1, 10 }, { 'durable', 'Durable damage', 8, 1, 10 },
+                                  { 'ap', 'Armor penetration', 12, 1, 1 }, { 'stagger', 'Stagger force', 32, 1, 10 },
+                                  { 'push', 'Push force', 36, 1, 10 } } or {}) do
+        local r = add_row(entry, section, prefix .. s[1], s[2], 'u32', { part(prefix .. s[1], T_DAMAGE, drow + s[3], 'u32', 1000000) }, 0,
+                          s[1] == 'ap' and 10 or 100000, s[4], s[5])
+        first = first or r
     end
+    return first
 end
 
 -- A passive's rows: each modifier (named, or by its id), then its weapon stat modifiers.
@@ -19587,6 +19601,11 @@ local function resolve_gun(weapon, key)
         if inf and default_of(inf[1].field) == 0 and (not inf[2] or default_of(inf[2].field) == 0) then
             add_row(weapon, 'Ammo', 'infinite_ammo', 'Infinite ammo', 'flag', inf, 0, 1, 1, 1).tip =
                 { 'The magazine never runs out. Flamethrowers: also set Ammo per puff to 0.' }
+        end
+        -- the bayonet guns: the bayonet strike's damage row, which every bayonet shares
+        local bayonet = MOD.BAYONET[weapon.name] and not weapon.mounted and MOD.melee_rows(weapon, 568, 'Bayonet melee', 'bayonet_')
+        if bayonet then
+            bayonet.tip = { 'These values are shared by ALL bayonets: they change the Constitution, Sweeper and Amendment at once.' }
         end
         -- fixed sights (SHODAN Offline Integration): a gun with no optic part (the Constitution) keeps its zoom
         -- on itself, WeaponData +116/+120/+124; guns with one edit it on the optic's Attachments page
