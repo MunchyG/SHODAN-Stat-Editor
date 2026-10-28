@@ -915,6 +915,7 @@ MOD.langs = {
       ['9x70mm Socom Assassin'] = '9x70mm“刺客”特种作战弹',
       ['9x70mm Super Uranium Core'] = '9x70mm超铀芯弹',
       ['A hellpod lands this many seconds plus its 4.75 s fall after the beacon, so 0 is the fastest it gets.'] = '空投舱落地用时为此倒计时加 4.75 秒下落时间，因此设为 0 时最快。',
+      ['A hit to the head costs this many times its damage. 1 = the same as the body.'] = '头部命中按伤害的这个倍数扣血。1 = 与身体相同。',
       ['A mounted cannon with a seat, dropped by hellpod. Not the one you carry.'] = '带座位的固定火炮，由空投舱投送。不是你携带的那把。',
       ['A mounted copy aimed by AI. Not the one you carry.'] = '由 AI 瞄准的固定版本。不是你携带的那把。',
       ['A mounted copy run by AI (emplacement-style). Not the one you carry.'] = '由 AI 操作的固定版本（炮台式）。不是你携带的那把。',
@@ -1567,6 +1568,7 @@ MOD.langs = {
       ['Head armor'] = '头部装甲',
       ['Head body'] = '头部（本体）',
       ['Head health'] = '头部生命值',
+      ['Head hits: damage to your health (x)'] = '头部命中：对生命值的伤害 (x)',
       ['Head zone'] = '头部',
       ['Health'] = '生命值',
       ['Health (x)'] = '生命值（x）',
@@ -4537,6 +4539,7 @@ MOD.langs = {
       ['9x70mm Socom Assassin'] = '9x70mm特種暗殺彈',
       ['9x70mm Super Uranium Core'] = '9x70mm超鈾核心彈',
       ['A hellpod lands this many seconds plus its 4.75 s fall after the beacon, so 0 is the fastest it gets.'] = '空投艙落地用時為此倒計時加 4.75 秒下落時間，因此設為 0 時最快。',
+      ['A hit to the head costs this many times its damage. 1 = the same as the body.'] = '頭部命中按傷害的這個倍數扣血。1 = 與身體相同。',
       ['A mounted cannon with a seat, dropped by hellpod. Not the one you carry.'] = '帶座位的固定火炮，由空投艙投送。不是你攜帶的那把。',
       ['A mounted copy aimed by AI. Not the one you carry.'] = '由 AI 瞄準的固定版本。不是你攜帶的那把。',
       ['A mounted copy run by AI (emplacement-style). Not the one you carry.'] = '由 AI 操作的固定版本（炮台式）。不是你攜帶的那把。',
@@ -5189,6 +5192,7 @@ MOD.langs = {
       ['Head armor'] = '頭部裝甲',
       ['Head body'] = '頭部（本體）',
       ['Head health'] = '頭部生命值',
+      ['Head hits: damage to your health (x)'] = '頭部命中：對生命值的傷害 (x)',
       ['Head zone'] = '頭部',
       ['Health'] = '生命值',
       ['Health (x)'] = '生命值（x）',
@@ -8155,6 +8159,7 @@ MOD.langs = {
       ['9x70mm Sniper Armour Piercing'] = 'Снайперские бронебойные 9x70 мм',
       ['9x70mm Socom Assassin'] = 'Спецназ «Убийца» 9x70 мм',
       ['9x70mm Super Uranium Core'] = 'С суперурановым сердечником 9x70 мм',
+      ['A hit to the head costs this many times its damage. 1 = the same as the body.'] = 'Попадание в голову отнимает урон, умноженный на это число. 1 = как по телу.',
       ['A mounted cannon with a seat, dropped by hellpod. Not the one you carry.'] = 'Станковое орудие с сиденьем, сбрасывается в Адской капсуле. Не то, что вы носите.',
       ['A mounted copy aimed by AI. Not the one you carry.'] = 'Станковая копия с наводкой ИИ. Не то, что вы носите.',
       ['A mounted copy run by AI (emplacement-style). Not the one you carry.'] = 'Станковая копия под управлением ИИ (как огневая позиция). Не то, что вы носите.',
@@ -8768,6 +8773,7 @@ MOD.langs = {
       ['Head armor'] = 'Броня головы',
       ['Head body'] = 'Голова (тело)',
       ['Head health'] = 'Здоровье головы',
+      ['Head hits: damage to your health (x)'] = 'Попадания в голову: урон здоровью (x)',
       ['Head zone'] = 'Голова',
       ['Health'] = 'Здоровье',
       ['Health (x)'] = 'Здоровье (x)',
@@ -12768,6 +12774,12 @@ KINDS[TYPES.avatar].resolve = function(entry)
                 local id = 'zone' .. z .. '_health'
                 add_row(entry, 'Body parts', id, label .. ' health', 'u32',
                         { part(id, TYPES.health, base + 232, 'u32', 10000000) }, 1, 100000, 5, 25)
+                -- +248 how much of a hit passes to your health: 1.5 on the head (SHODAN Offline Integration)
+                if label == 'Head' then
+                    add_row(entry, 'Body parts', 'zone' .. z .. '_to_body', 'Head hits: damage to your health (x)', 'f32',
+                            { part('zone' .. z .. '_to_body', TYPES.health, base + 248, 'f32', 100) }, 0, 100, 0.05, 0.25).tip =
+                        { 'A hit to the head costs this many times its damage. 1 = the same as the body.' }
+                end
             end
         end
     end
