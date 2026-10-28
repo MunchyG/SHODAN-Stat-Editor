@@ -428,7 +428,8 @@ local function main()
             painted = signature
             paint()
         end
-        shim.sleep(state.phase == 'ready' and 10 or 1)
+        -- while loading, no wait: Windows rounds Sleep(1) up to ~15 ms, which made the ~400 loading steps take ~6 s extra
+        if state.phase == 'ready' then shim.sleep(10) end
     end
     if shim.place then
         I.mkdirs(I.home)
