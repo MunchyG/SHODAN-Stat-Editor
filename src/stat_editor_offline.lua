@@ -14636,7 +14636,8 @@ local function resolve_throwable(entry, placed)
     local fuse = read_field(field_at(TYPES.explosive, ex + 12, 'f32', 100000))
     local has = id and id > 0 and tables[T_EXPLOSION] and tables[T_EXPLOSION].index[id]
     -- (on an impact throwable, mode 2, +12 is the earliest it goes off: the Urchin, the G-31 Arc)
-    if has and (mode == 0 or mode == 2 or mode == 3) and fuse and fuse > 0 then
+    -- (not the Urchin's: its own timer, not in the files, sets when it goes off; issue #97, tested)
+    if has and (mode == 0 or mode == 2 or mode == 3) and fuse and fuse > 0 and entry.hash ~= '3FA94F58F596BC0B' then
         local row = add_row(entry, 'Throwable', 'fuse', 'Fuse time (s)', 'f32', { part('fuse', TYPES.explosive, ex + 12, 'f32', 100000) }, 0, 60, 0.1, 1)
         if mode == 2 then row.note = 'goes off on impact, but not before this' end
     end
