@@ -2044,6 +2044,11 @@ MOD.langs = {
       ['Penetration slowdown'] = '穿透后速度衰减',
       ['Phalanx'] = '方阵',
       ['Physical shield'] = '实体护盾',
+      ['Picked up into'] = '拾取到',
+      ['Picked up into: Primary slot'] = '拾取到：主武器栏',
+      ['Picked up into: Support slot'] = '拾取到：支援武器栏',
+      ['Picking it up puts it in your primary slot instead (1), in place of your primary. 3 = the support slot.'] = '拾取后放入主武器栏 (1)，替换你的主武器。3 = 支援武器栏。',
+      ['Pickup'] = '拾取',
       ['Pilot light goes out after (s)'] = '引火熄灭时间（秒）',
       ['Pilot seat'] = '驾驶座',
       ['Pineapple'] = '菠萝',
@@ -5672,6 +5677,11 @@ MOD.langs = {
       ['Penetration slowdown'] = '穿透後速度衰減',
       ['Phalanx'] = '方陣',
       ['Physical shield'] = '實體護盾',
+      ['Picked up into'] = '拾取到',
+      ['Picked up into: Primary slot'] = '拾取到：主武器欄',
+      ['Picked up into: Support slot'] = '拾取到：支援武器欄',
+      ['Picking it up puts it in your primary slot instead (1), in place of your primary. 3 = the support slot.'] = '拾取後放入主武器欄 (1)，替換你的主武器。3 = 支援武器欄。',
+      ['Pickup'] = '拾取',
       ['Pilot light goes out after (s)'] = '引火熄滅時間（秒）',
       ['Pilot seat'] = '駕駛座',
       ['Pineapple'] = '鳳梨',
@@ -9234,6 +9244,11 @@ MOD.langs = {
       ['Penetration slowdown'] = 'Замедление при пробитии',
       ['Phalanx'] = 'фаланга',
       ['Physical shield'] = 'Физический щит',
+      ['Picked up into'] = 'Подбирается в',
+      ['Picked up into: Primary slot'] = 'Подбирается в: основной слот',
+      ['Picked up into: Support slot'] = 'Подбирается в: слот поддержки',
+      ['Picking it up puts it in your primary slot instead (1), in place of your primary. 3 = the support slot.'] = 'При подборе оружие встаёт в основной слот (1) вместо вашего основного. 3 = слот поддержки.',
+      ['Pickup'] = 'Подбор',
       ['Pilot light goes out after (s)'] = 'Запальник гаснет через (с)',
       ['Pilot seat'] = 'Кресло пилота',
       ['Pineapple'] = 'Лимонка',
@@ -13709,6 +13724,7 @@ local function resolve_gun(weapon, key)
     if weapon.key == key and weapon.slot == 'Support' then
         local pack = KINDS[TYPES.rack].pack(key)
         if pack then KINDS[TYPES.jumppack].backpack(weapon, pack, true) end
+        MOD.slot.pickup_row(weapon, key)
     end
     if weapon.key == key then
         KINDS[T_PROJECTILE].swap_row(weapon, sources, shots, fire, extra)
@@ -17198,6 +17214,32 @@ end
 -- Primary and secondary weapons only: a support weapon put in another slot is not listed there (the armory
 -- lists the weapons your account owns, and support weapons come with their stratagem; tested 2026-10-24).
 MOD.slot = { NAMES = { [1] = 'Primary', [3] = 'Secondary' } }
+
+-- Which slot a support weapon goes to when you pick it up (SHODAN Offline Integration): InteractableComponentData,
+-- 8 zones of 136 bytes from +8, +40 the interaction (1 primary, 2 secondary, 3 support). Secondary made weapons
+-- vanish, so only 1 and 3; only on a record with one weapon pickup zone
+TYPES.interactable = 0xFCCA29DB
+KINDS[TYPES.interactable] = { name = 'pickup', stride = 1104, keyed = true }
+function MOD.slot.pickup_row(weapon, key)
+    local t = tables[TYPES.interactable]
+    local off = t and KINDS[TYPES.interactable].stride == 1104 and t.index[key]
+    if not off then return end
+    local found, count = nil, 0
+    for zone = 0, 7 do
+        local at = off + 8 + zone * 136
+        local kind = peek4(t.copies[1] + HEADER_BYTES + at + 40)
+        if (peek4(t.copies[1] + HEADER_BYTES + at) or 0) ~= 0 and kind and kind >= 1 and kind <= 3 then
+            found, count = at + 40, count + 1
+        end
+    end
+    local p = count == 1 and part('pickup_slot', TYPES.interactable, found, 'u32', 3)
+    if not p or default_of(p.field) ~= 3 then return end
+    local r = add_row(weapon, 'Pickup', 'pickup_slot', 'Picked up into', 'u32', { p }, 1, 3, 2, 2)
+    r.only = { [1] = true, [3] = true }
+    r.label_of = function() return 'Picked up into: ' .. (read_field(p.field) == 1 and 'Primary slot' or 'Support slot') end
+    r.tip = { 'Picking it up puts it in your primary slot instead (1), in place of your primary. 3 = the support slot.' }
+end
+
 function MOD.slot.row(weapon)
     local t = tables[TYPES.loadout]
     local off = t and t.index[weapon.key]
@@ -18006,6 +18048,7 @@ local function change(row, delta_sign, big, exact)
         ui.message = { text = row.limit, till = api.now() + 4 }
     end
     target = math.max(row.min, math.min(row.max, target))
+    if row.only and not row.only[target] then return end
     if target == current then return end
     if row.span and not ((row.span() or 0) > 0) then   -- a time of nothing (the Hover Pack at recharge 0)
         ui.message = { text = 'The recharge time is 0: set it above 0 first.', till = api.now() + 4 }
