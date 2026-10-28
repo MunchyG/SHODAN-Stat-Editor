@@ -19357,7 +19357,8 @@ local function draw(width, height)
     -- a hovered row's tip, under it (above it near the bottom)
     if tip_overlay then
         local w, h = 0, #tip_overlay.lines * 18 + 16
-        for _, line in ipairs(tip_overlay.lines) do w = math.max(w, width(line, 15)) end
+        -- measured at the drawn size: font sizes round, so a scaled line is not the unscaled width times s
+        for _, line in ipairs(tip_overlay.lines) do w = math.max(w, width(line, 15 * s) / s) end
         w = math.min(w + 24, W - 32)
         local x = math.max(16, math.min(tip_overlay.x, W - 16 - w))
         local y = tip_overlay.y
