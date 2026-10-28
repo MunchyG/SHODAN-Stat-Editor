@@ -1582,6 +1582,10 @@ MOD.langs = {
       ['Hive Breaker Drill'] = '“虫窝破裂者”钻机',
       ['Hive Guard'] = '虫窝护卫',
       ['Hive Lord'] = '霸王虫',
+      ['Holster position (choice)'] = '收枪位置（选择）',
+      ['Holster: 0 back or 1 hip.'] = '收枪位置：0 背部或 1 腰部。',
+      ['Holster: Back'] = '收枪位置：背部',
+      ['Holster: Hip'] = '收枪位置：腰部',
       ['Homing Anti-Air Missile'] = '追踪式防空导弹',
       ['Homing Ground Missile'] = '追踪式地面导弹',
       ['Homing Ground Missile Mk2'] = '追踪式地面导弹 MK2',
@@ -2756,6 +2760,7 @@ MOD.langs = {
       ['the force a hit needs to stagger them'] = '使其硬直所需的命中力度',
       ['the game holds back reinforcements past about 100 enemies at x1; it has crashed past 200-240 enemies alive'] = '在 x1 时，游戏在约 100 名敌人后停止增援；存活敌人超过 200-240 时曾出现崩溃',
       ['the game\'s tiers: 10 small arms, 20 HMG, 30 autocannon, 40 Strider, 50 orbital, 60 Hellbomb, 250 never'] = '游戏的分级：10 轻武器、20 重机枪、30 机炮、40 蹂躏者、50 轨道、60 地狱炸弹、250 不可摧毁',
+      ['the holster is on the back or the hip'] = '收枪位置在背部或腰部',
       ['the model and its body parts; very large or small sizes may look or move oddly'] = '模型及其身体部位；过大或过小可能显示或移动异常',
       ['the shot fired from this heat on, and what it does to you'] = '从该热量值起发射的弹丸，以及它对你自己造成的效果',
       ['the spare ammo in its backpack; read when the backpack is called in'] = '背包里的备用弹药；在被投放时读取',
@@ -2772,6 +2777,7 @@ MOD.langs = {
       ['weapon\'s fire rate, ammo, handling and heat. To tune the shot, edit the chosen weapon.'] = '射速、弹药、操控和热量保持不变。要调整弹丸，请编辑所选武器。',
       ['what each hit applies; the slots go in order'] = '每次命中施加的状态；状态槽需按顺序填写',
       ['what it has left once its health is gone, lost over time'] = '生命值耗尽后剩余的部分，随时间流失',
+      ['where it hangs when put away: 0 on the back, 1 on the hip'] = '收起时挂在哪里：0 背部，1 腰部',
     },
     lower = {
       ['"+ new preset" (or insert) saves your current changes as one; you name it next.'] = '“+ 新建预设”（或 Insert 键）会把当前修改存为一组，接着你可以为它命名。',
@@ -5151,6 +5157,10 @@ MOD.langs = {
       ['Hive Breaker Drill'] = '破巢鑽',
       ['Hive Guard'] = '守穴蟲',
       ['Hive Lord'] = '霸王蟲',
+      ['Holster position (choice)'] = '收槍位置（選擇）',
+      ['Holster: 0 back or 1 hip.'] = '收槍位置：0 背部或 1 腰部。',
+      ['Holster: Back'] = '收槍位置：背部',
+      ['Holster: Hip'] = '收槍位置：腰部',
       ['Homing Anti-Air Missile'] = '地對地飛彈',
       ['Homing Ground Missile'] = '地對地飛彈',
       ['Homing Ground Missile Mk2'] = '地對地飛彈MK2',
@@ -6325,6 +6335,7 @@ MOD.langs = {
       ['the force a hit needs to stagger them'] = '使其硬直所需的命中力度',
       ['the game holds back reinforcements past about 100 enemies at x1; it has crashed past 200-240 enemies alive'] = '在 x1 時，遊戲在約 100 名敵人後停止增援；存活敵人超過 200-240 時曾出現崩潰',
       ['the game\'s tiers: 10 small arms, 20 HMG, 30 autocannon, 40 Strider, 50 orbital, 60 Hellbomb, 250 never'] = '遊戲的分級：10 輕武器、20 重機槍、30 機炮、40 蹂躪者、50 軌道、60 地獄炸彈、250 不可摧毀',
+      ['the holster is on the back or the hip'] = '收槍位置在背部或腰部',
       ['the model and its body parts; very large or small sizes may look or move oddly'] = '模型及其身體部位；過大或過小可能顯示或移動異常',
       ['the shot fired from this heat on, and what it does to you'] = '從該熱量值起發射的射彈，以及它對你自己造成的效果',
       ['the spare ammo in its backpack; read when the backpack is called in'] = '背包裡的備用彈藥；在被投放時讀取',
@@ -6341,6 +6352,7 @@ MOD.langs = {
       ['weapon\'s fire rate, ammo, handling and heat. To tune the shot, edit the chosen weapon.'] = '射速、彈藥、操控和熱量保持不變。要調整射彈，請編輯所選武器。',
       ['what each hit applies; the slots go in order'] = '每次命中施加的狀態；狀態槽需按順序填寫',
       ['what it has left once its health is gone, lost over time'] = '生命值耗盡後剩餘的部分，隨時間流失',
+      ['where it hangs when put away: 0 on the back, 1 on the hip'] = '收起時掛在哪裡：0 背部，1 腰部',
     },
     lower = {
       ['"+ new preset" (or insert) saves your current changes as one; you name it next.'] = '「+ 新建預設」（或 Insert 鍵）會把當前修改存為一組，接著你可以為它命名。',
@@ -8675,6 +8687,10 @@ MOD.langs = {
       ['Hive Breaker Drill'] = 'Бур «Крушитель ульев»',
       ['Hive Guard'] = 'Страж улья',
       ['Hive Lord'] = 'Властелин улья',
+      ['Holster position (choice)'] = 'Место в кобуре (выбор)',
+      ['Holster: 0 back or 1 hip.'] = 'Кобура: 0 на спине или 1 на бедре.',
+      ['Holster: Back'] = 'Кобура: на спине',
+      ['Holster: Hip'] = 'Кобура: на бедре',
       ['Homing Anti-Air Missile'] = 'Самонаводящаяся ракета ПВО',
       ['Homing Ground Missile'] = 'Самонаводящаяся ракета «воздух-земля»',
       ['Homing Ground Missile Mk2'] = 'Самонаводящаяся ракета «воздух-земля» Mk2',
@@ -9747,6 +9763,7 @@ MOD.langs = {
       ['the force a hit needs to stagger them'] = 'сила удара, нужная, чтобы их ошеломить',
       ['the game holds back reinforcements past about 100 enemies at x1; it has crashed past 200-240 enemies alive'] = 'при x1 игра сдерживает подкрепления после ~100 врагов; при 200-240 живых врагах бывали вылеты',
       ['the game\'s tiers: 10 small arms, 20 HMG, 30 autocannon, 40 Strider, 50 orbital, 60 Hellbomb, 250 never'] = 'уровни игры: 10 стрелковое, 20 тяжелый пулемет, 30 автопушка, 40 Страйдер, 50 орбитальный удар, 60 Адская бомба, 250 никогда',
+      ['the holster is on the back or the hip'] = 'кобура на спине или на бедре',
       ['the model and its body parts; very large or small sizes may look or move oddly'] = 'модель и части тела; очень большие или маленькие размеры могут выглядеть или двигаться странно',
       ['the shot fired from this heat on, and what it does to you'] = 'выстрел начиная с этого нагрева и его действие на вас',
       ['the spare ammo in its backpack; read when the backpack is called in'] = 'запас боеприпасов в его рюкзаке; читается при вызове рюкзака',
@@ -9756,6 +9773,7 @@ MOD.langs = {
       ['v3'] = 'v3',
       ['walking, patrolling, searching, fighting and charging speeds together'] = 'скорости ходьбы, патрулирования, поиска, боя и рывка вместе',
       ['what it has left once its health is gone, lost over time'] = 'остаток после потери здоровья, убывает со временем',
+      ['where it hangs when put away: 0 on the back, 1 on the hip'] = 'где висит, когда убрано: 0 на спине, 1 на бедре',
     },
     lower = {
       ['100kg bomb'] = 'Бомба (100 кг)',
@@ -15681,6 +15699,7 @@ local function resolve(weapon)
     resolve_gun(weapon, weapon.key)
     if not weapon.mounted and (weapon.slot == 'Primary' or weapon.slot == 'Secondary') then
         MOD.slot.row(weapon)
+        if weapon.slot == 'Primary' then MOD.holster.row(weapon) end
     end
 end
 
@@ -16159,6 +16178,7 @@ local function row_value(row, default)
     if row.choice == 'grenade' and not default and row.parts[1].field.pending_value ~= nil then
         return row.parts[1].field.pending_value
     end
+    if row.choice == 'holster' then return MOD.holster.value(row, default) end
     if row.choice or row.lead then   -- lead: the others scale with it
         local v = get(row.parts[1].field)
         return (v and row.scale) and v * row.scale + 0 or v
@@ -16662,7 +16682,7 @@ end
 -- each of theirs. nil: none.
 function MOD.parts_of(weapon, id)
     local own = weapon.by_id[id]
-    if own and own.row and own.row.choice and own.row.parts[1] == own then return own.row.parts end
+    if own and own.row and own.row.choice and own.row.choice ~= 'holster' and own.row.parts[1] == own then return own.row.parts end   -- (holster: each part its own value)
     if own then return { own } end
     local out = {}
     for _, listed in ipairs(weapon.legacy and weapon.legacy[id] or {}) do out[#out + 1] = weapon.by_id[listed] end
@@ -16858,11 +16878,38 @@ function MOD.slot.row(weapon)
     row.choice = 'slot'
     row.label_of = function() return 'Slot: ' .. (MOD.slot.NAMES[read_field(f) or 0] or '?') end
     row.note = 'the armory list it is in: 1 primary, 3 secondary'
-    -- at the bottom, above the projectile swap
+    MOD.slot.place(weapon, row)
+end
+-- at the bottom, above the projectile swap
+function MOD.slot.place(weapon, row)
     table.remove(weapon.rows)
     local at = #weapon.rows + 1
     for k, r in ipairs(weapon.rows) do if r.section == 'Projectile swap' then at = k; break end end
     table.insert(weapon.rows, at, row)
+end
+
+-- Holster position (issue #101): a primary carried on the back, or on the hip where pistols hang. EquipmentComponent
+-- +28 the holster node (primaries EC864C61, pistols CCF501C7), +32 / +44 its rotation (deg) / position offsets
+-- (pistols: none). Hip writes the pistols' node and no offsets; Back puts the weapon's own back.
+MOD.holster = { BACK = 0xEC864C61, HIP = 0xCCF501C7, NAMES = { [0] = 'Back', [1] = 'Hip' } }
+function MOD.holster.row(weapon)
+    local t = tables[TYPES.equipment]
+    local off = t and t.index[weapon.key]
+    if not off or default_of(field_at(TYPES.equipment, off + 28, 'u32', 4294967295)) ~= MOD.holster.BACK then return end
+    local parts = { part('holster', TYPES.equipment, off + 28, 'u32', 4294967295) }
+    parts[1].field.allowed = { [MOD.holster.BACK] = true, [MOD.holster.HIP] = true, why = 'the holster is on the back or the hip' }
+    for k = 1, 6 do
+        parts[k + 1] = part('holster_' .. k, TYPES.equipment, off + 28 + 4 * k, 'f32', 360)
+        parts[k + 1].field.signed = true
+    end
+    local row = add_row(weapon, 'Loadout', 'holster', 'Holster position (choice)', 'u32', parts, 0, 1, 1, 1)
+    row.choice = 'holster'
+    row.label_of = function() return 'Holster: ' .. MOD.holster.NAMES[MOD.holster.value(row)] end
+    row.note = 'where it hangs when put away: 0 on the back, 1 on the hip'
+    MOD.slot.place(weapon, row)
+end
+function MOD.holster.value(row, default)
+    return (default and default_of or read_field)(row.parts[1].field) == MOD.holster.HIP and 1 or 0
 end
 
 -- ---------------------------------------------------------------- scan client
@@ -17472,6 +17519,23 @@ local function change(row, delta_sign, big, exact)
             local ok, err = write_field(p.field, target)
             if ok then set_override(weapon, p, unless_default(target, default_of(p.field)))
             else ui.message = { text = err, till = api.now() + 4 } end
+            ui.version = ui.version + 1
+            return
+        end
+        if row.choice == 'holster' then   -- 0 back (the weapon's own node and offsets), 1 hip (the pistols')
+            local target = exact and math.floor(exact + 0.5) or 1 - current
+            if not MOD.holster.NAMES[target] then
+                ui.message = { text = 'Holster: 0 back or 1 hip.', till = api.now() + 4 }
+                return
+            end
+            if target == current then return end
+            for k, p in ipairs(row.parts) do
+                local d = default_of(p.field)
+                local new = target == 0 and d or (k == 1 and MOD.holster.HIP or 0)
+                local ok, why = write_field(p.field, new)
+                if ok then set_override(weapon, p, unless_default(new, d))
+                else log('write refused: ' .. weapon.name .. ' ' .. p.id .. ': ' .. why) end
+            end
             ui.version = ui.version + 1
             return
         end
