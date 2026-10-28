@@ -987,6 +987,7 @@ MOD.langs = {
       ['Ammo capacity'] = '弹药容量',
       ['Ammo carried'] = '携带弹药',
       ['Ammo from resupply'] = '补给箱补充弹药',
+      ['Ammo per puff'] = '每次喷射耗弹',
       ['Ammunition'] = '弹药',
       ['Ammunition Stockpile'] = '弹药库',
       ['Angled Foregrip'] = '倾斜前握把',
@@ -1589,6 +1590,7 @@ MOD.langs = {
       ['Hijack Tech Hub Nexus Machine'] = '技术中心枢纽机器',
       ['Hips'] = '腰部',
       ['Hips armor'] = '髋部装甲',
+      ['Hit radius (m)'] = '命中半径（米）',
       ['Hive Breaker Drill'] = '“虫窝破裂者”钻机',
       ['Hive Guard'] = '虫窝护卫',
       ['Hive Lord'] = '霸王虫',
@@ -2018,6 +2020,7 @@ MOD.langs = {
       ['Penetration slowdown'] = '穿透后速度衰减',
       ['Phalanx'] = '方阵',
       ['Physical shield'] = '实体护盾',
+      ['Pilot light goes out after (s)'] = '引火熄灭时间（秒）',
       ['Pilot seat'] = '驾驶座',
       ['Pineapple'] = '菠萝',
       ['Plasma Pistol. Canister Extended'] = '等离子手枪：扩容弹药罐',
@@ -2313,6 +2316,7 @@ MOD.langs = {
       ['Sentry'] = '哨戒炮',
       ['Sentry: its cooldown, its body, then its weapon.'] = '哨戒炮：依次为冷却时间、本体、武器。',
       ['Servo-Assisted'] = '伺服辅助',
+      ['Sets off mines'] = '会引爆地雷',
       ['Settings'] = '设置',
       ['Settings are saved at once, in config.txt with your changes.'] = '设置会与你的修改一并即时保存到 config.txt。',
       ['Several vehicles of a kind'] = '同类载具数量',
@@ -2402,6 +2406,7 @@ MOD.langs = {
       ['Spore Lung'] = '孢肺',
       ['Spore Spewer'] = '孢子喷涌虫',
       ['Spotting range (m)'] = '索敌距离(米)',
+      ['Spray'] = '喷射',
       ['Spread (horizontal)'] = '散布(水平)',
       ['Spread (vertical)'] = '散布(垂直)',
       ['Spread area (m)'] = '散布范围(米)',
@@ -2645,6 +2650,7 @@ MOD.langs = {
       ['Walking backwards (multiplier)'] = '后退行走(倍率)',
       ['Walking speed (m/s)'] = '弹幕推进速度（米/秒）',
       ['War Strider'] = '战争纵步者',
+      ['Warm-up before it sprays (s)'] = '喷射前预热（秒）',
       ['Warp Gateway'] = '传送门',
       ['Warp Pack'] = '传送背包',
       ['Warp Ship'] = '穿梭舰',
@@ -4578,6 +4584,7 @@ MOD.langs = {
       ['Ammo capacity'] = '彈藥容量',
       ['Ammo carried'] = '攜帶彈藥',
       ['Ammo from resupply'] = '補給箱補充彈藥',
+      ['Ammo per puff'] = '每次噴射耗彈',
       ['Ammunition'] = '彈藥',
       ['Ammunition Stockpile'] = '彈藥庫',
       ['Angled Foregrip'] = '傾斜前握把',
@@ -5180,6 +5187,7 @@ MOD.langs = {
       ['Hijack Tech Hub Nexus Machine'] = '技術中心樞紐機器',
       ['Hips'] = '腰部',
       ['Hips armor'] = '髖部裝甲',
+      ['Hit radius (m)'] = '命中半徑（米）',
       ['Hive Breaker Drill'] = '破巢鑽',
       ['Hive Guard'] = '守穴蟲',
       ['Hive Lord'] = '霸王蟲',
@@ -5609,6 +5617,7 @@ MOD.langs = {
       ['Penetration slowdown'] = '穿透後速度衰減',
       ['Phalanx'] = '方陣',
       ['Physical shield'] = '實體護盾',
+      ['Pilot light goes out after (s)'] = '引火熄滅時間（秒）',
       ['Pilot seat'] = '駕駛座',
       ['Pineapple'] = '鳳梨',
       ['Plasma Pistol. Canister Extended'] = '等離子手槍：擴容彈藥罐',
@@ -5904,6 +5913,7 @@ MOD.langs = {
       ['Sentry'] = '哨戒炮',
       ['Sentry: its cooldown, its body, then its weapon.'] = '哨戒炮：依次為冷卻時間、本體、武器。',
       ['Servo-Assisted'] = '伺服輔助',
+      ['Sets off mines'] = '會引爆地雷',
       ['Settings'] = '設定',
       ['Settings are saved at once, in config.txt with your changes.'] = '設定會與你的修改一併即時儲存到 config.txt。',
       ['Several vehicles of a kind'] = '同類載具數量',
@@ -5993,6 +6003,7 @@ MOD.langs = {
       ['Spore Lung'] = '孢肺',
       ['Spore Spewer'] = '逸孢巢',
       ['Spotting range (m)'] = '索敵距離(米)',
+      ['Spray'] = '噴射',
       ['Spread (horizontal)'] = '散佈(水平)',
       ['Spread (vertical)'] = '散佈(垂直)',
       ['Spread area (m)'] = '散佈範圍(米)',
@@ -6236,6 +6247,7 @@ MOD.langs = {
       ['Walking backwards (multiplier)'] = '後退行走(倍率)',
       ['Walking speed (m/s)'] = '彈幕推進速度（米/秒）',
       ['War Strider'] = '戰爭闊步者',
+      ['Warm-up before it sprays (s)'] = '噴射前預熱（秒）',
       ['Warp Gateway'] = '傳送通道',
       ['Warp Pack'] = '傳送背包',
       ['Warp Ship'] = '傳送艇',
@@ -8164,6 +8176,7 @@ MOD.langs = {
       ['Ammo capacity'] = 'Запас боеприпасов',
       ['Ammo carried'] = 'Боеприпасы при себе',
       ['Ammo from resupply'] = 'Боеприпасы из пополнения',
+      ['Ammo per puff'] = 'Патронов за выброс',
       ['Ammunition'] = 'Боеприпасы',
       ['Ammunition Stockpile'] = 'Склад боеприпасов',
       ['Angled Foregrip'] = 'Угловая рукоять',
@@ -8726,6 +8739,7 @@ MOD.langs = {
       ['Hijack Tech Hub Nexus Machine'] = 'Машина узла техцентра',
       ['Hips'] = 'Таз',
       ['Hips armor'] = 'Броня бёдер',
+      ['Hit radius (m)'] = 'Радиус попадания (м)',
       ['Hive Breaker Drill'] = 'Бур «Крушитель ульев»',
       ['Hive Guard'] = 'Страж улья',
       ['Hive Lord'] = 'Властелин улья',
@@ -9134,6 +9148,7 @@ MOD.langs = {
       ['Penetration slowdown'] = 'Замедление при пробитии',
       ['Phalanx'] = 'фаланга',
       ['Physical shield'] = 'Физический щит',
+      ['Pilot light goes out after (s)'] = 'Запальник гаснет через (с)',
       ['Pilot seat'] = 'Кресло пилота',
       ['Pineapple'] = 'Лимонка',
       ['Plasma Pistol. Canister Extended'] = 'Плазменный пистолет. Увеличенный баллон',
@@ -9412,6 +9427,7 @@ MOD.langs = {
       ['Sentry'] = 'Турель',
       ['Sentry: its cooldown, its body, then its weapon.'] = 'Турель: перезарядка, корпус, затем оружие.',
       ['Servo-Assisted'] = 'Сервопривод',
+      ['Sets off mines'] = 'Подрывает мины',
       ['Settings'] = 'Настройки',
       ['Settings are saved at once, in config.txt with your changes.'] = 'Настройки сохраняются сразу, в config.txt вместе с вашими изменениями.',
       ['Several vehicles of a kind'] = 'Несколько машин одного вида',
@@ -9494,6 +9510,7 @@ MOD.langs = {
       ['Spore Lung'] = 'Споровое легкое',
       ['Spore Spewer'] = 'Рассеиватель спор',
       ['Spotting range (m)'] = 'Дальность обнаружения (м)',
+      ['Spray'] = 'Распыление',
       ['Spread (horizontal)'] = 'Разброс (по горизонтали)',
       ['Spread (vertical)'] = 'Разброс (по вертикали)',
       ['Spread area (m)'] = 'Площадь разброса (м)',
@@ -9718,6 +9735,7 @@ MOD.langs = {
       ['Walking backwards (multiplier)'] = 'Ходьба назад (множитель)',
       ['Walking speed (m/s)'] = 'Скорость ходьбы (м/с)',
       ['War Strider'] = 'Боевой шатун',
+      ['Warm-up before it sprays (s)'] = 'Разогрев перед распылением (с)',
       ['Warp Gateway'] = 'Варп-врата',
       ['Warp Pack'] = 'Варп-ранец',
       ['Warp Ship'] = 'Варп-корабль',
@@ -12883,6 +12901,18 @@ local function resolve_gun(weapon, key)
     local function record(kind)
         local entry = tables[kind]
         return entry and entry.index[key]
+    end
+    -- (from LovedeHua's fork) flame and gas weapons (SprayWeaponComponentData): +0 warm-up, +4 how long the
+    -- pilot light stays lit, +16 hit radius, +192 ammo per puff, +208 sets off mines
+    local spray = record(T_SPRAY)
+    for _, f in ipairs(spray and {
+        { 'spray_warmup', 'Warm-up before it sprays (s)', 0, 'f32', 10, 0.1, 0.5 },
+        { 'spray_cooldown', 'Pilot light goes out after (s)', 4, 'f32', 60, 0.5, 2 },
+        { 'spray_radius', 'Hit radius (m)', 16, 'f32', 10, 0.05, 0.25 },
+        { 'spray_cost', 'Ammo per puff', 192, 'u32', 100, 1, 5 },
+        { 'spray_mines', 'Sets off mines', 208, 'flag', 1, 1, 1 },
+    } or {}) do
+        add_row(weapon, 'Spray', f[1], f[2], f[4], { part(f[1], T_SPRAY, spray + f[3], f[4], 100000) }, 0, f[5], f[6], f[7])
     end
     -- its magazine attachments, each with rows of its own (KINDS[TYPES.items].item_rows); a magazine /
     -- reload / heat value of the weapon's own record ('component:offset') has a row while one of them
