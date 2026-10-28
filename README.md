@@ -22,12 +22,11 @@ no longer works; SSEO replaces it. See [In-game version](#in-game-version).
 
 | Section | Stats |
 |---|---|
-| Damage | Damage, durable damage, armor penetration, demolition force, stagger force, push force |
+| Damage | Damage, durable damage, fire rate, armor penetration, demolition force, stagger force, push force |
 | Projectile | Projectiles per shot, velocity, drag factor, penetration slowdown |
 | Explosion | Inner, outer and shockwave radius of the blast; the Breaching Hammer's explosion also has its full damage set |
 | Arc | Range, chain length, chain split |
 | Burning / Gas | How much fire or gas each hit applies; burn / gas damage, armor penetration and duration |
-| Fire | Fire rate |
 | Ammo | Magazine size, starting magazines, magazines from supply, max spare magazines, reload time, rounds per reload and reload allowed below (clip weapons, in-game version only) |
 | Handling | Recoil, spread, sway, ergonomics |
 | Heat | Overheat threshold, heat per shot / per second, cool-down time, heatsinks |
