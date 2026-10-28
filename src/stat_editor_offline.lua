@@ -2494,6 +2494,7 @@ MOD.langs = {
       ['The charge backpack, the charge and its blast. Cooldown: Stratagems tab.'] = '炸药背包、炸药包及其爆炸。冷却时间见“战略配备”页。',
       ['The explosion the round sets off when it hits something. 0: no explosion.'] = '射弹命中物体时引发的爆炸。0：不爆炸。',
       ['The flamethrower you carry.'] = '你携带的火焰喷射器。',
+      ['The game holds at most 1023 rounds in a backpack.'] = '游戏中一个背包最多容纳 1023 发。',
       ['The game holds at most 2048 rounds in a magazine.'] = '游戏中一个弹匣最多容纳 2048 发。',
       ['The game treats the weapon as one-handed. On two-handed weapons it breaks the hip-fire animations.'] = '游戏将该武器视为单手武器。双手武器会因此破坏腰射动画。',
       ['The game\'s own files are already in place.'] = '当前已是游戏原始文件。',
@@ -6062,6 +6063,7 @@ MOD.langs = {
       ['The charge backpack, the charge and its blast. Cooldown: Stratagems tab.'] = '炸藥背包、炸藥包及其爆炸。冷卻時間見「戰略配備」頁。',
       ['The explosion the round sets off when it hits something. 0: no explosion.'] = '射彈命中物體時引發的爆炸。0：不爆炸。',
       ['The flamethrower you carry.'] = '你攜帶的火焰噴射器。',
+      ['The game holds at most 1023 rounds in a backpack.'] = '遊戲中一個背包最多容納 1023 發。',
       ['The game holds at most 2048 rounds in a magazine.'] = '遊戲中一個彈匣最多容納 2048 發。',
       ['The game treats the weapon as one-handed. On two-handed weapons it breaks the hip-fire animations.'] = '遊戲將該武器視為單手武器。雙手武器會因此破壞腰射動畫。',
       ['The game\'s own files are already in place.'] = '當前已是遊戲原始檔案。',
@@ -9528,6 +9530,7 @@ MOD.langs = {
       ['The charge backpack, the charge and its blast. Cooldown: Stratagems tab.'] = 'Рюкзак с зарядом, сам заряд и его взрыв. Перезарядка: вкладка «Стратагемы».',
       ['The explosion the round sets off when it hits something. 0: no explosion.'] = 'Взрыв, который снаряд вызывает при попадании во что-либо. 0: без взрыва.',
       ['The flamethrower you carry.'] = 'Огнемет, который вы носите.',
+      ['The game holds at most 1023 rounds in a backpack.'] = 'Игра вмещает в рюкзак не более 1023 патронов.',
       ['The game holds at most 2048 rounds in a magazine.'] = 'Игра вмещает в магазин не более 2048 патронов.',
       ['The game treats the weapon as one-handed. On two-handed weapons it breaks the hip-fire animations.'] = 'Игра считает оружие одноручным. У двуручного оружия ломает анимации стрельбы от бедра.',
       ['The game\'s own files are already in place.'] = 'Исходные файлы игры уже на месте.',
@@ -14046,7 +14049,7 @@ KINDS[TYPES.jumppack].backpack = function(entry, key, ammo)
         return t and t.index[key]
     end
     local function r(section, id, label, kind, offset, storage, max, small, big, parts)
-        add_row(entry, section, id, label, storage, parts or { part(id, kind, offset, storage, 1000000) }, 0, max, small, big)
+        return add_row(entry, section, id, label, storage, parts or { part(id, kind, offset, storage, 1000000) }, 0, max, small, big)
     end
     local jump, recharge = at(TYPES.jumppack), at(TYPES.recharge)
     if jump then
@@ -14145,12 +14148,14 @@ KINDS[TYPES.jumppack].backpack = function(entry, key, ammo)
     if deposit and ammo then
         -- a support weapon's ammo backpack: the spare rockets / magazines it reloads from, or the rounds
         -- a belt-fed weapon fires from it
+        -- the game sends a backpack's ammo count in 10 bits: rows stop at 1023, and going past it says why
+        local cap = 'The game holds at most 1023 rounds in a backpack.'
         local first = add_row(entry, 'Backpack', 'bp_ammo', 'Ammo carried', 'u32',
-                              { part('bp_ammo', TYPES.deposit, deposit, 'u32', 1000000) }, 0, 100000, 1, 10)
-        first.note = 'the spare ammo in its backpack; read when the backpack is called in'
+                              { part('bp_ammo', TYPES.deposit, deposit, 'u32', 1000000) }, 0, 1023, 1, 10)
+        first.note, first.limit = 'the spare ammo in its backpack; read when the backpack is called in', cap
         local start = read_field(field_at(TYPES.deposit, deposit + 4, 'u32', 0xFFFFFFFF))
-        if start and start ~= 0xFFFFFFFF then r('Backpack', 'bp_ammo_start', 'Ammo at the start', TYPES.deposit, deposit + 4, 'u32', 100000, 1, 10) end
-        r('Backpack', 'bp_ammo_supply', 'Ammo from resupply', TYPES.deposit, deposit + 8, 'u32', 100000, 1, 10)
+        if start and start ~= 0xFFFFFFFF then r('Backpack', 'bp_ammo_start', 'Ammo at the start', TYPES.deposit, deposit + 4, 'u32', 1023, 1, 10).limit = cap end
+        r('Backpack', 'bp_ammo_supply', 'Ammo from resupply', TYPES.deposit, deposit + 8, 'u32', 1023, 1, 10).limit = cap
     elseif deposit then
         r('Backpack', 'bp_charges', 'Charges', TYPES.deposit, deposit, 'u32', 999, 1, 5)
         local start = read_field(field_at(TYPES.deposit, deposit + 4, 'u32', 0xFFFFFFFF))
