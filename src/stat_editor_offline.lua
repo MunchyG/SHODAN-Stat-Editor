@@ -1087,6 +1087,7 @@ MOD.langs = {
       ['Base'] = '基础',
       ['Bastion MK XVI'] = '堡垒Mk XVI',
       ['Battery'] = '电池',
+      ['Bayonet melee'] = '刺刀近战',
       ['Beamer'] = '光束器',
       ['Belt-Fed Grenade Launcher'] = '弹链式榴弹发射器',
       ['Berserker'] = '狂暴者',
@@ -1894,6 +1895,7 @@ MOD.langs = {
       ['Medic Backpack'] = '医疗背包',
       ['Medium Plasma Bolt'] = '中型等离子弹',
       ['Medium armor'] = '中型护甲',
+      ['Melee'] = '近战',
       ['Melee damage'] = '近战伤害',
       ['Melta Mine'] = '热熔地雷',
       ['Meltagun'] = '热熔枪',
@@ -4722,6 +4724,7 @@ MOD.langs = {
       ['Base'] = '基礎',
       ['Bastion MK XVI'] = '堡壘Mk XVI',
       ['Battery'] = '電池',
+      ['Bayonet melee'] = '刺刀近戰',
       ['Beamer'] = '光束器',
       ['Belt-Fed Grenade Launcher'] = '彈鏈式榴彈發射器',
       ['Berserker'] = '狂暴者',
@@ -5529,6 +5532,7 @@ MOD.langs = {
       ['Medic Backpack'] = '醫療背包',
       ['Medium Plasma Bolt'] = '中型電漿彈',
       ['Medium armor'] = '中型護甲',
+      ['Melee'] = '近戰',
       ['Melee damage'] = '近戰傷害',
       ['Melta Mine'] = '熱熔地雷',
       ['Meltagun'] = '熱熔槍',
@@ -8349,6 +8353,7 @@ MOD.langs = {
       ['Base'] = 'базовый',
       ['Bastion MK XVI'] = 'Mk-XVI «Бастион»',
       ['Battery'] = 'Батарея',
+      ['Bayonet melee'] = 'Удар штыком',
       ['Beamer'] = 'Излучатель',
       ['Belt-Fed Grenade Launcher'] = 'Ленточный гранатомет',
       ['Berserker'] = 'Берсерк',
@@ -9107,6 +9112,7 @@ MOD.langs = {
       ['Med-Kit'] = 'Аптечка',
       ['Medium Plasma Bolt'] = 'Средний заряд плазмы',
       ['Medium armor'] = 'Средняя броня',
+      ['Melee'] = 'Ближний бой',
       ['Melee damage'] = 'Урон в ближнем бою',
       ['Melta Mine'] = 'Плавкомина',
       ['Meltagun'] = 'Плавкопушка',
@@ -12854,6 +12860,16 @@ KINDS[TYPES.avatar].resolve = function(entry)
                     add_row(entry, section, prefix .. f[1], f[2], 'f32', { p }, v < 0 and -f[4] or 0, f[4], f[5], f[6])
                 end
             end
+        end
+    end
+    -- melee strikes: damage rows DamageInfoType_Ability_Avatar_Melee (560) and _Melee_Bayonet (568), shared by every weapon
+    for _, m in ipairs({ { 560, 'Melee', 'melee_' }, { 568, 'Bayonet melee', 'bayonet_' } }) do
+        local drow = tables[T_DAMAGE] and tables[T_DAMAGE].index[m[1]]
+        for _, s in ipairs(drow and { { 'damage', 'Damage', 4, 1, 10 }, { 'durable', 'Durable damage', 8, 1, 10 },
+                                      { 'ap', 'Armor penetration', 12, 1, 1 }, { 'stagger', 'Stagger force', 32, 1, 10 },
+                                      { 'push', 'Push force', 36, 1, 10 } } or {}) do
+            add_row(entry, m[2], m[3] .. s[1], s[2], 'u32', { part(m[3] .. s[1], T_DAMAGE, drow + s[3], 'u32', 1000000) }, 0,
+                    s[1] == 'ap' and 10 or 100000, s[4], s[5])
         end
     end
 end
