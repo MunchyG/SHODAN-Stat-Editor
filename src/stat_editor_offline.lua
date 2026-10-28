@@ -973,10 +973,13 @@ MOD.langs = {
       ['Adreno-Defibrillator'] = '肾上腺素除颤器',
       ['Advanced Filtration'] = '高级过滤能力',
       ['Agitator'] = '惑乱者',
+      ['Aim flinch when shot at'] = '受击时瞄准抖动',
+      ['Aim flinch when shot at (x)'] = '受击时瞄准抖动 (x)',
       ['Aim limit, down (deg)'] = '瞄准下限（度）',
       ['Aim limit, left (deg)'] = '瞄准左限（度）',
       ['Aim limit, right (deg)'] = '瞄准右限（度）',
       ['Aim limit, up (deg)'] = '瞄准上限（度）',
+      ['Aim recovery (per second)'] = '瞄准恢复（每秒）',
       ['Aim zoom (x)'] = '瞄准放大倍率 (x)',
       ['Aiming sway'] = '瞄准晃动',
       ['Airborne'] = '空降',
@@ -1386,6 +1389,7 @@ MOD.langs = {
       ['Enemy Editor'] = '敌人编辑器',
       ['Enemy cap (x)'] = '敌人数量上限 (x)',
       ['Enemy detection range'] = '敌人侦测范围',
+      ['Enemy shots count within (m)'] = '敌方射击生效范围（米）',
       ['Enemy.'] = '敌人。',
       ['Engine front'] = '前引擎',
       ['Engine rear'] = '后引擎',
@@ -1926,6 +1930,7 @@ MOD.langs = {
       ['Modifier patrol frequency (x)'] = '修正巡逻频率 (x)',
       ['Modifier patrol size (x)'] = '修正巡逻规模 (x)',
       ['Mortar Sentry'] = '迫击哨戒炮',
+      ['Most suppression'] = '最大压制',
       ['Mouth'] = '口部',
       ['Move while reloading'] = '换弹时可移动',
       ['Movement'] = '移动',
@@ -1937,6 +1942,7 @@ MOD.langs = {
       ['Napalm Bomb Mk2'] = '凝固汽油弹 MK2',
       ['Napalm Bomb Mk3'] = '凝固汽油弹 MK3',
       ['Navigation'] = '导航',
+      ['Near misses suppress you'] = '擦身而过的射击会压制你',
       ['Neck'] = '颈部',
       ['Neck armor'] = '颈部装甲',
       ['Neck body'] = '颈部（本体）',
@@ -2384,6 +2390,8 @@ MOD.langs = {
       ['Shockwave radius (m)'] = '冲击波半径(米)',
       ['Short Magazine'] = '短弹匣',
       ['Shotgun'] = '霰弹枪',
+      ['Shots count within (m)'] = '射击生效范围（米）',
+      ['Shots count within (x)'] = '射击生效范围 (x)',
       ['Shoulder Mounted Camera'] = '肩载摄像机',
       ['Showing only what you changed, from every tab. Click * again to show everything.'] = '只显示你改过的内容（所有标签页）。再点 * 显示全部。',
       ['Shrapnel'] = '榴霰弹',
@@ -2525,6 +2533,7 @@ MOD.langs = {
       ['Support reload speed'] = '支援武器装填速度',
       ['Support weapon drop; the weapon itself is under Support.'] = '支援武器空投；武器本身列在“支援武器”分类下。',
       ['Suppressed'] = '消音',
+      ['Suppression'] = '压制',
       ['Suppressor'] = '消音器',
       ['Sure?'] = '确定？',
       ['Surplus EAT Allocation'] = '盈余EAT配给',
@@ -2763,6 +2772,7 @@ MOD.langs = {
       ['destruction tiers'] = '破坏等级',
       ['direct hit: the same as the first mode\'s (Damage above)'] = '直击：与第一种模式相同（见上方“伤害”）',
       ['elite'] = '精英',
+      ['enemies at 0 stay immune'] = '为 0 的敌人仍然免疫',
       ['every enemy with this attack shares it'] = '所有拥有此攻击的敌人共用',
       ['fake'] = '伪装',
       ['fire mode'] = '射击模式',
@@ -2774,12 +2784,17 @@ MOD.langs = {
       ['heavycannon'] = '重炮',
       ['hellpod rack'] = '空投舱挂架',
       ['hexagon'] = '六边形',
+      ['how close enemy fire must pass to shake your aim; 0: never'] = '敌方火力需掠过多近才会干扰你的瞄准；0：从不',
+      ['how close your shots must land to rattle it'] = '你的射击需落在多近才能干扰它',
+      ['how far it can build up; 0: none'] = '可累积的上限；0：无',
       ['how fast a body part\'s bleed-out health runs out'] = '部位失血生命值耗尽的速度',
+      ['how fast its aim settles again; higher: sooner'] = '其瞄准恢复稳定的速度；越高越快',
       ['how fast the bleed-out health runs out'] = '失血生命值耗尽的速度',
       ['how long it keeps after you once you break line of sight'] = '脱离视线后它继续追击你的时长',
       ['how many of the items on its rack come down in one pod'] = '一个舱里落下它架子上的几件物品',
       ['how much gas it takes to confuse it'] = '使其混乱所需的毒气量',
       ['how much stun it takes to stun it'] = '使其眩晕所需的眩晕量',
+      ['how much your fire throws off its aim; 0: never'] = '你的火力对其瞄准的干扰程度；0：从不',
       ['how often the beam deals its damage while it touches'] = '光束接触时造成伤害的频率',
       ['how quickly the view follows your aim at this zoom; lower it if a high zoom spins the view'] = '此倍率下视野跟随瞄准的速度；如果高倍率时视野旋转，请调低',
       ['its height above its flight route; lower flies closer to the ground (terrain still holds it up)'] = '高于飞行路线的高度；越低越贴近地面（地形仍会托住它）',
@@ -4643,10 +4658,13 @@ MOD.langs = {
       ['Adreno-Defibrillator'] = '腎上腺素除顫器',
       ['Advanced Filtration'] = '進階過濾',
       ['Agitator'] = '煽動者',
+      ['Aim flinch when shot at'] = '受擊時瞄準抖動',
+      ['Aim flinch when shot at (x)'] = '受擊時瞄準抖動 (x)',
       ['Aim limit, down (deg)'] = '瞄準下限（度）',
       ['Aim limit, left (deg)'] = '瞄準左限（度）',
       ['Aim limit, right (deg)'] = '瞄準右限（度）',
       ['Aim limit, up (deg)'] = '瞄準上限（度）',
+      ['Aim recovery (per second)'] = '瞄準恢復（每秒）',
       ['Aim zoom (x)'] = '瞄準放大倍率 (x)',
       ['Aiming sway'] = '瞄準晃動',
       ['Airborne'] = '空降',
@@ -5056,6 +5074,7 @@ MOD.langs = {
       ['Enemy Editor'] = '敵人編輯器',
       ['Enemy cap (x)'] = '敵人數量上限 (x)',
       ['Enemy detection range'] = '敵人偵測範圍',
+      ['Enemy shots count within (m)'] = '敵方射擊生效範圍（米）',
       ['Enemy.'] = '敵人。',
       ['Engine front'] = '前引擎',
       ['Engine rear'] = '後引擎',
@@ -5596,6 +5615,7 @@ MOD.langs = {
       ['Modifier patrol frequency (x)'] = '修正巡邏頻率 (x)',
       ['Modifier patrol size (x)'] = '修正巡邏規模 (x)',
       ['Mortar Sentry'] = '哨戒迫擊炮',
+      ['Most suppression'] = '最大壓制',
       ['Mouth'] = '口部',
       ['Move while reloading'] = '換彈時可移動',
       ['Movement'] = '移動',
@@ -5607,6 +5627,7 @@ MOD.langs = {
       ['Napalm Bomb Mk2'] = '凝固汽油彈MK2',
       ['Napalm Bomb Mk3'] = '凝固汽油彈MK3',
       ['Navigation'] = '導航',
+      ['Near misses suppress you'] = '擦身而過的射擊會壓制你',
       ['Neck'] = '頸部',
       ['Neck armor'] = '頸部裝甲',
       ['Neck body'] = '頸部（本體）',
@@ -6054,6 +6075,8 @@ MOD.langs = {
       ['Shockwave radius (m)'] = '衝擊波半徑(米)',
       ['Short Magazine'] = '短型彈匣',
       ['Shotgun'] = '霰彈槍',
+      ['Shots count within (m)'] = '射擊生效範圍（米）',
+      ['Shots count within (x)'] = '射擊生效範圍 (x)',
       ['Shoulder Mounted Camera'] = '肩載攝像機',
       ['Showing only what you changed, from every tab. Click * again to show everything.'] = '只顯示你改過的內容（所有標籤頁）。再點 * 顯示全部。',
       ['Shrapnel'] = '榴散彈',
@@ -6195,6 +6218,7 @@ MOD.langs = {
       ['Support reload speed'] = '支援武器裝填速度',
       ['Support weapon drop; the weapon itself is under Support.'] = '支援武器空投；武器本身列在「支援武器」分類下。',
       ['Suppressed'] = '消音',
+      ['Suppression'] = '壓制',
       ['Suppressor'] = '消音器',
       ['Sure?'] = '確定？',
       ['Surplus EAT Allocation'] = '剩餘EAT配給',
@@ -6433,6 +6457,7 @@ MOD.langs = {
       ['destruction tiers'] = '破壞等級',
       ['direct hit: the same as the first mode\'s (Damage above)'] = '直擊：與第一種模式相同（見上方「傷害」）',
       ['elite'] = '精英',
+      ['enemies at 0 stay immune'] = '為 0 的敵人仍然免疫',
       ['every enemy with this attack shares it'] = '所有擁有此攻擊的敵人共用',
       ['fake'] = '偽裝',
       ['fire mode'] = '射擊模式',
@@ -6444,12 +6469,17 @@ MOD.langs = {
       ['heavycannon'] = '重炮',
       ['hellpod rack'] = '空投艙掛架',
       ['hexagon'] = '六邊形',
+      ['how close enemy fire must pass to shake your aim; 0: never'] = '敵方火力需掠過多近才會干擾你的瞄準；0：從不',
+      ['how close your shots must land to rattle it'] = '你的射擊需落在多近才能干擾它',
+      ['how far it can build up; 0: none'] = '可累積的上限；0：無',
       ['how fast a body part\'s bleed-out health runs out'] = '部位失血生命值耗盡的速度',
+      ['how fast its aim settles again; higher: sooner'] = '其瞄準恢復穩定的速度；越高越快',
       ['how fast the bleed-out health runs out'] = '失血生命值耗盡的速度',
       ['how long it keeps after you once you break line of sight'] = '脫離視線後它繼續追擊你的時長',
       ['how many of the items on its rack come down in one pod'] = '一個艙裡落下它架子上的幾件物品',
       ['how much gas it takes to confuse it'] = '使其混亂所需的毒氣量',
       ['how much stun it takes to stun it'] = '使其眩暈所需的眩暈量',
+      ['how much your fire throws off its aim; 0: never'] = '你的火力對其瞄準的干擾程度；0：從不',
       ['how often the beam deals its damage while it touches'] = '光束接觸時造成傷害的頻率',
       ['how quickly the view follows your aim at this zoom; lower it if a high zoom spins the view'] = '此倍率下視野跟隨瞄準的速度；如果高倍率時視野旋轉，請調低',
       ['its height above its flight route; lower flies closer to the ground (terrain still holds it up)'] = '高於飛行路線的高度；越低越貼近地面（地形仍會托住它）',
@@ -8311,10 +8341,13 @@ MOD.langs = {
       ['Adreno-Defibrillator'] = 'Адрено-дефибрилятор',
       ['Advanced Filtration'] = 'Продвинутая фильтрация',
       ['Agitator'] = 'Подстрекатель',
+      ['Aim flinch when shot at'] = 'Сбой прицела под огнём',
+      ['Aim flinch when shot at (x)'] = 'Сбой прицела под огнём (x)',
       ['Aim limit, down (deg)'] = 'Предел наведения вниз (°)',
       ['Aim limit, left (deg)'] = 'Предел наведения влево (°)',
       ['Aim limit, right (deg)'] = 'Предел наведения вправо (°)',
       ['Aim limit, up (deg)'] = 'Предел наведения вверх (°)',
+      ['Aim recovery (per second)'] = 'Восстановление прицела (в секунду)',
       ['Aim zoom (x)'] = 'Увеличение при прицеливании (x)',
       ['Aiming sway'] = 'Покачивание при прицеливании',
       ['Airborne'] = 'десант',
@@ -8702,6 +8735,7 @@ MOD.langs = {
       ['Enemy Editor'] = 'Редактор врагов',
       ['Enemy cap (x)'] = 'Предел числа врагов (x)',
       ['Enemy detection range'] = 'Дальность обнаружения врагов',
+      ['Enemy shots count within (m)'] = 'Вражеские выстрелы считаются в пределах (м)',
       ['Enemy.'] = 'Враг.',
       ['Engine front'] = 'Передний двигатель',
       ['Engine rear'] = 'Задний двигатель',
@@ -9212,6 +9246,7 @@ MOD.langs = {
       ['Modifier patrol frequency (x)'] = 'Частота патрулей модификатора (x)',
       ['Modifier patrol size (x)'] = 'Размер патрулей модификатора (x)',
       ['Mortar Sentry'] = '«Турель с минометом»',
+      ['Most suppression'] = 'Максимальное подавление',
       ['Mouth'] = 'Пасть',
       ['Move while reloading'] = 'Движение при перезарядке',
       ['Movement'] = 'Передвижение',
@@ -9223,6 +9258,7 @@ MOD.langs = {
       ['Napalm Bomb Mk2'] = 'Напалмовая бомба Mk2',
       ['Napalm Bomb Mk3'] = 'Напалмовая бомба Mk3',
       ['Navigation'] = 'Навигация',
+      ['Near misses suppress you'] = 'Промахи рядом подавляют вас',
       ['Neck'] = 'Шея',
       ['Neck armor'] = 'Броня шеи',
       ['Neck body'] = 'Шея (тело)',
@@ -9648,6 +9684,8 @@ MOD.langs = {
       ['Shockwave radius (m)'] = 'Радиус ударной волны (м)',
       ['Short Magazine'] = 'Короткий магазин',
       ['Shotgun'] = 'дробовик',
+      ['Shots count within (m)'] = 'Выстрелы считаются в пределах (м)',
+      ['Shots count within (x)'] = 'Выстрелы считаются в пределах (x)',
       ['Showing only what you changed, from every tab. Click * again to show everything.'] = 'Показано только изменённое, со всех вкладок. Нажмите * ещё раз, чтобы показать всё.',
       ['Shrapnel'] = 'Шрапнель',
       ['Shrapnel blast radius'] = 'Радиус взрыва осколков',
@@ -9782,6 +9820,7 @@ MOD.langs = {
       ['Support reload speed'] = 'Перезарядка оружия поддержки',
       ['Support weapon drop; the weapon itself is under Support.'] = 'Сброс оружия поддержки; само оружие — во вкладке «Поддержка».',
       ['Suppressed'] = 'С глушителем',
+      ['Suppression'] = 'Подавление',
       ['Suppressor'] = 'Подавитель',
       ['Sure?'] = 'Уверены?',
       ['Surplus EAT Allocation'] = 'Выдача излишков «ОБ»',
@@ -9991,18 +10030,24 @@ MOD.langs = {
       ['damage: the same as the other rounds (Damage above)'] = 'урон: как у остальных выстрелов («Урон» выше)',
       ['direct hit: the same as the first mode\'s (Damage above)'] = 'прямое попадание: как в первом режиме («Урон» выше)',
       ['elite'] = 'элита',
+      ['enemies at 0 stay immune'] = 'враги с 0 остаются невосприимчивыми',
       ['every enemy with this attack shares it'] = 'общее для всех врагов с этой атакой',
       ['fake'] = 'ложный',
       ['gloom'] = 'Мгла',
       ['gunships, Dragonroaches, Leviathans and the like, where a planet has them'] = 'штурмовики, дракораканы, левиафаны и т. п., где они есть на планете',
       ['heavycannon'] = 'тяжелая пушка',
       ['hexagon'] = 'шестигранник',
+      ['how close enemy fire must pass to shake your aim; 0: never'] = 'как близко должен пройти вражеский огонь, чтобы сбить ваш прицел; 0: никогда',
+      ['how close your shots must land to rattle it'] = 'как близко должны лечь ваши выстрелы, чтобы сбить его',
+      ['how far it can build up; 0: none'] = 'до какого уровня оно может накопиться; 0: нет',
       ['how fast a body part\'s bleed-out health runs out'] = 'как быстро заканчивается здоровье части тела при кровотечении',
+      ['how fast its aim settles again; higher: sooner'] = 'как быстро его прицел восстанавливается; больше: быстрее',
       ['how fast the bleed-out health runs out'] = 'как быстро заканчивается здоровье при кровотечении',
       ['how long it keeps after you once you break line of sight'] = 'как долго он преследует вас после потери из виду',
       ['how many of the items on its rack come down in one pod'] = 'сколько предметов с её стойки прилетает в одной капсуле',
       ['how much gas it takes to confuse it'] = 'сколько газа нужно, чтобы его дезориентировать',
       ['how much stun it takes to stun it'] = 'сколько оглушения нужно, чтобы его оглушить',
+      ['how much your fire throws off its aim; 0: never'] = 'насколько ваш огонь сбивает его прицел; 0: никогда',
       ['how often the beam deals its damage while it touches'] = 'как часто луч наносит урон при касании',
       ['how quickly the view follows your aim at this zoom; lower it if a high zoom spins the view'] = 'как быстро прицел следует за наведением на этом увеличении; уменьшите, если на большом увеличении прицел крутится',
       ['its height above its flight route; lower flies closer to the ground (terrain still holds it up)'] = 'высота над маршрутом полёта; ниже — ближе к земле (рельеф всё равно не даёт опуститься)',
@@ -18705,6 +18750,17 @@ KINDS[TYPES.avatar].resolve = function(entry)
             add_row(entry, f[1], f[2], f[3], 'f32', { part(f[2], TYPES.avatar, m + f[4], 'f32', 100000) }, 0, f[5], f[6], f[7])
         end
     end
+    -- suppression by enemy fire (danger sensor: +0 cap, +4 radius, +8 near misses count)
+    local st = tables[TYPES.danger]
+    local s = st and st.index[entry.key]
+    if s then
+        add_row(entry, 'Suppression', 'danger_radius', 'Enemy shots count within (m)', 'f32',
+                { part('danger_radius', TYPES.danger, s + 4, 'f32', 1000) }, 0, 100, 0.5, 2).note = 'how close enemy fire must pass to shake your aim; 0: never'
+        add_row(entry, 'Suppression', 'danger_max', 'Most suppression', 'f32',
+                { part('danger_max', TYPES.danger, s, 'f32', 1000) }, 0, 1000, 1, 5).note = 'how far it can build up; 0: none'
+        add_row(entry, 'Suppression', 'danger_miss', 'Near misses suppress you', 'flag',
+                { part('danger_miss', TYPES.danger, s + 8, 'flag', 1) }, 0, 1, 1, 1)
+    end
     -- water (Shallow Water Diving's fields): the two depth offsets are below the water line (negative)
     local dt = tables[TYPES.drown]
     local d = dt and dt.index[entry.key]
@@ -21534,6 +21590,12 @@ function MOD.enemy.more_rows(entry)
     row(TYPES.sensor, 'Senses', 'sight_h', 'Sight cone width (degrees)', { 12 }, 'f32', 360, 0, 360, 1, 10)
     row(TYPES.sensor, 'Senses', 'sight_v', 'Sight cone height (degrees)', { 16 }, 'f32', 360, 0, 360, 1, 10)
     row(TYPES.ear, 'Senses', 'hearing', 'Hearing (x)', { 4 }, 'f32', 100, 0, 100, 0.05, 0.25)
+    row(TYPES.danger, 'Suppression', 'danger_radius', 'Shots count within (m)', { 4 }, 'f32', 1000, 0, 100, 0.5, 2,
+        'how close your shots must land to rattle it')
+    row(TYPES.targeting, 'Suppression', 'flinch', 'Aim flinch when shot at', { 36 }, 'f32', 1000, 0, 100, 0.1, 0.5,
+        'how much your fire throws off its aim; 0: never')
+    row(TYPES.targeting, 'Suppression', 'flinch_recover', 'Aim recovery (per second)', { 40 }, 'f32', 10000, 0, 1000, 1, 10,
+        'how fast its aim settles again; higher: sooner')
     row(TYPES.unit, 'Size', 'scale', 'Size (x)', { 8, 12 }, 'f32', 100, 0.1, 10, 0.05, 0.25,
         'the model and its body parts; on some enemies the hitboxes may not match the model, and on others it may not work at all')
     local jam_note = 'stratagems cannot be called within this distance while it stands'
@@ -21714,6 +21776,10 @@ MOD.enemy.FACTION_STATS = {
       function(page, r, p) return r.id == 'speed' and p ~= r.parts[1] end },
     { 'Senses', 'all_sight', 'Sight range (x)', 'mult', 10, nil,
       function(page, r) return not page.enemy.gun and r.id == 'sight' end },
+    { 'Suppression', 'all_flinch', 'Aim flinch when shot at (x)', 'mult', 20, 'enemies at 0 stay immune',
+      function(page, r) return not page.enemy.gun and r.id == 'flinch' end },
+    { 'Suppression', 'all_danger_radius', 'Shots count within (x)', 'mult', 10, nil,
+      function(page, r) return not page.enemy.gun and r.id == 'danger_radius' end },
 }
 
 -- Death explosions (ExplosionType ids of this build, checked against their records: the acid deaths carry acid):
@@ -23131,6 +23197,12 @@ KINDS[TYPES.hitreact] = { name = 'hit reaction', stride = 4836, keyed = true }
 -- status effects taken (StatusEffectReceiverComponentData, 46600 bytes): 8 body parts of 5816 bytes from +0 (+0 the
 -- part's name), each with 33 susceptibilities of 176 bytes from +8 (+140 the kind: 6 fire, 10 acid, 12 fire (bots),
 -- 20 electric, 27 / 28 gas; +144 / +148 thresholds, +168 the damage it takes from it (x))
+-- suppression: SensorDangerComponentData (12 bytes, 4 after the records): +0 the most danger it builds, +4 the radius
+-- around it where shots count, +8 reacts to near misses (bool byte); TargetingComponentData (64 bytes): +36 how much
+-- danger throws off its aim, +40 how fast that wears off (per second), +44 the most it can
+TYPES.danger, TYPES.targeting = 0xC677F538, 0x2C0968D2
+KINDS[TYPES.danger] = { name = 'danger sensor', stride = 12, keyed = true, slack = 4 }
+KINDS[TYPES.targeting] = { name = 'targeting', stride = 64, keyed = true }
 TYPES.status_rx = 0x6062C233
 KINDS[TYPES.status_rx] = { name = 'status effects taken', stride = 46600, keyed = true }
 KINDS[TYPES.loadout] = { name = 'loadout', stride = 32 }
