@@ -134,12 +134,14 @@ function M.take_typed()
 end
 
 local PANEL_W, PANEL_H = 1060, 1080   -- the panel (1000 wide) and its margins, in 1080p units
-local STYLE = 0x00CA0000   -- WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX (no resizing)
+local STYLE = 0x00CE0000   -- WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | WS_THICKFRAME (issue #110)
 
--- the client for a work area (left, top, right, bottom) and a frame `extra_h` tall: as tall as it allows (at most
--- 1350 px), panel-shaped
-local function client_for(work, extra_h)
-    local ch = math.floor(math.min(work[3] - work[1] - extra_h, 1.25 * 1080) * 0.95)
+-- the client for a work area (left, top, right, bottom) and a frame `extra_w` x `extra_h`: panel-shaped, `want` px
+-- tall (the size the user dragged it to) as far as the work area allows, else as tall as it allows (at most 1350 px)
+local function client_for(work, extra_w, extra_h, want)
+    local room = math.min(work[3] - work[1] - extra_h, (work[2] - work[0] - extra_w) * PANEL_H / PANEL_W)
+    local ch = want and math.max(400, want) or math.min(work[3] - work[1] - extra_h, 1.25 * 1080) * 0.95
+    ch = math.floor(math.min(ch, room))
     return math.floor(ch * PANEL_W / PANEL_H + 0.5), ch
 end
 
@@ -176,7 +178,7 @@ local function fit()
     user.GetClientRect(M.window, client_rect)
     local extra_w = window_rect[2] - window_rect[0] - client_rect[2]
     local extra_h = window_rect[3] - window_rect[1] - client_rect[3]
-    local cw, ch = client_for(work, extra_h)
+    local cw, ch = client_for(work, extra_w, extra_h, M.want)
     local w, h = cw + extra_w, ch + extra_h
     local x = math.max(work[0], math.min(window_rect[0], work[2] - w))
     local y = math.max(work[1], math.min(window_rect[1], work[3] - h))
@@ -215,7 +217,8 @@ function M.open(title, place)
     local frame = ffi.new('int32_t[4]', 0, 0, 100, 100)
     user.AdjustWindowRectEx(frame, STYLE, 0, 0)
     local extra_w, extra_h = frame[2] - frame[0] - 100, frame[3] - frame[1] - 100
-    local cw, ch = client_for(work, extra_h)
+    M.want = place and place[3]
+    local cw, ch = client_for(work, extra_w, extra_h, M.want)
     local x = place and place[1] or work[0] + math.floor((work[2] - work[0] - cw - extra_w) / 2)
     local y = place and place[2] or work[1] + math.floor((work[3] - work[1] - ch - extra_h) / 2)
     M.window = user.CreateWindowExW(0, name, (wide(M.title)), STYLE, x, y, cw + extra_w, ch + extra_h, nil, nil, instance, nil)
@@ -236,7 +239,8 @@ end
 local msg = ffi.new('host_msg')
 -- Handles the window's messages; false once the window is closed. A window moved onto another screen is sized
 -- for that one (moving it is Windows' own loop inside DispatchMessageW: this runs once it is let go).
--- M.place: the window's top left, while it is not minimized.
+-- A window the user resized (Windows' loop too, let go before this runs) takes the panel's shape again, as tall
+-- as the side they dragged most asks for. M.place: the window's top left and client height, while not minimized.
 function M.pump()
     while user.PeekMessageW(msg, nil, 0, 0, 1) ~= 0 do
         if msg.message == 0x0102 then   -- WM_CHAR: a character for the panel, an input method's own included
@@ -248,9 +252,16 @@ function M.pump()
     end
     if M.window == nil or user.IsWindow(M.window) == 0 then return false end
     if user.IsIconic(M.window) == 0 then
-        if handle(user.MonitorFromWindow(M.window, 2)) ~= M.monitor then fit() end
+        user.GetClientRect(M.window, client_rect)
+        local cw, ch = client_rect[2], client_rect[3]
+        if cw > 0 and ch > 0 and (cw ~= M.w or ch ~= M.h) then
+            local tall = math.abs(ch - M.h) / M.h >= math.abs(cw - M.w) / M.w
+            M.want = tall and ch or math.floor(cw * PANEL_H / PANEL_W + 0.5)
+            fit()
+            M.want = M.h   -- (what the screen allowed)
+        elseif handle(user.MonitorFromWindow(M.window, 2)) ~= M.monitor then fit() end
         user.GetWindowRect(M.window, window_rect)
-        M.place = { window_rect[0], window_rect[1] }
+        M.place = { window_rect[0], window_rect[1], M.want }
     end
     return true
 end

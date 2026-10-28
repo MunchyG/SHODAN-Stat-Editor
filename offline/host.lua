@@ -53,14 +53,14 @@ local function fatal(text)
 end
 
 -- ---------------------------------------------------------------- start
--- where the window was when it last closed: its top left (window.txt: x y)
+-- where the window was when it last closed: its top left, and its height once the user resized it (window.txt: x y [h])
 local PLACE = I.home .. '/window.txt'
 local function saved_place()
     local f = io.open(PLACE, 'r')
     local text = f and f:read('*a') or ''
     if f then f:close() end
-    local x, y = text:match('^(%-?%d+) (%-?%d+)')
-    return x and { tonumber(x), tonumber(y) } or nil
+    local x, y, h = text:match('^(%-?%d+) (%-?%d+) ?(%d*)')
+    return x and { tonumber(x), tonumber(y), tonumber(h) } or nil
 end
 
 local function main()
@@ -433,7 +433,7 @@ local function main()
     if shim.place then
         I.mkdirs(I.home)
         local f = io.open(PLACE, 'w')
-        if f then f:write(shim.place[1], ' ', shim.place[2], '\n'); f:close() end
+        if f then f:write(shim.place[1], ' ', shim.place[2], shim.place[3] and (' ' .. shim.place[3]) or '', '\n'); f:close() end
     end
     -- the editor saves its values a moment after a change
     local stop = clock() + 1.5
