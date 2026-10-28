@@ -346,6 +346,88 @@ end
 
 function M.flush() gdi.GdiFlush() end
 
+-- the pages' icons (the HUD's weapon icons): icons.bin next to this file (tools/hud_icons.py has its layout), read
+-- once; a page's icon unpacked the first time it is drawn. Its width and height (pixels), or nil: none for that page.
+local icon_pack = nil
+function M.icon_size(name)
+    if icon_pack == nil then
+        icon_pack = { pages = {}, images = {} }
+        local f = io.open((debug.getinfo(1, 'S').source:match('^@(.*[/\\])') or './') .. 'icons.bin', 'rb')
+        local data = f and f:read('*a')
+        if f then f:close() end
+        local function u16(o) return data:byte(o + 1) + data:byte(o + 2) * 256 end
+        local function u32(o) return u16(o) + u16(o + 2) * 65536 end
+        if data and #data >= 16 and data:sub(1, 4) == 'SSIC' and u32(4) == 2 then
+            local images, pages, at = u32(8), u32(12), 16
+            for _ = 1, pages do
+                icon_pack.pages[data:sub(at + 1, at + 16)] = u16(at + 16) + 1
+                at = at + 18
+            end
+            for k = 1, images do
+                if at + 8 > #data then break end
+                local i = { w = u16(at), h = u16(at + 2), rgb = { data:byte(at + 5, at + 7) }, masks = {} }
+                local count = data:byte(at + 8)
+                at = at + 8
+                for m = 1, count do
+                    if at + 4 > #data then break end
+                    local n = u32(at)
+                    i.masks[m] = { runs = data:sub(at + 5, at + 4 + n) }
+                    at = at + 4 + n
+                end
+                icon_pack.images[k] = i
+            end
+        end
+    end
+    local i = icon_pack.images[icon_pack.pages[name] or 0]
+    if not i then return nil end
+    for _, m in ipairs(i.masks) do
+        if not m.px then
+            m.px = ffi.new('uint8_t[?]', i.w * i.h)
+            local runs, at = m.runs, 0
+            for k = 1, #runs - 1, 2 do
+                local n, v = runs:byte(k, k + 1)
+                if at + n > i.w * i.h then break end
+                ffi.fill(m.px + at, n, v)
+                at = at + n
+            end
+        end
+    end
+    return i.w, i.h, i
+end
+
+-- a page's icon fitted into the box x0..x1, y0..y1 at its right, each pixel the average of those it covers: its first
+-- mask in its own colour times c, its second (stratagems: the white part) in c on top
+function M.icon(name, x0, y0, x1, y1, c)
+    local _, _, i = M.icon_size(name)
+    if not i then return false end
+    local k = math.min((x1 - x0) / i.w, (y1 - y0) / i.h)
+    local dw, dh = math.floor(i.w * k), math.floor(i.h * k)
+    local left, top = math.floor(x1 - dw + 0.5), math.floor(y0 + ((y1 - y0) - dh) / 2 + 0.5)
+    local bits, a = M.bits, (c[1] or 255) / 255
+    for m, mask in ipairs(i.masks) do
+        local px, cr, cg, cb = mask.px, c[2], c[3], c[4]
+        if m == 1 then cr, cg, cb = cr * i.rgb[1] / 255, cg * i.rgb[2] / 255, cb * i.rgb[3] / 255 end
+        for y = math.max(0, top), math.min(M.h, top + dh) - 1 do
+            local sy0, sy1 = math.floor((y - top) / k), math.max(math.floor((y - top) / k) + 1, math.floor((y - top + 1) / k))
+            for x = math.max(0, left), math.min(M.w, left + dw) - 1 do
+                local sx0, sx1 = math.floor((x - left) / k), math.max(math.floor((x - left) / k) + 1, math.floor((x - left + 1) / k))
+                local sum, n = 0, 0
+                for sy = sy0, math.min(sy1, i.h) - 1 do
+                    for sx = sx0, math.min(sx1, i.w) - 1 do sum, n = sum + px[sy * i.w + sx], n + 1 end
+                end
+                local q = n > 0 and sum / n / 255 * a or 0
+                if q > 0 then
+                    local p = bits[y * M.w + x]
+                    local pr, pg, pb = bit.band(bit.rshift(p, 16), 255), bit.band(bit.rshift(p, 8), 255), bit.band(p, 255)
+                    bits[y * M.w + x] = bit.bor(bit.lshift(math.floor(pr + (cr - pr) * q), 16), bit.lshift(math.floor(pg + (cg - pg) * q), 8),
+                                                math.floor(pb + (cb - pb) * q))
+                end
+            end
+        end
+    end
+    return true
+end
+
 -- the back buffer as a .bmp (tests)
 function M.save_bmp(path)
     gdi.GdiFlush()
@@ -427,6 +509,13 @@ function M.engine()
                 return Vector3(0, -size * 0.2, 0), Vector3(M.text_width(tostring(text), size), size * 0.8, 0)
             end,
             material = function() return 'material' end,
+            -- offline only: a page's icon (icons.bin, M.icon) fitted into the box at its right; icon_size: its
+            -- width and height in pixels and whether it is a stratagem's (two masks, drawn bigger), or nil (none)
+            icon = function(gui, name, pos, size, color)
+                add(gui, { kind = 'icon', z = pos[3] or 0, x = pos[1], y = pos[2], w = size[1], h = size[2], name = name,
+                           c = color or { 255, 255, 255, 255 } })
+            end,
+            icon_size = function(name) local w, h, i = M.icon_size(name) return w, h, i and #i.masks > 1 end,
         },
         Material = { set_texture = function() end },
         Mouse = {
@@ -447,9 +536,10 @@ function M.paint_guis(background)
     table.sort(items, function(a, b) if a.z ~= b.z then return a.z < b.z end return a.n < b.n end)
     local texting = false
     for _, item in ipairs(items) do
-        if item.kind == 'rect' then
+        if item.kind == 'rect' or item.kind == 'icon' then
             if texting then gdi.GdiFlush(); texting = false end
-            M.fill(item.x, M.h - item.y - item.h, item.x + item.w, M.h - item.y, item.c)
+            if item.kind == 'rect' then M.fill(item.x, M.h - item.y - item.h, item.x + item.w, M.h - item.y, item.c)
+            else M.icon(item.name, item.x, M.h - item.y - item.h, item.x + item.w, M.h - item.y, item.c) end
         else
             M.text(item.text, item.x, M.h - item.y, item.size, item.c)
             texting = true

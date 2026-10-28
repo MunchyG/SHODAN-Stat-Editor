@@ -25060,10 +25060,22 @@ local function draw(width, height)
     elseif not weapon then
         text('Choose a weapon on the left.', x0, 100, 18, MUTED)
     else
-        text(weapon.name, x0, 94, 22, GOLD, W - x0 - 20)
+        -- its HUD icon at the top right (offline: engine_shim's icons.bin), 36 high, long guns up to 220 wide; the name
+        -- left of it. A stratagem's 64 high: its art has a wide empty border
+        local iw, ih, strat = nil, nil, nil
+        if Gui.icon_size then iw, ih, strat = Gui.icon_size(weapon.hash) end
+        local room = W - x0 - 20
+        if iw and ih and iw > 0 and ih > 0 then
+            local bh = strat and 64 or 36
+            local w = iw * math.min(bh / ih, 220 / iw)
+            room = room - w - 12
+            step('Gui.icon')
+            Gui.icon(gui, weapon.hash, Vector3(ox + (W - 20 - w) * s, height - oy - (strat and 140 or 124) * s, 953), Vector2(w * s, bh * s), WHITE)
+        end
+        text(weapon.name, x0, 94, 22, GOLD, room)
         local y, section = 126, nil
         if weapon.note ~= '' then
-            text(weapon.note, x0, 122, 14, WARN, W - x0 - 20)
+            text(weapon.note, x0, 122, 14, WARN, room)
             y = 144
         end
         -- rows get closer together when there are too many to fit at full spacing; past 22 units

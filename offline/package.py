@@ -14,6 +14,7 @@ files = {
     'libsodium.dll': os.path.join(HERE, 'runtime', 'libsodium.dll'),
     'shodan_hash.dll': os.path.join(HERE, 'launcher', 'shodan_hash.dll'),
     'app/stat_editor.lua': PANEL,
+    'app/icons.bin': os.path.join(HERE, 'icons.bin'),   # the pages' HUD icons (tools/hud_icons.py)
 }
 for m in ('host', 'engine_shim', 'install', 'gamedata', 'hostdata', 'update'):
     files['app/%s.lua' % m] = os.path.join(HERE, m + '.lua')
@@ -85,7 +86,7 @@ name = sys.argv[1] if len(sys.argv) > 1 else 'SHODAN-Stat-Editor-Offline-v' + VE
 out = os.path.join(RELEASE, name + '.zip')
 with zipfile.ZipFile(out, 'w', zipfile.ZIP_DEFLATED, compresslevel=9) as z:
     for arc, src in sorted(files.items()):
-        if arc.startswith('app/') and arc != 'app/stat_editor.lua':
+        if arc.startswith('app/') and arc.endswith('.lua') and arc != 'app/stat_editor.lua':
             text = DEV.sub('', open(src, encoding='utf-8').read())
             assert 'DEV' not in text and 'SHODAN_HOST_TEST' not in text, arc
             z.writestr(TOP + '/' + arc, text)
