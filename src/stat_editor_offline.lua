@@ -976,6 +976,7 @@ MOD.langs = {
       ['Aim limit, left (deg)'] = '瞄准左限（度）',
       ['Aim limit, right (deg)'] = '瞄准右限（度）',
       ['Aim limit, up (deg)'] = '瞄准上限（度）',
+      ['Aim zoom (x)'] = '瞄准放大倍率 (x)',
       ['Aiming sway'] = '瞄准晃动',
       ['Airborne'] = '空降',
       ['Airburst Rocket Launcher'] = '空爆火箭弹发射器',
@@ -1628,6 +1629,7 @@ MOD.langs = {
       ['Hover time, full-speed climb (s)'] = '悬停时间：全速爬升(秒)',
       ['Hover time, holding height (s)'] = '悬停时间：保持高度(秒)',
       ['Hoverpack Backpack'] = '悬浮背包',
+      ['How close the view gets when you aim: 1 is the normal view, 2 twice as close, 4 four times.'] = '瞄准时视野拉近多少：1 为正常视野，2 拉近两倍，4 拉近四倍。',
       ['How close this zoom step looks: 1 is the normal view, 2 twice as close, 4 four times.'] = '这一档的放大程度：1 为正常视野，2 拉近两倍，4 拉近四倍。',
       ['How far away the jet starts its run. With its speed, it sets how long the Eagle takes to arrive.'] = '飞鹰开始攻击航线时距目标的距离，与飞行速度共同决定抵达时间。',
       ['How long the round waits after the hit (or after the blast proximity trips) before it goes off.'] = '射弹命中后（或近炸距离触发后）等待多久才爆炸。',
@@ -4602,6 +4604,7 @@ MOD.langs = {
       ['Aim limit, left (deg)'] = '瞄準左限（度）',
       ['Aim limit, right (deg)'] = '瞄準右限（度）',
       ['Aim limit, up (deg)'] = '瞄準上限（度）',
+      ['Aim zoom (x)'] = '瞄準放大倍率 (x)',
       ['Aiming sway'] = '瞄準晃動',
       ['Airborne'] = '空降',
       ['Airburst Rocket Launcher'] = '空爆火箭發射器',
@@ -5254,6 +5257,7 @@ MOD.langs = {
       ['Hover time, full-speed climb (s)'] = '懸停時間：全速爬升(秒)',
       ['Hover time, holding height (s)'] = '懸停時間：保持高度(秒)',
       ['Hoverpack Backpack'] = '懸浮背包',
+      ['How close the view gets when you aim: 1 is the normal view, 2 twice as close, 4 four times.'] = '瞄準時視野拉近多少：1 為正常視野，2 拉近兩倍，4 拉近四倍。',
       ['How close this zoom step looks: 1 is the normal view, 2 twice as close, 4 four times.'] = '這一檔的放大程度：1 為正常視野，2 拉近兩倍，4 拉近四倍。',
       ['How far away the jet starts its run. With its speed, it sets how long the Eagle takes to arrive.'] = '飛鷹開始攻擊航線時距目標的距離，與飛行速度共同決定抵達時間。',
       ['How long the round waits after the hit (or after the blast proximity trips) before it goes off.'] = '射彈命中後（或近炸距離觸發後）等待多久才爆炸。',
@@ -8224,6 +8228,7 @@ MOD.langs = {
       ['Aim limit, left (deg)'] = 'Предел наведения влево (°)',
       ['Aim limit, right (deg)'] = 'Предел наведения вправо (°)',
       ['Aim limit, up (deg)'] = 'Предел наведения вверх (°)',
+      ['Aim zoom (x)'] = 'Увеличение при прицеливании (x)',
       ['Aiming sway'] = 'Покачивание при прицеливании',
       ['Airborne'] = 'десант',
       ['Airburst Rocket Launcher'] = '«Ракетница с подрывом в воздухе»',
@@ -8834,6 +8839,7 @@ MOD.langs = {
       ['Hover speed (m/s)'] = 'Скорость парения (м/с)',
       ['Hover time, full-speed climb (s)'] = 'Парение: быстрый подъем (с)',
       ['Hover time, holding height (s)'] = 'Парение: удержание высоты (с)',
+      ['How close the view gets when you aim: 1 is the normal view, 2 twice as close, 4 four times.'] = 'Насколько приближается вид при прицеливании: 1 — обычный вид, 2 — вдвое ближе, 4 — вчетверо.',
       ['How close this zoom step looks: 1 is the normal view, 2 twice as close, 4 four times.'] = 'Насколько приближает эта ступень: 1 обычный вид, 2 в два раза ближе, 4 в четыре раза.',
       ['How long the round waits after the hit (or after the blast proximity trips) before it goes off.'] = 'Сколько снаряд ждёт после попадания (или после срабатывания дистанции подрыва), прежде чем взорваться.',
       ['How many bombs one run drops and how they land. The bombs stay this Eagle\'s own.'] = 'Сколько бомб сбрасывает один заход и как они ложатся. Бомбы остаются своими для этого «Орла».',
@@ -13666,6 +13672,28 @@ local function resolve_gun(weapon, key)
         if inf and default_of(inf[1].field) == 0 and (not inf[2] or default_of(inf[2].field) == 0) then
             add_row(weapon, 'Ammo', 'infinite_ammo', 'Infinite ammo', 'flag', inf, 0, 1, 1, 1).tip =
                 { 'The magazine never runs out. Flamethrowers: also set Ammo per puff to 0.' }
+        end
+        -- fixed sights (SHODAN Offline Integration): a gun with no optic part (the Constitution) keeps its zoom
+        -- on itself, WeaponData +116/+120/+124; guns with one edit it on the optic's Attachments page
+        local custom = tables[TYPES.custom]
+        local at = weapon.key == key and not weapon.mounted and custom and custom.index[key]
+        local optic = false
+        for slot = 0, at and 9 or -1 do
+            local c = custom.copies[1] + HEADER_BYTES + at + slot * 8
+            optic = optic or (peek4(c) == 2 and (peek4(c + 4) or 0) ~= 0)
+        end
+        -- (not melee weapons, not a gun's underbarrel part); one row, the three levels scaled together
+        if at and not optic and not weapon.name:find('^CQC%-') and not weapon.name:find('(', 1, true)
+           and (weapon.slot == 'Primary' or weapon.slot == 'Secondary' or weapon.slot == 'Support') then
+            local zoom = {}
+            for k = 1, 3 do
+                local p = part('sight_zoom' .. k, T_WEAPON, data + 112 + k * 4, 'f32', 1000)
+                if (default_of(p.field) or 0) > 0 then zoom[#zoom + 1] = p end
+            end
+            if #zoom > 0 then
+                add_row(weapon, 'Scope', 'sight_zoom', 'Aim zoom (x)', 'f32', zoom, 0.1, 100, 0.1, 1).tip =
+                    { 'How close the view gets when you aim: 1 is the normal view, 2 twice as close, 4 four times.' }
+            end
         end
         MOD.spin_rows(weapon, data, record(TYPES.windup))
     end
