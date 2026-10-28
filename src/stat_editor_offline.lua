@@ -1119,6 +1119,7 @@ MOD.langs = {
       ['Body parts'] = '身体部位',
       ['Body rear'] = '身体后部',
       ['Bolt Pistol'] = '爆弹手枪',
+      ['Bomb pattern'] = '投弹模式',
       ['Bonnet'] = '引擎盖',
       ['Boost after the launch (s)'] = '起跳后的推进时间（秒）',
       ['Booster selection is limited due to the other boosters keeping their values in the game\'s program (game.dll), not in the data files SSEO edits. Those could only be changed while the game runs, which is currently impossible.'] = '可选的增强配备有限：其他增强配备的数值保存在游戏程序（game.dll）中，而不在 SSEO 修改的数据文件里。这些数值只能在游戏运行时修改，而这目前无法做到。',
@@ -1626,6 +1627,7 @@ MOD.langs = {
       ['How close this zoom step looks: 1 is the normal view, 2 twice as close, 4 four times.'] = '这一档的放大程度：1 为正常视野，2 拉近两倍，4 拉近四倍。',
       ['How far away the jet starts its run. With its speed, it sets how long the Eagle takes to arrive.'] = '飞鹰开始攻击航线时距目标的距离，与飞行速度共同决定抵达时间。',
       ['How long the round waits after the hit (or after the blast proximity trips) before it goes off.'] = '射弹命中后（或近炸距离触发后）等待多久才爆炸。',
+      ['How many bombs one run drops and how they land. The bombs stay this Eagle\'s own.'] = '一次飞越投下多少枚炸弹以及落点分布。炸弹仍是该飞鹰自己的。',
       ['How quickly the scoped view catches up when you move your aim at this zoom (0.6 on most optics).'] = '此倍率下移动瞄准时，瞄准镜视野跟上的速度（大多数瞄具为 0.6）。',
       ['Hulk'] = '巨型者',
       ['Hulk Bruiser'] = '巨型碾压者',
@@ -4177,6 +4179,7 @@ MOD.langs = {
       { '^(.+): Light$', '%1：轻型' },
       { '^(.+): Medium$', '%1：中型' },
       { '^(.+): Heavy$', '%1：重型' },
+      { '^Bomb pattern (%d): (%d) bombs$', '投弹模式 %1：%2 枚炸弹' },
       { '^Heat level (%d+)$', '热量等级 %1' },
       { '^(.+); ammo type shared with (.+)$', '%1；弹种与以下共用：%L2' },
       { '^fires: (.+)%. The rows above stay its own$', '发射：%1。上方各行仍为其自身数值' },
@@ -4738,6 +4741,7 @@ MOD.langs = {
       ['Body parts'] = '身體部位',
       ['Body rear'] = '身體後部',
       ['Bolt Pistol'] = '爆彈手槍',
+      ['Bomb pattern'] = '投彈模式',
       ['Bonnet'] = '引擎蓋',
       ['Boost after the launch (s)'] = '起跳後的推進時間（秒）',
       ['Booster selection is limited due to the other boosters keeping their values in the game\'s program (game.dll), not in the data files SSEO edits. Those could only be changed while the game runs, which is currently impossible.'] = '可選的增強配備有限：其他增強配備的數值儲存在遊戲程式（game.dll）中，而不在 SSEO 修改的資料檔案裡。這些數值只能在遊戲執行時修改，而這目前無法做到。',
@@ -5245,6 +5249,7 @@ MOD.langs = {
       ['How close this zoom step looks: 1 is the normal view, 2 twice as close, 4 four times.'] = '這一檔的放大程度：1 為正常視野，2 拉近兩倍，4 拉近四倍。',
       ['How far away the jet starts its run. With its speed, it sets how long the Eagle takes to arrive.'] = '飛鷹開始攻擊航線時距目標的距離，與飛行速度共同決定抵達時間。',
       ['How long the round waits after the hit (or after the blast proximity trips) before it goes off.'] = '射彈命中後（或近炸距離觸發後）等待多久才爆炸。',
+      ['How many bombs one run drops and how they land. The bombs stay this Eagle\'s own.'] = '一次飛越投下多少枚炸彈以及落點分佈。炸彈仍是該飛鷹自己的。',
       ['How quickly the scoped view catches up when you move your aim at this zoom (0.6 on most optics).'] = '此倍率下移動瞄準時，瞄準鏡視野跟上的速度（大多數瞄具為 0.6）。',
       ['Hulk'] = '巨型者',
       ['Hulk Bruiser'] = '巨型殲滅者',
@@ -7796,6 +7801,7 @@ MOD.langs = {
       { '^(.+): Light$', '%1：輕型' },
       { '^(.+): Medium$', '%1：中型' },
       { '^(.+): Heavy$', '%1：重型' },
+      { '^Bomb pattern (%d): (%d) bombs$', '投彈模式 %1：%2 枚炸彈' },
       { '^Heat level (%d+)$', '熱量等級 %1' },
       { '^(.+); ammo type shared with (.+)$', '%1；彈種與以下共用：%L2' },
       { '^fires: (.+)%. The rows above stay its own$', '發射：%1。上方各行仍為其自身數值' },
@@ -8349,6 +8355,7 @@ MOD.langs = {
       ['Body parts'] = 'Части корпуса',
       ['Body rear'] = 'Задняя часть тела',
       ['Bolt Pistol'] = 'Болтострел',
+      ['Bomb pattern'] = 'Схема бомбометания',
       ['Bonnet'] = 'Капот',
       ['Boost after the launch (s)'] = 'Ускорение после пуска (с)',
       ['Booster selection is limited due to the other boosters keeping their values in the game\'s program (game.dll), not in the data files SSEO edits. Those could only be changed while the game runs, which is currently impossible.'] = 'Выбор усилений ограничен: остальные усиления хранят свои значения в программе игры (game.dll), а не в файлах данных, которые меняет SSEO. Их можно было бы изменить только во время работы игры, что сейчас невозможно.',
@@ -8817,6 +8824,7 @@ MOD.langs = {
       ['Hover time, holding height (s)'] = 'Парение: удержание высоты (с)',
       ['How close this zoom step looks: 1 is the normal view, 2 twice as close, 4 four times.'] = 'Насколько приближает эта ступень: 1 обычный вид, 2 в два раза ближе, 4 в четыре раза.',
       ['How long the round waits after the hit (or after the blast proximity trips) before it goes off.'] = 'Сколько снаряд ждёт после попадания (или после срабатывания дистанции подрыва), прежде чем взорваться.',
+      ['How many bombs one run drops and how they land. The bombs stay this Eagle\'s own.'] = 'Сколько бомб сбрасывает один заход и как они ложатся. Бомбы остаются своими для этого «Орла».',
       ['How quickly the scoped view catches up when you move your aim at this zoom (0.6 on most optics).'] = 'Как быстро вид в прицеле догоняет наведение на этом увеличении (0,6 у большинства прицелов).',
       ['Hulk'] = 'Глыба',
       ['Hulk Bruiser'] = 'Глыба-крушитель',
@@ -10671,6 +10679,7 @@ MOD.langs = {
       { '^(.+): Light$', '%1: лёгкая' },
       { '^(.+): Medium$', '%1: средняя' },
       { '^(.+): Heavy$', '%1: тяжёлая' },
+      { '^Bomb pattern (%d): (%d) bombs$', 'Схема бомбометания %1: бомб — %2' },
       { '^Heat level (%d+)$', 'Уровень нагрева %1' },
       { '^(.+); ammo type shared with (.+)$', '%1; тип боеприпасов общий с: %L2' },
       { '^fires: (.+)%. The rows above stay its own$', 'стреляет: %1. Строки выше остаются его собственными' },
@@ -11782,10 +11791,12 @@ KINDS[TYPES.mine_spawner] = { name = 'mine spawner', stride = 32, keyed = true }
 -- walking speed (the Walking Barrage)
 KINDS[TYPES.bombard] = { name = 'bombardment', stride = 192, keyed = true }
 -- Eagles (EagleComponentData): +16 payload (2 strafe, 4 rocket pods, 5 bombs), +20 drop pattern (fixes the
--- bomb count; not offered), +40 fire duration (guns, rockets), +44 time between bombs, +52 / +56 the shortest /
+-- bomb count, BOMBS), +40 fire duration (guns, rockets), +44 time between bombs, +52 / +56 the shortest /
 -- longest distance the jet starts its approach from (m), +76 its speed until it has fired (m/s), +108 run length (m)
 KINDS[TYPES.eagle] = { name = 'eagle', stride = 152, keyed = true,
-                       layouts = { { stride = 336, offsets = { [40] = 52, [44] = 56, [52] = 64, [56] = 68, [76] = 92, [108] = 124 } } } }
+                       layouts = { { stride = 336, offsets = { [40] = 52, [44] = 56, [52] = 64, [56] = 68, [76] = 92, [108] = 124 } } },
+                       -- bombs per pattern (this build's order: the 500kg's 6 is the single bomb)
+                       BOMBS = { [0] = 6, 6, 8, 8, 4, 5, 1, 3 } }
 -- Seeking missiles (SeekingMissileComponentData; the MS-11 Solo Silo's missile): +12 guidance on after (s),
 -- +28 guidance lost past this angle (deg), +56 / +60 movement / warhead on after (s; the silo's -1: by
 -- its script, not offered), +64 max lifetime (s),
@@ -14695,7 +14706,18 @@ local function resolve_stratagem(entry)
                              "The beacon's timer still counts down the usual time (tested)." }
             e('eagle_speed', 'Speed until it has fired (m/s)', 76, 0, 5000, 10, 50)
             local payload = read_field(field_at(TYPES.eagle, eagle + 16, 'u32', 100))
-            if payload == 5 then e('eagle_bomb_gap', 'Time between bombs (s)', 44, 0, 10, 0.05, 0.25)
+            if payload == 5 then
+                e('eagle_bomb_gap', 'Time between bombs (s)', 44, 0, 10, 0.05, 0.25)
+                -- +20 the drop pattern (EagleAirstrikePattern), which fixes the bomb count (SHODAN Offline Integration)
+                local p = part('eagle_pattern', TYPES.eagle, eagle + 20, 'u32', 7)
+                if default_of(p.field) then
+                    local r = add_row(entry, 'Eagle', 'eagle_pattern', 'Bomb pattern', 'u32', { p }, 0, 7, 1, 1)
+                    r.label_of = function()
+                        local n = read_field(p.field) or 0
+                        return 'Bomb pattern ' .. n .. ': ' .. KINDS[TYPES.eagle].BOMBS[n] .. ' bombs'
+                    end
+                    r.tip = { 'How many bombs one run drops and how they land. The bombs stay this Eagle\'s own.' }
+                end
             else e('eagle_fire_time', 'Fire duration (s)', 40, 0, 30, 0.1, 0.5) end
             if (read_field(field_at(TYPES.eagle, eagle + (moved[108] or 108), 'f32', 100000)) or 0) > 0 then
                 e('eagle_run_length', 'Run length (m)', 108, 0, 500, 1, 5)
