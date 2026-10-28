@@ -15999,7 +15999,7 @@ function MOD.records.rows(page)
         for _, r in ipairs({ { 'calibre', 'Calibre (mm)', 24, 'f32', 1000, 0.1, 1 }, { 'pellets', 'Projectiles per shot', 28, 'u32', 200, 1, 5 },
                              { 'velocity', 'Velocity (m/s)', 32, 'f32', 100000, 10, 100 }, { 'mass', 'Mass (kg)', 36, 'f32', 10000, 0.1, 1 },
                              { 'drag', 'Drag factor', 40, 'f32', 100, 0.05, 0.5 }, { 'gravity', 'Gravity factor', 44, 'f32', 100, 0.05, 0.5 },
-                             { 'lifetime', 'Lifetime (s)', 56, 'f32', 1000, 0.1, 1 },
+                             { 'lifetime', 'Lifetime (s)', 52, 'f32', 1000, 0.1, 1 },
                              { 'pen_slowdown', 'Penetration slowdown', 64, 'f32', 100, 0.05, 0.25 } }) do
             num('Projectile', r[1], r[2], r[3], r[4], r[5], r[6], r[7])
         end
