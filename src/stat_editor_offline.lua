@@ -1272,6 +1272,7 @@ MOD.langs = {
       ['Dagger'] = '匕首',
       ['Damage'] = '伤害',
       ['Damage (x)'] = '伤害（x）',
+      ['Damage area size (m)'] = '伤害区域大小（米）',
       ['Damage passed to the body (x)'] = '传递给身体的伤害 (x)',
       ['Damage taken (multiplier)'] = '受到伤害（倍率）',
       ['Damage tick (s)'] = '伤害间隔(秒)',
@@ -1288,6 +1289,8 @@ MOD.langs = {
       ['Defeat arrowhead'] = '弱点箭头',
       ['Defender'] = '防卫者',
       ['Defoliation Tool'] = '除叶工具',
+      ['Delay before the first shell (s)'] = '第一发炮弹前的延迟（秒）',
+      ['Delay before the shot (s)'] = '开火前延迟（秒）',
       ['Delete'] = '删除',
       ['Democracy Protects'] = '民主护佑',
       ['Demolition force'] = '破坏力',
@@ -1310,6 +1313,8 @@ MOD.langs = {
       ['Down'] = '下移',
       ['Drag factor'] = '阻力系数',
       ['Dragonroach'] = '蟑龙',
+      ['Drift from the last shell, least (m)'] = '相对上一发的偏移，最小（米）',
+      ['Drift from the last shell, most (m)'] = '相对上一发的偏移，最大（米）',
       ['Drifting speed (m/s)'] = '漂移速度 (米/秒)',
       ['Drill'] = '钻头',
       ['Drilling Charge'] = '钻探炸药',
@@ -1579,6 +1584,7 @@ MOD.langs = {
       ['Heavy armor'] = '重型护甲',
       ['Heavy burning'] = '重度燃烧',
       ['Heavycannon'] = '重炮',
+      ['Height the shells fall from (m)'] = '炮弹落下的高度（米）',
       ['Hellbomb'] = '地狱火炸弹',
       ['Helldiver'] = '绝地潜兵',
       ['Helldivers 2 is running: close it first.'] = '《绝地潜兵 2》正在运行：请先关闭游戏。',
@@ -2094,6 +2100,7 @@ MOD.langs = {
       ['Railgun Stun Round'] = '磁轨炮眩晕弹',
       ['Raise Flag'] = '升旗',
       ['Raise Flag NO Clear Area'] = '升旗（无需清理区域）',
+      ['Random extra time between shells (s)'] = '炮弹间随机额外间隔（秒）',
       ['Range'] = '射程',
       ['Range (m)'] = '射程(米)',
       ['Rapid Heatsink'] = '快速散热器',
@@ -4882,6 +4889,7 @@ MOD.langs = {
       ['Dagger'] = '匕首',
       ['Damage'] = '傷害',
       ['Damage (x)'] = '傷害（x）',
+      ['Damage area size (m)'] = '傷害區域大小（米）',
       ['Damage passed to the body (x)'] = '傳遞給身體的傷害 (x)',
       ['Damage taken (multiplier)'] = '受到傷害（倍率）',
       ['Damage tick (s)'] = '傷害間隔(秒)',
@@ -4898,6 +4906,8 @@ MOD.langs = {
       ['Defeat arrowhead'] = '弱點箭頭',
       ['Defender'] = '防衛者',
       ['Defoliation Tool'] = '除草器',
+      ['Delay before the first shell (s)'] = '第一發炮彈前的延遲（秒）',
+      ['Delay before the shot (s)'] = '開火前延遲（秒）',
       ['Delete'] = '刪除',
       ['Democracy Protects'] = '民主守護者',
       ['Demolition force'] = '破壞力',
@@ -4920,6 +4930,8 @@ MOD.langs = {
       ['Down'] = '下移',
       ['Drag factor'] = '阻力系數',
       ['Dragonroach'] = '龍蟑',
+      ['Drift from the last shell, least (m)'] = '相對上一發的偏移，最小（米）',
+      ['Drift from the last shell, most (m)'] = '相對上一發的偏移，最大（米）',
       ['Drifting speed (m/s)'] = '漂移速度 (米/秒)',
       ['Drill'] = '鑽頭',
       ['Drilling Charge'] = '鑽探炸藥',
@@ -5189,6 +5201,7 @@ MOD.langs = {
       ['Heavy armor'] = '重型護甲',
       ['Heavy burning'] = '重度燃燒',
       ['Heavycannon'] = '重炮',
+      ['Height the shells fall from (m)'] = '炮彈落下的高度（米）',
       ['Hellbomb'] = '地獄火炸彈',
       ['Helldiver'] = '絕地潛兵',
       ['Helldivers 2 is running: close it first.'] = '《絕地潛兵 2》正在執行：請先關閉遊戲。',
@@ -5704,6 +5717,7 @@ MOD.langs = {
       ['Railgun Stun Round'] = '磁軌炮暈眩彈',
       ['Raise Flag'] = '升旗',
       ['Raise Flag NO Clear Area'] = '升旗（無需清理區域）',
+      ['Random extra time between shells (s)'] = '炮彈間隨機額外間隔（秒）',
       ['Range'] = '射程',
       ['Range (m)'] = '射程(米)',
       ['Rapid Heatsink'] = '快速散熱器',
@@ -8474,6 +8488,7 @@ MOD.langs = {
       ['Dagger'] = '«Кинжал»',
       ['Damage'] = 'Урон',
       ['Damage (x)'] = 'Урон (x)',
+      ['Damage area size (m)'] = 'Размер зоны урона (м)',
       ['Damage passed to the body (x)'] = 'Урон, передаваемый телу (x)',
       ['Damage taken (multiplier)'] = 'Получаемый урон (множитель)',
       ['Damage tick (s)'] = 'Такт урона (с)',
@@ -8488,6 +8503,8 @@ MOD.langs = {
       ['Defeat arrowhead'] = 'Уязвимый наконечник',
       ['Defender'] = 'Защитник',
       ['Defoliation Tool'] = 'Дефолиатор',
+      ['Delay before the first shell (s)'] = 'Задержка перед первым снарядом (с)',
+      ['Delay before the shot (s)'] = 'Задержка перед выстрелом (с)',
       ['Delete'] = 'Удалить',
       ['Democracy Protects'] = 'Демократия защищает',
       ['Demolition force'] = 'Сила разрушения',
@@ -8508,6 +8525,8 @@ MOD.langs = {
       ['Down'] = 'Вниз',
       ['Drag factor'] = 'Коэффициент сопротивления',
       ['Dragonroach'] = 'Дракоракан',
+      ['Drift from the last shell, least (m)'] = 'Смещение от прошлого снаряда, мин. (м)',
+      ['Drift from the last shell, most (m)'] = 'Смещение от прошлого снаряда, макс. (м)',
       ['Drifting speed (m/s)'] = 'Скорость дрейфа (м/с)',
       ['Drill'] = 'Бур',
       ['Driver gun'] = 'Орудие водителя',
@@ -8756,6 +8775,7 @@ MOD.langs = {
       ['Heavy armor'] = 'Тяжёлая броня',
       ['Heavy burning'] = 'Сильное горение',
       ['Heavycannon'] = 'тяжелая пушка',
+      ['Height the shells fall from (m)'] = 'Высота, с которой падают снаряды (м)',
       ['Helldiver'] = 'Адский десантник',
       ['Helldivers 2 is running: close it, then Install.'] = 'Helldivers 2 запущена: закройте её, затем нажмите «Установить в игру».',
       ['Helldivers 2 is running: close it, then restore.'] = 'Helldivers 2 запущена: закройте её, затем верните файлы.',
@@ -9243,6 +9263,7 @@ MOD.langs = {
       ['Railgun'] = '«Рельсотрон»',
       ['Railgun Round'] = 'Снаряд рельсотрона',
       ['Railgun Stun Round'] = 'Оглушающий снаряд рельсотрона',
+      ['Random extra time between shells (s)'] = 'Случайная добавка между снарядами (с)',
       ['Range'] = 'Дальность',
       ['Range (m)'] = 'Дальность (м)',
       ['Rapid Heatsink'] = 'Быстрый радиатор',
@@ -14639,6 +14660,12 @@ local function resolve_stratagem(entry)
             if (read_field(field_at(TYPES.bombard, bomb + 96, 'f32', 100000)) or 0) > 0 then
                 b('barrage_speed', 'Walking speed (m/s)', 96, 'f32', 0, 100, 0.5, 2)
             end
+            -- (from Thodmcniujiao's fork) +0 delay, +12 random extra gap, +16 / +20 drift from the last shell, +44 height
+            b('barrage_delay', 'Delay before the first shell (s)', 0, 'f32', 0, 60, 0.5, 2)
+            b('barrage_shell_random', 'Random extra time between shells (s)', 12, 'f32', 0, 60, 0.05, 0.25)
+            b('barrage_drift_min', 'Drift from the last shell, least (m)', 16, 'f32', 0, 500, 1, 5)
+            b('barrage_drift_max', 'Drift from the last shell, most (m)', 20, 'f32', 0, 500, 1, 5)
+            b('barrage_height', 'Height the shells fall from (m)', 44, 'f32', 0, 10000, 50, 250)
             break
         end
         local eagle = tables[TYPES.eagle] and tables[TYPES.eagle].index[key]
@@ -14672,6 +14699,17 @@ local function resolve_stratagem(entry)
             b('beam_speed', 'Tracking speed', 468, 0, 200, 1, 5)
             b('beam_radius', 'Search radius (m)', 472, 0, 500, 1, 10)
             b('beam_tick', 'Damage tick (s)', 480, 0.01, 10, 0.01, 0.05)
+            -- (from Thodmcniujiao's fork) +488 / +492 / +496 the damage area's size (the laser's: 1 m each way); +540
+            -- the delay before a fired projectile (+532: the Railcannon's shot)
+            if (read_field(field_at(T_ORBITAL, beam + 488, 'f32', 100000)) or 0) > 0 then
+                local area = add_row(entry, 'Orbital beam', 'beam_area', 'Damage area size (m)', 'f32',
+                                     { part('beam_area', T_ORBITAL, beam + 488, 'f32', 100000), part('beam_area_2', T_ORBITAL, beam + 492, 'f32', 100000),
+                                       part('beam_area_3', T_ORBITAL, beam + 496, 'f32', 100000) }, 0, 100, 0.5, 2)
+                area.lead = true
+            end
+            if (read_field(field_at(T_ORBITAL, beam + 532, 'u32', 100000)) or 0) > 0 then
+                b('beam_shot_delay', 'Delay before the shot (s)', 540, 0, 60, 0.1, 0.5)
+            end
             break
         end
     end
