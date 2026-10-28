@@ -758,6 +758,7 @@ MOD.langs = {
       ['+ Stims (start, max)'] = '治疗剂数量（初始 / 上限）',
       ['+ Throwables (start, max)'] = '投掷物数量（初始 / 上限）',
       ['- / + steps through the stratagems by name (-- / ++: 10 at a time).'] = '- / + 按名称切换战略配备（-- / ++ 每次切换 10 项）。',
+      ['-180 with right at 180: all the way round'] = '-180 且右限为 180：可转一整圈',
       ['0 = normal projectile; - / + selects a throwable grenade by name above.'] = '0 = 常规弹丸；- / + 按上方名称选择投掷手雷。',
       ['0 light, 1 medium, 2 heavy'] = '0 轻型，1 中型，2 重型',
       ['0: at once. The RL-77 waits 0.2 s, the P-34 Breacher (it sticks and burns first) 1 s.'] = '0：立即。RL-77 等待 0.2 秒，P-34 Breacher（先粘附燃烧）1 秒。',
@@ -834,6 +835,7 @@ MOD.langs = {
       ['15x100mm Standard Rocket'] = '15x100mm标准火箭弹',
       ['15x100mm Thermite'] = '15x100mm铝热弹',
       ['15x100mm Toxic'] = '15x100mm毒弹',
+      ['180 with left at -180: all the way round'] = '180 且左限为 -180：可转一整圈',
       ['2'] = '2',
       ['2 puts a second one on the other side of the pod'] = '2 在舱的另一侧再放一件',
       ['20mm APHET Rounds'] = '20mm穿甲高爆曳光弹',
@@ -893,6 +895,7 @@ MOD.langs = {
       ['8x60mm Sniper Armour Piercing'] = '8x60mm穿甲狙击弹',
       ['8x60mm Subsonic'] = '8x60mm亚音速弹',
       ['8x60mm Super Uranium Core'] = '8x60mm超铀芯弹',
+      ['90: straight up'] = '90：正上方',
       ['9mm. Compensator'] = '9mm. 补偿器',
       ['9mm. Flash Hider'] = '9mm. 消焰器',
       ['9mm. Muzzle break'] = '9mm. 枪口制退器',
@@ -968,6 +971,10 @@ MOD.langs = {
       ['Adreno-Defibrillator'] = '肾上腺素除颤器',
       ['Advanced Filtration'] = '高级过滤能力',
       ['Agitator'] = '惑乱者',
+      ['Aim limit, down (deg)'] = '瞄准下限（度）',
+      ['Aim limit, left (deg)'] = '瞄准左限（度）',
+      ['Aim limit, right (deg)'] = '瞄准右限（度）',
+      ['Aim limit, up (deg)'] = '瞄准上限（度）',
       ['Aiming sway'] = '瞄准晃动',
       ['Airborne'] = '空降',
       ['Airburst Rocket Launcher'] = '空爆火箭弹发射器',
@@ -2315,6 +2322,7 @@ MOD.langs = {
       ['Senator'] = '参议员',
       ['Senses'] = '感知',
       ['Sentry'] = '哨戒炮',
+      ['Sentry aiming'] = '哨戒炮瞄准',
       ['Sentry: its cooldown, its body, then its weapon.'] = '哨戒炮：依次为冷却时间、本体、武器。',
       ['Servo-Assisted'] = '伺服辅助',
       ['Sets off mines'] = '会引爆地雷',
@@ -2743,6 +2751,7 @@ MOD.langs = {
       ['min charge'] = '最少充能',
       ['mine spawner'] = '地雷生成器',
       ['mine thrower'] = '布雷器',
+      ['negative: below level, -90 straight down'] = '负数：低于水平，-90 为正下方',
       ['no demolition tier there'] = '没有对应的破坏等级',
       ['no shrapnel'] = '无破片',
       ['none (no explosion)'] = '无（不爆炸）',
@@ -4357,6 +4366,7 @@ MOD.langs = {
       ['+ Stims (start, max)'] = '治療劑數量（初始 / 上限）',
       ['+ Throwables (start, max)'] = '投擲物數量（初始 / 上限）',
       ['- / + steps through the stratagems by name (-- / ++: 10 at a time).'] = '- / + 按名稱切換戰略配備（-- / ++ 每次切換 10 項）。',
+      ['-180 with right at 180: all the way round'] = '-180 且右限為 180：可轉一整圈',
       ['0 = normal projectile; - / + selects a throwable grenade by name above.'] = '0 = 常規射彈；- / + 按上方名稱選擇投擲手雷。',
       ['0 light, 1 medium, 2 heavy'] = '0 輕型，1 中型，2 重型',
       ['0: at once. The RL-77 waits 0.2 s, the P-34 Breacher (it sticks and burns first) 1 s.'] = '0：立即。RL-77 等待 0.2 秒，P-34 Breacher（先粘附燃燒）1 秒。',
@@ -4433,6 +4443,7 @@ MOD.langs = {
       ['15x100mm Standard Rocket'] = '15x100mm標準火箭彈',
       ['15x100mm Thermite'] = '15x100mm鋁熱彈',
       ['15x100mm Toxic'] = '15x100mm毒氣彈',
+      ['180 with left at -180: all the way round'] = '180 且左限為 -180：可轉一整圈',
       ['2'] = '2',
       ['2 puts a second one on the other side of the pod'] = '2 在艙的另一側再放一件',
       ['20mm APHET Rounds'] = '20mm穿甲高爆彈',
@@ -4492,6 +4503,7 @@ MOD.langs = {
       ['8x60mm Sniper Armour Piercing'] = '8x60mm狙擊穿甲彈',
       ['8x60mm Subsonic'] = '8x60mm次音速彈',
       ['8x60mm Super Uranium Core'] = '8x60mm超鈾核心彈',
+      ['90: straight up'] = '90：正上方',
       ['9mm. Compensator'] = '9mm. 補償器',
       ['9mm. Flash Hider'] = '9mm. 消焰器',
       ['9mm. Muzzle break'] = '9mm. 槍口制動器',
@@ -4567,6 +4579,10 @@ MOD.langs = {
       ['Adreno-Defibrillator'] = '腎上腺素除顫器',
       ['Advanced Filtration'] = '進階過濾',
       ['Agitator'] = '煽動者',
+      ['Aim limit, down (deg)'] = '瞄準下限（度）',
+      ['Aim limit, left (deg)'] = '瞄準左限（度）',
+      ['Aim limit, right (deg)'] = '瞄準右限（度）',
+      ['Aim limit, up (deg)'] = '瞄準上限（度）',
       ['Aiming sway'] = '瞄準晃動',
       ['Airborne'] = '空降',
       ['Airburst Rocket Launcher'] = '空爆火箭發射器',
@@ -5914,6 +5930,7 @@ MOD.langs = {
       ['Senator'] = '參議員',
       ['Senses'] = '感知',
       ['Sentry'] = '哨戒炮',
+      ['Sentry aiming'] = '哨戒炮瞄準',
       ['Sentry: its cooldown, its body, then its weapon.'] = '哨戒炮：依次為冷卻時間、本體、武器。',
       ['Servo-Assisted'] = '伺服輔助',
       ['Sets off mines'] = '會引爆地雷',
@@ -6342,6 +6359,7 @@ MOD.langs = {
       ['min charge'] = '最少充能',
       ['mine spawner'] = '地雷生成器',
       ['mine thrower'] = '佈雷器',
+      ['negative: below level, -90 straight down'] = '負數：低於水平，-90 為正下方',
       ['no demolition tier there'] = '沒有對應的破壞等級',
       ['no shrapnel'] = '無破片',
       ['none (no explosion)'] = '無（不爆炸）',
@@ -7953,6 +7971,7 @@ MOD.langs = {
       ['+ Stim duration (s)'] = '+ Длительность стима (с)',
       ['+ Stims (start, max)'] = '+ Стимы (в начале, макс.)',
       ['+ Throwables (start, max)'] = '+ Метательное (в начале, макс.)',
+      ['-180 with right at 180: all the way round'] = '-180 при правом 180: полный круг',
       ['0 = normal projectile; - / + selects a throwable grenade by name above.'] = '0 = обычный снаряд; - / + выбирает гранату по названию выше.',
       ['0 light, 1 medium, 2 heavy'] = '0 лёгкая, 1 средняя, 2 тяжёлая',
       ['0: at once. The RL-77 waits 0.2 s, the P-34 Breacher (it sticks and burns first) 1 s.'] = '0: сразу. RL-77 ждёт 0,2 с, P-34 Breacher (сначала прилипает и горит) 1 с.',
@@ -8029,6 +8048,7 @@ MOD.langs = {
       ['15x100mm Standard Rocket'] = 'Стандартная ракета 15x100 мм',
       ['15x100mm Thermite'] = 'Термитные 15x100 мм',
       ['15x100mm Toxic'] = 'Ядовитые 15x100 мм',
+      ['180 with left at -180: all the way round'] = '180 при левом -180: полный круг',
       ['2'] = '2',
       ['2 puts a second one on the other side of the pod'] = '2 ставит второй на другую сторону капсулы',
       ['20mm APHET Rounds'] = 'Бронебойно-фугасные снаряды 20 мм',
@@ -8088,6 +8108,7 @@ MOD.langs = {
       ['8x60mm Sniper Armour Piercing'] = 'Снайперские бронебойные 8х60 мм',
       ['8x60mm Subsonic'] = 'Дозвуковые 8х60 мм',
       ['8x60mm Super Uranium Core'] = 'С суперурановым сердечником 8х60 мм',
+      ['90: straight up'] = '90: прямо вверх',
       ['9mm. Compensator'] = '9mm. Компенсатор',
       ['9mm. Flash Hider'] = '9mm. Пламегаситель',
       ['9mm. Muzzle break'] = '9mm. Дульный тормоз',
@@ -8162,6 +8183,10 @@ MOD.langs = {
       ['Adreno-Defibrillator'] = 'Адрено-дефибрилятор',
       ['Advanced Filtration'] = 'Продвинутая фильтрация',
       ['Agitator'] = 'Подстрекатель',
+      ['Aim limit, down (deg)'] = 'Предел наведения вниз (°)',
+      ['Aim limit, left (deg)'] = 'Предел наведения влево (°)',
+      ['Aim limit, right (deg)'] = 'Предел наведения вправо (°)',
+      ['Aim limit, up (deg)'] = 'Предел наведения вверх (°)',
       ['Aiming sway'] = 'Покачивание при прицеливании',
       ['Airborne'] = 'десант',
       ['Airburst Rocket Launcher'] = '«Ракетница с подрывом в воздухе»',
@@ -9430,6 +9455,7 @@ MOD.langs = {
       ['Senator'] = 'Сенатор',
       ['Senses'] = 'Чувства',
       ['Sentry'] = 'Турель',
+      ['Sentry aiming'] = 'Наведение турели',
       ['Sentry: its cooldown, its body, then its weapon.'] = 'Турель: перезарядка, корпус, затем оружие.',
       ['Servo-Assisted'] = 'Сервопривод',
       ['Sets off mines'] = 'Подрывает мины',
@@ -9805,6 +9831,7 @@ MOD.langs = {
       ['lower: their shots land closer to where they aim (0: dead on)'] = 'ниже: выстрелы ложатся ближе к точке прицеливания (0: точно в цель)',
       ['melee, guns and death explosions, shared ones included'] = 'ближний бой, оружие и взрывы при гибели, включая общие',
       ['min charge'] = 'мин. заряд',
+      ['negative: below level, -90 straight down'] = 'отрицательное: ниже горизонта, -90 прямо вниз',
       ['no shrapnel'] = 'без осколков',
       ['none (no explosion)'] = 'нет (без взрыва)',
       ['none (no projectile)'] = 'нет (без снаряда)',
@@ -14022,6 +14049,25 @@ local function unit_rows(entry, key, section, prefix)
     unit(TYPES.detector, 'search_max', 'Target search interval, max (s)', 4, 'f32', 60, 0.05, 0.25)
     unit(TYPES.turret, 'turn_h', 'Turn speed, horizontal (deg/s)', 12, 'f32', 3600, 1, 10)
     unit(TYPES.turret, 'turn_v', 'Turn speed, vertical (deg/s)', 8, 'f32', 3600, 1, 10)
+    -- (from LovedeHua's fork) a sentry's aiming limits (TurretComponentData +20 / +24 lowest / highest, +28 / +32
+    -- left / right, degrees); an axis that cannot move (lowest = highest) stays as it is
+    local tt = section == 'Sentry' and tables[TYPES.turret]
+    local at = tt and tt.index[key]
+    for _, c in ipairs(at and {
+        { 'aim_down', 'Aim limit, down (deg)', 20, -90, 24, 'negative: below level, -90 straight down' },
+        { 'aim_up', 'Aim limit, up (deg)', 24, -90, 20, '90: straight up' },
+        { 'aim_left', 'Aim limit, left (deg)', 28, -180, 32, '-180 with right at 180: all the way round' },
+        { 'aim_right', 'Aim limit, right (deg)', 32, -180, 28, '180 with left at -180: all the way round' },
+    } or {}) do
+        local f, other = field_at(TYPES.turret, at + c[3], 'f32', 180), field_at(TYPES.turret, at + c[5], 'f32', 180)
+        f.signed, other.signed = true, true
+        local v, o = default_of(f), default_of(other)
+        if v and o and v ~= o and math.abs(v) <= -c[4] then
+            local p = part(prefix .. c[1], TYPES.turret, at + c[3], 'f32', 180)
+            p.field.signed = true
+            add_row(entry, 'Sentry aiming', prefix .. c[1], c[2], 'f32', { p }, c[4], -c[4], 1, 5).note = c[6]
+        end
+    end
     MOD.faction.row(entry, section, prefix .. 'faction', { key })
 end
 
