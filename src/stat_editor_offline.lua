@@ -1109,6 +1109,7 @@ MOD.langs = {
       ['Blitzer'] = '雷霆',
       ['Block game input while open'] = '打开时屏蔽游戏输入',
       ['Blocking rock'] = '阻挡岩石',
+      ['Blows up when overcharged'] = '过载时爆炸',
       ['Blunt-Force Mitigation'] = '钝击创伤缓和',
       ['Body'] = '躯干',
       ['Body collision spine'] = '躯体脊椎',
@@ -1588,6 +1589,7 @@ MOD.langs = {
       ['Heavy burning'] = '重度燃烧',
       ['Heavycannon'] = '重炮',
       ['Height the shells fall from (m)'] = '炮弹落下的高度（米）',
+      ['Held this long, it blows up. 600 = it never does.'] = '蓄力保持这么久就会爆炸。600 = 永不爆炸。',
       ['Hellbomb'] = '地狱火炸弹',
       ['Helldiver'] = '绝地潜兵',
       ['Helldivers 2 is running: close it first.'] = '《绝地潜兵 2》正在运行：请先关闭游戏。',
@@ -4733,6 +4735,7 @@ MOD.langs = {
       ['Blitzer'] = '閃擊者',
       ['Block game input while open'] = '開啟時遮蔽遊戲輸入',
       ['Blocking rock'] = '阻擋岩石',
+      ['Blows up when overcharged'] = '過載時爆炸',
       ['Blunt-Force Mitigation'] = '鈍擊緩解',
       ['Body'] = '軀幹',
       ['Body collision spine'] = '軀體脊椎',
@@ -5212,6 +5215,7 @@ MOD.langs = {
       ['Heavy burning'] = '重度燃燒',
       ['Heavycannon'] = '重炮',
       ['Height the shells fall from (m)'] = '炮彈落下的高度（米）',
+      ['Held this long, it blows up. 600 = it never does.'] = '蓄力保持這麼久就會爆炸。600 = 永不爆炸。',
       ['Hellbomb'] = '地獄火炸彈',
       ['Helldiver'] = '絕地潛兵',
       ['Helldivers 2 is running: close it first.'] = '《絕地潛兵 2》正在執行：請先關閉遊戲。',
@@ -8349,6 +8353,7 @@ MOD.langs = {
       ['Blitzer'] = '«Налетчик»',
       ['Block game input while open'] = 'Блокировать ввод в игре',
       ['Blocking rock'] = 'Преграждающая скала',
+      ['Blows up when overcharged'] = 'Взрывается при перезаряде',
       ['Blunt-Force Mitigation'] = 'Уменьшение дробящего урона',
       ['Body'] = 'Тело',
       ['Body collision spine'] = 'Хребет корпуса',
@@ -8793,6 +8798,7 @@ MOD.langs = {
       ['Heavy burning'] = 'Сильное горение',
       ['Heavycannon'] = 'тяжелая пушка',
       ['Height the shells fall from (m)'] = 'Высота, с которой падают снаряды (м)',
+      ['Held this long, it blows up. 600 = it never does.'] = 'Если держать заряд столько, оружие взрывается. 600 = никогда.',
       ['Helldiver'] = 'Адский десантник',
       ['Helldivers 2 is running: close it, then Install.'] = 'Helldivers 2 запущена: закройте её, затем нажмите «Установить в игру».',
       ['Helldivers 2 is running: close it, then restore.'] = 'Helldivers 2 запущена: закройте её, затем верните файлы.',
@@ -13379,7 +13385,13 @@ local function resolve_gun(weapon, key)
         local limit = default_of(cf(208))
         if limit and limit > 0 then
             add_row(weapon, 'Charge', 'charge_limit', 'Overcharge limit (s)', 'f32',
-                    { part('charge_limit', TYPES.charge, charge + 208, 'f32', 100000) }, 0, 600, 0.05, 0.25)
+                    { part('charge_limit', TYPES.charge, charge + 208, 'f32', 100000) }, 0, 600, 0.05, 0.25).tip =
+                { 'Held this long, it blows up. 600 = it never does.' }
+        end
+        -- +185 blows up at the last stage's charge time (the Railgun's unsafe mode; SHODAN Offline Integration)
+        local boom = part('charge_explodes', TYPES.charge, charge + 185, 'flag', 1)
+        if default_of(boom.field) == 1 then
+            add_row(weapon, 'Charge', 'charge_explodes', 'Blows up when overcharged', 'flag', { boom }, 0, 1, 1, 1)
         end
         for _, m in ipairs(KINDS[TYPES.charge].MULTIPLIERS) do
             if not m.arc or record(TYPES.arc_weapon) then
