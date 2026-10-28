@@ -13121,16 +13121,17 @@ local function resolve_gun(weapon, key)
         end
         -- settings of one value (Maxigun, Bullet Storm, SG-88: all three; LAS-44 Nova: two, the first 0): no
         -- rate to pick in game, so one row writes them all (its first part is the default setting, the one the
-        -- game fires at)
+        -- game fires at). Sentries, emplacements and vehicles can't switch either: one row, whatever their values
         local same = #rates > 1
-        for _, rate in ipairs(rates) do same = same and values[rate.n] == values[rates[1].n] end
+        local fixed = weapon.slot == 'Stratagems' or weapon.slot == 'Mechas' or weapon.slot == 'Boosters'
+        for _, rate in ipairs(rates) do same = same and (fixed or values[rate.n] == values[rates[1].n]) end
         if same then
             local parts = {}
             for _, rate in ipairs(rates) do
                 local id = ({ 'rpm_1', 'rpm', 'rpm_3' })[rate.n]
                 table.insert(parts, rate.n == 2 and 1 or #parts + 1, part(id, T_FIRE, fire + rate.offset, 'f32', 100000))
             end
-            add_row(weapon, 'Fire', parts[1].id, 'Fire rate (RPM)', 'f32', parts, 1, 6000, 10, 50)
+            add_row(weapon, 'Fire', parts[1].id, 'Fire rate (RPM)', 'f32', parts, 1, 6000, 10, 50).lead = true   -- (shows the default)
             rates = {}
         end
         for k, rate in ipairs(rates) do
