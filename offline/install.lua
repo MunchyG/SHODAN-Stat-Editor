@@ -284,6 +284,45 @@ function M.write_files(game, writes, originals, skip_changed)
     return true, changed
 end
 
+-- ---------------------------------------------------------------- the vehicle patch
+-- The changed vehicle physics (vehicles.lua) go into a patch archive of this editor's own in data\ (one up from
+-- data\game): <base>.patch_N at the lowest free N, with the empty .stream and .gpu_resources the game expects.
+-- installed.txt lists it as ../<name>. Every Install takes the old one out first, so it moves down into a slot
+-- another mod left free. data nil: only taken out. Returns the file name (nil when none).
+local PATCH_PARTS = { '', '.stream', '.gpu_resources' }
+
+function M.patch_installed(game)
+    for name, hashes in pairs(load_list()) do
+        local current = name:match('^%.%./.-%.patch_%d+$') and read(game .. '/' .. name)
+        if current and hashes[hash_of(current)] then return name end
+    end
+    return nil
+end
+
+function M.write_patch(game, base, data)
+    if M.game_running() then return nil, 'Helldivers 2 is running: close it first.' end
+    local list = load_list()
+    local old = M.patch_installed(game)
+    if old then
+        for _, part in ipairs(PATCH_PARTS) do os.remove(game .. '/' .. old .. part) end
+        if exists(game .. '/' .. old) then return nil, 'could not remove ' .. old end
+    end
+    for name in pairs(list) do if name:match('^%.%./.-%.patch_%d+$') then list[name] = nil end end
+    if not data then save_list(list); return true, nil end
+    local n = 0
+    while exists(game .. '/../' .. base .. '.patch_' .. n) do n = n + 1 end
+    local name = '../' .. base .. '.patch_' .. n
+    list[name] = { [hash_of(data)] = true }
+    if not save_list(list) then return nil, 'could not write ' .. LIST end
+    local ok, why = write(game .. '/' .. name, data)
+    for k = 2, #PATCH_PARTS do ok = ok and write(game .. '/' .. name .. PATCH_PARTS[k], '') end
+    if not ok then
+        for _, part in ipairs(PATCH_PARTS) do os.remove(game .. '/' .. name .. part) end
+        return nil, 'could not write ' .. name:sub(4) .. ' (' .. tostring(why) .. ')'
+    end
+    return true, name
+end
+
 -- the files written by an install (now in the game)
 function M.installed(game)
     local list, out = load_list(), {}

@@ -11,6 +11,7 @@ local G = require('gamedata')
 local D = require('hostdata')
 local I = require('install')
 local U = require('update')
+local V = require('vehicles')
 
 pcall(ffi.cdef, 'uint64_t GetTickCount64(void);')
 local function clock() return tonumber(ffi.C.GetTickCount64()) / 1000 end
@@ -97,6 +98,12 @@ local function main()
                          .. '\n\nIf another tool changed them, verify the game files in Steam.', 0x30)
     end
 
+    -- the vehicles' handling (their physics, out of the game's archives): the panel offers it when this works
+    local physics_ok, physics_why = pcall(V.load, (game:gsub('[/\\]game$', '')), log)
+    if physics_ok and physics_why > 0 then rawset(_G, 'SHODAN_PHYSICS', V.shared)
+    elseif not physics_ok then log('vehicle physics: not offered: ' .. tostring(physics_why)) end
+    local patch = I.patch_installed(game)   -- this editor's patch archive in the game (its name), or nil
+
     -- ------------------------------------------------------------ the editor
     screen({ 'SHODAN Stat Editor Offline', 'Finding the stats...' })
     rawset(_G, 'SHODAN_OFFLINE', true)
@@ -150,7 +157,11 @@ local function main()
     end
     layout()
 
-    local function installed_count() local n = 0; for _, v in pairs(ours) do if v then n = n + 1 end end return n end
+    local function installed_count()
+        local n = patch and 1 or 0
+        for _, v in pairs(ours) do if v then n = n + 1 end end
+        return n
+    end
 
     local function status()
         if bar.busy then return bar.busy, WARN end
@@ -276,20 +287,35 @@ local function main()
         for name, mine in pairs(ours) do
             if mine and not writes[name] then writes[name], back = originals[name], back + 1 end
         end
-        if not next(writes) then
+        local physics, vehicles = nil, nil
+        if rawget(_G, 'SHODAN_PHYSICS') then physics, vehicles = V.patch() end
+        if not next(writes) and not physics and not patch then
             bar.busy, bar.base = nil, state.writes
             say('Nothing to install: your values are the game\'s own.', GOOD)
             return
         end
         busy('Installing: writing the files...')
-        local done, why = I.write_files(game, writes, originals)
+        local done, why = true, nil
+        if next(writes) then done, why = I.write_files(game, writes, originals) end
+        if done then for name, data in pairs(writes) do ours[name] = data ~= originals[name] end end
+        if done and (physics or patch) then
+            local name
+            done, name = I.write_patch(game, V.BASE, physics)
+            if done then
+                if physics then made = made + 1 elseif patch then back = back + 1 end
+                patch = name
+                log(physics and ('vehicle handling: ' .. name .. ' (' .. table.concat(vehicles, ', ') .. ')')
+                    or 'vehicle handling: patch removed')
+            else
+                why = name
+            end
+        end
         bar.busy = nil
         if not done then
             log('install failed: ' .. tostring(why))
             say('Not installed: ' .. tostring(why), WARN)
             return
         end
-        for name, data in pairs(writes) do ours[name] = data ~= originals[name] end
         bar.base = state.writes
         log(string.format('installed: %d changed, %d back to the original', made, back))
         say(string.format('Installed (%d game files changed%s). Start the game to play with your values.', made,
@@ -300,11 +326,16 @@ local function main()
         if I.game_running() then say('Helldivers 2 is running: close it, then restore.', WARN); return end
         local writes = {}
         for name, mine in pairs(ours) do if mine then writes[name] = originals[name] end end
-        if not next(writes) then say('The game\'s own files are already in place.', GOOD); return end
+        if not next(writes) and not patch then say('The game\'s own files are already in place.', GOOD); return end
         busy('Restoring the game\'s files...')
         local names = {}
         for name in pairs(writes) do names[#names + 1] = name end
-        local done, why = I.write_files(game, writes, originals, true)
+        local done, why = true, {}
+        if next(writes) then done, why = I.write_files(game, writes, originals, true) end
+        if done and patch then
+            local removed, problem = I.write_patch(game, V.BASE, nil)
+            if removed then patch = nil; log('vehicle handling: patch removed') else done, why = nil, problem end
+        end
         bar.busy = nil
         if not done then say('Not restored: ' .. tostring(why), WARN); return end
         -- files another tool changed since: left as they are (theirs now); files another mod had changed before

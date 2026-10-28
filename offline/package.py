@@ -16,7 +16,7 @@ files = {
     'app/stat_editor.lua': PANEL,
     'app/icons.bin': os.path.join(HERE, 'icons.bin'),   # the pages' HUD icons (tools/hud_icons.py)
 }
-for m in ('host', 'engine_shim', 'install', 'gamedata', 'hostdata', 'update'):
+for m in ('host', 'engine_shim', 'install', 'gamedata', 'hostdata', 'update', 'vehicles'):
     files['app/%s.lua' % m] = os.path.join(HERE, m + '.lua')
 DEV = re.compile(r'[ \t]*--\[\[DEV\]\].*?--\[\[/DEV\]\][^\n]*\n', re.S)   # test hooks: not in the package
 VERSION = re.search(r"version = '([\d.]+)'", open(PANEL, encoding='utf-8').read()).group(1)
