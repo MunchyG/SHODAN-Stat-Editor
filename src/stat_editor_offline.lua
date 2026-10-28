@@ -1654,6 +1654,7 @@ MOD.langs = {
       ['Incendiary Mine Deployer'] = '燃烧布雷器',
       ['Incinerator FRV'] = '炽灼型快速侦察载具',
       ['Infested Tower'] = '侵染塔巢',
+      ['Infinite ammo'] = '无限弹药',
       ['Inflammable'] = '易燃易爆',
       ['Inherits velocity'] = '继承速度',
       ['Injures you above heat (%)'] = '超过此热量会灼伤(%)',
@@ -2548,6 +2549,7 @@ MOD.langs = {
       ['The game\'s own files are already in place.'] = '当前已是游戏原始文件。',
       ['The game\'s own files are back. Your values stay saved here (Install puts them in again).'] = '已恢复游戏原始文件。你的数值仍保存在此，点击“写入游戏”可再次写入。',
       ['The game\'s own files are in place. Close the game, then Install to play with your values.'] = '当前为游戏原始文件。关闭游戏后点击“写入游戏”，即可使用修改后的数值。',
+      ['The magazine never runs out. Flamethrowers: also set Ammo per puff to 0.'] = '弹匣永不耗尽。火焰喷射器：还需把“每次喷射耗弹”设为 0。',
       ['The one you carry.'] = '你携带的那一把。',
       ['The one you carry. The CQC-20 Breaching Hammer is listed under Support.'] = '你携带的那一把。CQC-20 破拆锤列在“支援武器”下。',
       ['The one you carry. The CQC-72 support version is listed under Support.'] = '你携带的那一把。CQC-72 支援版本列在“支援武器”下。',
@@ -5271,6 +5273,7 @@ MOD.langs = {
       ['Incendiary Mine Deployer'] = '燃燒佈雷器',
       ['Incinerator FRV'] = '焚燒者FRV',
       ['Infested Tower'] = '蟲巢塔',
+      ['Infinite ammo'] = '無限彈藥',
       ['Inflammable'] = '易燃物',
       ['Inherits velocity'] = '繼承速度',
       ['Injures you above heat (%)'] = '超過此熱量會灼傷(%)',
@@ -6165,6 +6168,7 @@ MOD.langs = {
       ['The game\'s own files are already in place.'] = '當前已是遊戲原始檔案。',
       ['The game\'s own files are back. Your values stay saved here (Install puts them in again).'] = '已恢復遊戲原始檔案。你的數值仍儲存在此，點選「寫入遊戲」可再次寫入。',
       ['The game\'s own files are in place. Close the game, then Install to play with your values.'] = '當前為遊戲原始檔案。關閉遊戲後點選「寫入遊戲」，即可使用修改後的數值。',
+      ['The magazine never runs out. Flamethrowers: also set Ammo per puff to 0.'] = '彈匣永不耗盡。火焰噴射器：還需把「每次噴射耗彈」設為 0。',
       ['The one you carry.'] = '你攜帶的那一把。',
       ['The one you carry. The CQC-20 Breaching Hammer is listed under Support.'] = '你攜帶的那一把。CQC-20 破拆錘列在「支援武器」下。',
       ['The one you carry. The CQC-72 support version is listed under Support.'] = '你攜帶的那一把。CQC-72 支援版本列在「支援武器」下。',
@@ -8839,6 +8843,7 @@ MOD.langs = {
       ['Incendiary MG Devastator'] = 'Зажигательный пулеметчик-разрушитель',
       ['Incinerator FRV'] = 'Огнеметная МТР',
       ['Infested Tower'] = 'Зараженная башня',
+      ['Infinite ammo'] = 'Бесконечные патроны',
       ['Inflammable'] = 'Огнеопасный',
       ['Inherits velocity'] = 'Наследует скорость',
       ['Injures you above heat (%)'] = 'Ранит вас при нагреве выше (%)',
@@ -9680,6 +9685,7 @@ MOD.langs = {
       ['The game\'s own files are already in place.'] = 'Исходные файлы игры уже на месте.',
       ['The game\'s own files are back. Your values stay saved here (Install puts them in again).'] = 'Исходные файлы игры возвращены. Ваши значения сохранены здесь («Установить в игру» вернёт их в игру).',
       ['The game\'s own files are in place. Close the game, then Install to play with your values.'] = 'Сейчас стоят исходные файлы игры. Закройте игру и нажмите «Установить в игру», чтобы играть с вашими значениями.',
+      ['The magazine never runs out. Flamethrowers: also set Ammo per puff to 0.'] = 'Магазин никогда не кончается. Огнемёты: также поставьте «Патронов за выброс» на 0.',
       ['The one you carry.'] = 'То, что вы носите.',
       ['The one you carry. The CQC-20 Breaching Hammer is listed under Support.'] = 'То, что вы носите. CQC-20 Штурмовой молот — во вкладке «Поддержка».',
       ['The one you carry. The CQC-72 support version is listed under Support.'] = 'То, что вы носите. Версия поддержки CQC-72 — во вкладке «Поддержка».',
@@ -13617,6 +13623,14 @@ local function resolve_gun(weapon, key)
             local r = add_row(weapon, 'Handling', 'suppressed', 'Suppressed', 'flag', { quiet, noise }, 0, 1, 1, 1)
             r.lead, r.suppression = true, true
             r.tip = { "Quieter for enemies: the noise of the game's suppressed guns. No suppressor model, same firing sound." }
+        end
+        -- infinite ammo (SHODAN Offline Integration): the game's own switches, WeaponData +960 and the
+        -- projectile weapon's +36 (1240-byte layout)
+        local inf = KINDS[T_WEAPON].stride == 1240 and { part('infinite_ammo', T_WEAPON, data + 960, 'flag', 1) }
+        if inf and fire then inf[2] = part('infinite_ammo_2', T_FIRE, fire + 36, 'flag', 1) end
+        if inf and default_of(inf[1].field) == 0 and (not inf[2] or default_of(inf[2].field) == 0) then
+            add_row(weapon, 'Ammo', 'infinite_ammo', 'Infinite ammo', 'flag', inf, 0, 1, 1, 1).tip =
+                { 'The magazine never runs out. Flamethrowers: also set Ammo per puff to 0.' }
         end
         MOD.spin_rows(weapon, data, record(TYPES.windup))
     end
