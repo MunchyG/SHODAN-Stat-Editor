@@ -11962,6 +11962,7 @@ local function read_field(f)
     if not bits then return nil end
     local value = bits
     if f.storage == 'f32' then value = bits_to_f32(bits) end
+    if f.unset and bits == 0x7F7FFFFF then return f.unset end   -- FLT_MAX: not set, read as f.unset
     if value ~= value or value < (f.signed and -f.limit or 0) or value > f.limit then return nil end   -- implausible: layout moved
     return value
 end
@@ -14984,6 +14985,7 @@ function MOD.enemy.resolve(entry)
     row('Health', 'armor', 'Armor', 280, 'u32', 100, 10, 1, 1, 'body parts without their own armor use this')
     row('Health', 'durable', 'Durable ratio (0-1)', 268, 'f32', 1, 1, 0.05, 0.1,
         "0: hits deal their normal damage, 1: their durable damage (the weapon's lower one)")
+    for _, p in ipairs(parts('explosive', 388, 'f32', 100)) do p.field.unset = 1 end   -- (most: not set, normal damage)
     row('Health', 'explosive', 'Explosive damage taken (x)', 388, 'f32', 100, 100, 0.05, 0.25)
     row('Health', 'bleed', 'Bleed-out health', 24, 'u32', 10000000, 1000000, 10, 100,
         'what it has left once its health is gone, lost over time')
