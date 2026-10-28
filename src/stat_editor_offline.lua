@@ -1214,6 +1214,7 @@ MOD.langs = {
       ['Choked (experimental)'] = '窒息（实验性）',
       ['Choose a weapon on the left.'] = '请在左侧选择武器。',
       ['Clear'] = '清除',
+      ['Click * to show only what you changed, from every tab.'] = '点 * 只显示你改过的内容（所有标签页）。',
       ['Click again to overwrite'] = '再次点击以覆盖',
       ['Climb acceleration'] = '爬升加速度',
       ['Climb multiplier (horizontal)'] = '枪口上扬倍率（水平）',
@@ -2348,6 +2349,7 @@ MOD.langs = {
       ['Short Magazine'] = '短弹匣',
       ['Shotgun'] = '霰弹枪',
       ['Shoulder Mounted Camera'] = '肩载摄像机',
+      ['Showing only what you changed, from every tab. Click * again to show everything.'] = '只显示你改过的内容（所有标签页）。再点 * 显示全部。',
       ['Shrapnel'] = '榴霰弹',
       ['Shrapnel blast radius'] = '破片爆炸半径',
       ['Shrapnel direct hit'] = '破片直击',
@@ -4822,6 +4824,7 @@ MOD.langs = {
       ['Choked (experimental)'] = '窒息（實驗性）',
       ['Choose a weapon on the left.'] = '請在左側選擇武器。',
       ['Clear'] = '清除',
+      ['Click * to show only what you changed, from every tab.'] = '點 * 只顯示你改過的內容（所有標籤頁）。',
       ['Click again to overwrite'] = '再次點選以覆蓋',
       ['Climb acceleration'] = '爬升加速度',
       ['Climb multiplier (horizontal)'] = '槍口上揚倍率（水平）',
@@ -5956,6 +5959,7 @@ MOD.langs = {
       ['Short Magazine'] = '短型彈匣',
       ['Shotgun'] = '霰彈槍',
       ['Shoulder Mounted Camera'] = '肩載攝像機',
+      ['Showing only what you changed, from every tab. Click * again to show everything.'] = '只顯示你改過的內容（所有標籤頁）。再點 * 顯示全部。',
       ['Shrapnel'] = '榴散彈',
       ['Shrapnel blast radius'] = '破片爆炸半徑',
       ['Shrapnel direct hit'] = '破片直擊',
@@ -8416,6 +8420,7 @@ MOD.langs = {
       ['Choked (experimental)'] = 'Удушье (эксперимент.)',
       ['Choose a weapon on the left.'] = 'Выберите оружие слева.',
       ['Clear'] = 'Очистить',
+      ['Click * to show only what you changed, from every tab.'] = 'Нажмите *, чтобы показать только изменённое, со всех вкладок.',
       ['Click again to overwrite'] = 'Нажмите еще раз, чтобы перезаписать',
       ['Climb acceleration'] = 'Ускорение подъема',
       ['Climb multiplier (horizontal)'] = 'Множитель подъема (по горизонтали)',
@@ -9478,6 +9483,7 @@ MOD.langs = {
       ['Shockwave radius (m)'] = 'Радиус ударной волны (м)',
       ['Short Magazine'] = 'Короткий магазин',
       ['Shotgun'] = 'дробовик',
+      ['Showing only what you changed, from every tab. Click * again to show everything.'] = 'Показано только изменённое, со всех вкладок. Нажмите * ещё раз, чтобы показать всё.',
       ['Shrapnel'] = 'Шрапнель',
       ['Shrapnel blast radius'] = 'Радиус взрыва осколков',
       ['Shrapnel direct hit'] = 'Прямое попадание осколков',
@@ -17455,14 +17461,19 @@ local LIST_ROWS = 27
 local W, H = 1000, 980       -- panel size in its own units
 
 -- The weapons (or stratagems) of a tab; tab '?search': those of every tab whose name holds every
--- word of the search (any case). The Records tab: its records, and searching there searches them.
+-- word of the search (any case), and with ui.search.edited only those with a saved change (the idea from
+-- 127MU's fork). The Records tab: its records, and searching there searches them.
 local function weapons_in(tab)
-    local list, words = {}, nil
+    local list, words, edited = {}, nil, nil
     if tab == '?search' then
         words = {}
         for word in ui.search.text:lower():gmatch('%S+') do words[#words + 1] = word end
     end
-    if tab == 'Records' or words and ui.tab == 'Records' then
+    if tab == '?search' and ui.search.edited then
+        edited = {}
+        for _, o in ipairs(overrides) do edited[o.hash] = true end
+    end
+    if (tab == 'Records' or words and ui.tab == 'Records') and not edited then
         for _, page in ipairs(MOD.records.all()) do
             local text, all = (page.name .. ' ' .. page.note):lower(), true
             for _, word in ipairs(words or {}) do
@@ -17478,6 +17489,10 @@ local function weapons_in(tab)
                 local name, all = weapon.name:lower(), true
                 for _, word in ipairs(words) do
                     if not name:find(word, 1, true) then all = false; break end
+                end
+                local t = edited and not edited[weapon.hash] and weapon.passive and tables[weapon.passive]   -- (stacked passives)
+                if edited and not edited[weapon.hash] and not (t and (settings.stacks[t.index.id] ~= nil or settings.own_off[t.index.id] ~= nil)) then
+                    all = false
                 end
                 if all then list[#list + 1] = weapon end
             elseif weapon.slot == tab then
@@ -17630,7 +17645,7 @@ local function select_weapon(weapon)
     end
     if weapon then
         ui.tab = weapon.slot
-        local list = weapons_in(ui.search.text ~= '' and '?search' or ui.tab)
+        local list = weapons_in((ui.search.text ~= '' or ui.search.edited) and '?search' or ui.tab)
         for n, w in ipairs(list) do
             if w == weapon and n < ui.page then ui.page = n
             elseif w == weapon and n >= ui.page + LIST_ROWS then ui.page = n - LIST_ROWS + 1 end
@@ -18685,8 +18700,8 @@ local function draw(width, height)
     end
 
     -- weapon list
-    local searching = ui.search.text ~= '' or ui.search.active
-    local list = presets_tab and {} or weapons_in(ui.search.text ~= '' and '?search' or ui.tab)
+    local searching = ui.search.text ~= '' or ui.search.active or ui.search.edited
+    local list = presets_tab and {} or weapons_in((ui.search.text ~= '' or ui.search.edited) and '?search' or ui.tab)
     local last_top = math.max(1, #list - LIST_ROWS + 1)
     ui.page = math.max(1, math.min(ui.page, last_top))
     for k = 1, LIST_ROWS do
@@ -18742,24 +18757,25 @@ local function draw(width, height)
     end
     local py = 96 + LIST_ROWS * 26 + 8
     if not presets_tab then
-        if ui.search.text ~= '' and #list == 0 then text('Nothing matches.', 24, 100, 16, MUTED) end
+        if (ui.search.text ~= '' or ui.search.edited) and #list == 0 then text('Nothing matches.', 24, 100, 16, MUTED) end
         button('page:prev', '<', 16, py, 40, 30, ui.page > 1)
         list_bar('page', #list)
         text((#list > LIST_ROWS and (ui.page .. '-' .. math.min(#list, ui.page + LIST_ROWS - 1) .. ' of ') or '') ..
-             #list .. (ui.search.text ~= '' and ' found' or ' listed'),
+             #list .. ((ui.search.text ~= '' or ui.search.edited) and ' found' or ' listed'),
              70, py + 7, 16, MUTED, 214)
         button('page:next', '>', 294, py, 40, 30, ui.page < last_top)
         -- search box: click it (or Ctrl+F) and type; the list shows what matches, from every tab
         local sy, active = py + 40, ui.search.active
-        rect(16, sy, 274, 30, active and color(20, 26, 34) or color(28, 34, 42), 951)
-        outline(16, sy, 274, 30, active and GOLD or (ui.hover == 'search' and GOLD or color(70, 82, 94)))
+        rect(16, sy, 230, 30, active and color(20, 26, 34) or color(28, 34, 42), 951)
+        outline(16, sy, 230, 30, active and GOLD or (ui.hover == 'search' and GOLD or color(70, 82, 94)))
         if ui.search.text == '' and not active then
-            text(MOD.enemy.on and 'Search enemies' or 'Search weapons and stratagems', 24, sy + 7, 15, DIM, 258)
+            text(MOD.enemy.on and 'Search enemies' or 'Search weapons and stratagems', 24, sy + 7, 15, DIM, 214)
         else
-            text(ui.search.text .. (active and '_' or ''), 24, sy + 6, 16, WHITE, 258)
+            text(ui.search.text .. (active and '_' or ''), 24, sy + 6, 16, WHITE, 214)
         end
-        region('search', 16, sy, 274, 30)
-        button('search:clear', 'X', 296, sy, 38, 30, ui.search.text ~= '')
+        region('search', 16, sy, 230, 30)
+        button('search:clear', 'X', 252, sy, 38, 30, ui.search.text ~= '')
+        button('search:edited', '*', 296, sy, 38, 30, true, ui.search.edited, GOLD)
         rect(343, 96, 2, H - 96 - 70, color(70, 82, 94), 951)
     end
 
@@ -19122,6 +19138,9 @@ local function draw(width, height)
     elseif ui.value then
         text('Type the value: Enter sets it, Esc cancels. Values out of range are set to the nearest allowed one.',
              18, H - 56, 14, MUTED, W - 260)
+    elseif ui.hover == 'search:edited' then
+        text(ui.search.edited and 'Showing only what you changed, from every tab. Click * again to show everything.'
+             or 'Click * to show only what you changed, from every tab.', 18, H - 56, 14, MUTED, W - 260)
     elseif ui.search.active and not presets_tab then
         text('Type to search: Enter keeps the results, Esc clears the search. The game sees these keys too.',
              18, H - 56, 14, MUTED, W - 260)
@@ -19310,7 +19329,8 @@ local function click(key)
         elseif arg == 'log_open' then done = settings.open((data_dir('Logs') or ''):gsub('/', '\\')) and 'Opened the log folder.' end
         ui.message = { text = done or 'That did not work; see the log.', till = api.now() + 4 }
     elseif kind == 'search' then
-        if arg == 'clear' then ui.search, ui.page = { text = '', active = false }, 1
+        if arg == 'clear' then ui.search, ui.page = { text = '', active = false, edited = ui.search.edited }, 1
+        elseif arg == 'edited' then ui.search.edited, ui.page = not ui.search.edited or nil, 1
         else ui.search.active = true end
     elseif kind == 'weapon' then select_weapon(by_hash[arg])
     elseif kind == 'page' then ui.page = math.max(1, ui.page + (arg == 'next' and LIST_ROWS or -LIST_ROWS))
