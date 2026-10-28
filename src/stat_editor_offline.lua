@@ -1412,6 +1412,12 @@ MOD.langs = {
       ['Fabricator / bug hole release speed (x)'] = '构筑者 / 虫洞释放速度 (x)',
       ['Fabricator death'] = '制造厂毁灭',
       ['Face'] = '面部',
+      ['Faction'] = '阵营',
+      ['Faction: 1 Super Earth, 2 Terminids, 4 Illuminate or 8 Automatons.'] = '阵营：1 超级地球、2 虫族、4 光能者或 8 机器人。',
+      ['Faction: Automatons'] = '阵营：机器人',
+      ['Faction: Illuminate'] = '阵营：光能者',
+      ['Faction: Super Earth'] = '阵营：超级地球',
+      ['Faction: Terminids'] = '阵营：虫族',
       ['Factory Strider'] = '移动工厂',
       ['Fake'] = '伪装',
       ['Feet First'] = '护腿为上',
@@ -2734,6 +2740,7 @@ MOD.langs = {
       ['none (no explosion)'] = '无（不爆炸）',
       ['none (no projectile)'] = '无（没有弹丸）',
       ['normal projectile'] = '常规弹丸',
+      ['not a faction'] = '不是有效阵营',
       ['not a finite number'] = '不是有限数值',
       ['nothing to vary for the hash (edit a value with decimals in this file)'] = '没有可用于校正校验值的数据（请修改此文件中的一个小数值）',
       ['on the crosshair; closer or farther it lands a bit high or low. Does not change the zoom.'] = '落在准星上；更近或更远会略高或略低。不改变放大倍率。',
@@ -2786,6 +2793,7 @@ MOD.langs = {
       ['what each hit applies; the slots go in order'] = '每次命中施加的状态；状态槽需按顺序填写',
       ['what it has left once its health is gone, lost over time'] = '生命值耗尽后剩余的部分，随时间流失',
       ['where it hangs when put away: 0 on the back, 1 on the hip'] = '收起时挂在哪里：0 背部，1 腰部',
+      ['who it fights for: units of other sides attack it, and it attacks them'] = '它为谁而战：其他阵营的单位会攻击它，它也会攻击它们',
     },
     lower = {
       ['"+ new preset" (or insert) saves your current changes as one; you name it next.'] = '“+ 新建预设”（或 Insert 键）会把当前修改存为一组，接着你可以为它命名。',
@@ -4995,6 +5003,12 @@ MOD.langs = {
       ['Fabricator / bug hole release speed (x)'] = '構築者 / 蟲洞釋放速度 (x)',
       ['Fabricator death'] = '製造廠毀滅',
       ['Face'] = '面部',
+      ['Faction'] = '陣營',
+      ['Faction: 1 Super Earth, 2 Terminids, 4 Illuminate or 8 Automatons.'] = '陣營：1 超級地球、2 蟲族、4 光能者或 8 機器人。',
+      ['Faction: Automatons'] = '陣營：機器人',
+      ['Faction: Illuminate'] = '陣營：光能者',
+      ['Faction: Super Earth'] = '陣營：超級地球',
+      ['Faction: Terminids'] = '陣營：蟲族',
       ['Factory Strider'] = '移動工廠',
       ['Fake'] = '偽裝',
       ['Feet First'] = '護腿優先',
@@ -6317,6 +6331,7 @@ MOD.langs = {
       ['none (no explosion)'] = '無（不爆炸）',
       ['none (no projectile)'] = '無（沒有射彈）',
       ['normal projectile'] = '常規射彈',
+      ['not a faction'] = '不是有效陣營',
       ['not a finite number'] = '不是有限數值',
       ['nothing to vary for the hash (edit a value with decimals in this file)'] = '沒有可用於校正校驗值的資料（請修改此檔案中的一個小數值）',
       ['on the crosshair; closer or farther it lands a bit high or low. Does not change the zoom.'] = '落在準星上；更近或更遠會略高或略低。不改變放大倍率。',
@@ -6369,6 +6384,7 @@ MOD.langs = {
       ['what each hit applies; the slots go in order'] = '每次命中施加的狀態；狀態槽需按順序填寫',
       ['what it has left once its health is gone, lost over time'] = '生命值耗盡後剩餘的部分，隨時間流失',
       ['where it hangs when put away: 0 on the back, 1 on the hip'] = '收起時掛在哪裡：0 背部，1 腰部',
+      ['who it fights for: units of other sides attack it, and it attacks them'] = '它為誰而戰：其他陣營的單位會攻擊它，它也會攻擊它們',
     },
     lower = {
       ['"+ new preset" (or insert) saves your current changes as one; you name it next.'] = '「+ 新建預設」（或 Insert 鍵）會把當前修改存為一組，接著你可以為它命名。',
@@ -8546,6 +8562,12 @@ MOD.langs = {
       ['Fabricator / bug hole release speed (x)'] = 'Выпуск изготовителя / норы (x)',
       ['Fabricator death'] = 'Гибель фабрикатора',
       ['Face'] = 'Лицо',
+      ['Faction'] = 'Фракция',
+      ['Faction: 1 Super Earth, 2 Terminids, 4 Illuminate or 8 Automatons.'] = 'Фракция: 1 Супер-Земля, 2 Терминиды, 4 Светороды или 8 Автоматоны.',
+      ['Faction: Automatons'] = 'Фракция: Автоматоны',
+      ['Faction: Illuminate'] = 'Фракция: Светороды',
+      ['Faction: Super Earth'] = 'Фракция: Супер-Земля',
+      ['Faction: Terminids'] = 'Фракция: Терминиды',
       ['Factory Strider'] = 'Шатун-завод',
       ['Fake'] = 'ложный',
       ['Feet First'] = 'Вперед ногами',
@@ -9763,6 +9785,7 @@ MOD.langs = {
       ['none (no explosion)'] = 'нет (без взрыва)',
       ['none (no projectile)'] = 'нет (без снаряда)',
       ['normal projectile'] = 'обычный снаряд',
+      ['not a faction'] = 'не фракция',
       ['on the crosshair; closer or farther it lands a bit high or low. Does not change the zoom.'] = 'выстрел попадает в перекрестие; ближе или дальше чуть выше или ниже. Не меняет увеличение.',
       ['one kind of stratagem cannot be called within this distance while it stands'] = 'пока объект цел, в этом радиусе нельзя вызывать стратагемы одного типа',
       ['outcast'] = 'изгой',
@@ -9798,6 +9821,7 @@ MOD.langs = {
       ['walking, patrolling, searching, fighting and charging speeds together'] = 'скорости ходьбы, патрулирования, поиска, боя и рывка вместе',
       ['what it has left once its health is gone, lost over time'] = 'остаток после потери здоровья, убывает со временем',
       ['where it hangs when put away: 0 on the back, 1 on the hip'] = 'где висит, когда убрано: 0 на спине, 1 на бедре',
+      ['who it fights for: units of other sides attack it, and it attacks them'] = 'за кого сражается: юниты других сторон атакуют его, а он атакует их',
     },
     lower = {
       ['100kg bomb'] = 'Бомба (100 кг)',
@@ -13953,6 +13977,7 @@ local function unit_rows(entry, key, section, prefix)
     unit(TYPES.detector, 'search_max', 'Target search interval, max (s)', 4, 'f32', 60, 0.05, 0.25)
     unit(TYPES.turret, 'turn_h', 'Turn speed, horizontal (deg/s)', 12, 'f32', 3600, 1, 10)
     unit(TYPES.turret, 'turn_v', 'Turn speed, vertical (deg/s)', 8, 'f32', 3600, 1, 10)
+    MOD.faction.row(entry, section, prefix .. 'faction', { key })
 end
 
 -- A vehicle's rows (by its entity, `key`): its health component: health +0 (i32), armor +280 (the
@@ -15271,6 +15296,9 @@ function MOD.enemy.more_rows(entry)
         end
     end
     row(TYPES.sensor, 'Senses', 'sight', 'Sight range (m)', { 0 }, 'f32', 10000, 0, 1000, 1, 10)
+    local keys = {}
+    for _, m in ipairs(members) do keys[#keys + 1] = m.key end
+    MOD.faction.row(entry, 'Senses', 'faction', keys)
     -- the weapons it carries (inventory +0 / +8 / +16): SEAF only, a SEAF or player weapon instead
     -- (an enemy's gun in SEAF hands crashed the game; enemies keep theirs)
     for _, slot in ipairs(entry.slot == 'SEAF' and { { 0, 'gun_primary', 'Primary weapon' }, { 8, 'gun_sidearm', 'Sidearm' }, { 16, 'gun_support', 'Support weapon' } } or {}) do
@@ -16865,6 +16893,25 @@ KINDS[TYPES.unit] = { name = 'unit', stride = 136, keyed = true }
 KINDS[TYPES.inventory] = { name = 'inventory', stride = 144, keyed = true }
 KINDS[TYPES.ear] = { name = 'hearing', stride = 16, keyed = true }
 KINDS[TYPES.transport] = { name = 'transport', stride = 48, keyed = true }
+-- whose side a unit is on (FactionComponentData, 152-byte records: +0 up to 3 factions of 4 bytes; 0 none,
+-- 1 Super Earth, 2 Terminids, 4 Illuminate, 8 Automatons). From 127MU's and CarbonAnime's forks. Only the
+-- first is shown; a unit whose first is none gets no row.
+TYPES.faction = 0x5653EA91
+KINDS[TYPES.faction] = { name = 'faction', stride = 152, keyed = true }
+MOD.faction = { NAMES = { [1] = 'Super Earth', [2] = 'Terminids', [4] = 'Illuminate', [8] = 'Automatons' }, ORDER = { 1, 2, 4, 8 } }
+function MOD.faction.row(entry, section, id, keys)
+    local t, p = tables[TYPES.faction], {}
+    for n, key in ipairs(keys) do
+        local at = t and t.index[key]
+        if at then p[#p + 1] = part(#p == 0 and id or (id .. '_' .. n), TYPES.faction, at, 'u32', 255) end
+    end
+    if #p == 0 or not MOD.faction.NAMES[default_of(p[1].field) or 0] then return end
+    for _, q in ipairs(p) do q.field.allowed = { [1] = true, [2] = true, [4] = true, [8] = true, why = 'not a faction' } end
+    local r = add_row(entry, section, id, 'Faction', 'u32', p, 1, 8, 1, 1)
+    r.choice = 'faction'
+    r.label_of = function() return 'Faction: ' .. (MOD.faction.NAMES[read_field(p[1].field) or 0] or '?') end
+    r.note = 'who it fights for: units of other sides attack it, and it attacks them'
+end
 -- stratagem jammers (StratagemBlockerComponentData): +0 the stratagem kind blocked (7: every kind), +12 the
 -- radius, +16 active from the start; 4 bytes after the records
 TYPES.jammer = 0x8C5F8AB7
@@ -17582,6 +17629,23 @@ local function change(row, delta_sign, big, exact)
                 local ok, why = write_field(p.field, new)
                 if ok then set_override(weapon, p, unless_default(new, d))
                 else log('write refused: ' .. weapon.name .. ' ' .. p.id .. ': ' .. why) end
+            end
+            ui.version = ui.version + 1
+            return
+        end
+        if row.choice == 'faction' then   -- the next / previous side (typed: its number, 1 2 4 8), every part
+            local order, at = MOD.faction.ORDER, 1
+            for k, v in ipairs(order) do if v == current then at = k end end
+            local target = exact and math.floor(exact + 0.5) or order[math.max(1, math.min(#order, at + delta_sign))]
+            if not MOD.faction.NAMES[target] then
+                ui.message = { text = 'Faction: 1 Super Earth, 2 Terminids, 4 Illuminate or 8 Automatons.', till = api.now() + 4 }
+                return
+            end
+            if target == current then return end
+            for _, p in ipairs(row.parts) do
+                local ok, err = write_field(p.field, target)
+                if ok then set_override(weapon, p, unless_default(target, default_of(p.field)))
+                else ui.message = { text = err, till = api.now() + 4 } end
             end
             ui.version = ui.version + 1
             return
