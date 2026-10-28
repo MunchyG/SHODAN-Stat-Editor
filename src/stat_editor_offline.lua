@@ -2319,6 +2319,7 @@ MOD.langs = {
       ['SMG-72 Pummeler'] = 'SMG-72 暴击斗士',
       ['SMG/FLAM-34 Stoker'] = 'SMG/FLAM-34 司炉者',
       ['SMG/FLAM-34 Stoker (underbarrel flamer)'] = 'SMG/FLAM-34 司炉者（下挂喷火器）',
+      ['SPARKS'] = '火花',
       ['STATUS EFFECTS'] = '状态效果',
       ['STRATAGEM'] = '战略配备',
       ['Safe below heat (%)'] = '安全热量(%)',
@@ -2424,6 +2425,9 @@ MOD.langs = {
       ['Sniper crosshair in third person'] = '第三人称狙击步枪准星',
       ['Solo Silo'] = '单兵导弹发射井',
       ['Sos Beacon'] = '求救信标',
+      ['Spark damage'] = '火花伤害',
+      ['Spark durable damage'] = '火花耐久伤害',
+      ['Sparks'] = '火花',
       ['Spawn height (m)'] = '生成高度（米）',
       ['Spawner death'] = '刷怪点毁灭',
       ['Spawning'] = '敌人生成',
@@ -5980,6 +5984,7 @@ MOD.langs = {
       ['SMG-72 Pummeler'] = 'SMG-72 猛擊者',
       ['SMG/FLAM-34 Stoker'] = 'SMG/FLAM-34 爆燃者',
       ['SMG/FLAM-34 Stoker (underbarrel flamer)'] = 'SMG/FLAM-34 爆燃者（下掛噴火器）',
+      ['SPARKS'] = '火花',
       ['STATUS EFFECTS'] = '狀態效果',
       ['STRATAGEM'] = '戰略配備',
       ['Safe below heat (%)'] = '安全熱量(%)',
@@ -6085,6 +6090,9 @@ MOD.langs = {
       ['Sniper crosshair in third person'] = '第三人稱狙擊步槍準星',
       ['Solo Silo'] = '單發導彈筒',
       ['Sos Beacon'] = '求救信標',
+      ['Spark damage'] = '火花傷害',
+      ['Spark durable damage'] = '火花耐久傷害',
+      ['Sparks'] = '火花',
       ['Spawn height (m)'] = '生成高度（米）',
       ['Spawner death'] = '刷怪點毀滅',
       ['Spawning'] = '敵人生成',
@@ -9570,6 +9578,7 @@ MOD.langs = {
       ['SMG-72 Pummeler'] = 'SMG-72 «Трамбовщик»',
       ['SMG/FLAM-34 Stoker'] = 'SMG/FLAM-34 Топка',
       ['SMG/FLAM-34 Stoker (underbarrel flamer)'] = 'SMG/FLAM-34 Топка (подствольный огнемет)',
+      ['SPARKS'] = 'ИСКРЫ',
       ['STATUS EFFECTS'] = 'СОСТОЯНИЯ',
       ['STRATAGEM'] = 'СТРАТАГЕМА',
       ['Safe below heat (%)'] = 'Безопасно ниже нагрева (%)',
@@ -9667,6 +9676,9 @@ MOD.langs = {
       ['Sniper Scope 10x Helghast'] = 'Снайперский прицел (10х)',
       ['Sniper crosshair in third person'] = 'Снайперский прицел от 3-го лица',
       ['Solo Silo'] = 'Одиночная пусковая шахта',
+      ['Spark damage'] = 'Урон искр',
+      ['Spark durable damage'] = 'Урон искр по прочным целям',
+      ['Sparks'] = 'Искры',
       ['Spawn height (m)'] = 'Высота появления (м)',
       ['Spawner death'] = 'Гибель источника врагов',
       ['Spawning'] = 'Появление врагов',
@@ -12462,6 +12474,7 @@ MOD.langs = {
       ['SMG-72 Pummeler'] = 'SMG-72 Aporreador',
       ['SMG/FLAM-34 Stoker'] = 'SMG/FLAM-34 Fogonero',
       ['SMG/FLAM-34 Stoker (underbarrel flamer)'] = 'SMG/FLAM-34 Stoker (lanzallamas en cañón secundario)',
+      ['SPARKS'] = 'CHISPAS',
       ['STATUS EFFECTS'] = 'EFECTOS DE ESTADO',
       ['STRATAGEM'] = 'ESTRATAGEMA',
       ['Safe below heat (%)'] = 'Seguro por debajo de calor (%)',
@@ -12559,6 +12572,9 @@ MOD.langs = {
       ['Sniper Scope 10x Helghast'] = 'Visor de francotirador de 10x',
       ['Sniper crosshair in third person'] = 'Mira de francotirador en tercera persona',
       ['Solo Silo'] = 'Silo solitario',
+      ['Spark damage'] = 'Daño de chispas',
+      ['Spark durable damage'] = 'Daño duradero de chispas',
+      ['Sparks'] = 'Chispas',
       ['Spawn height (m)'] = 'Altura de aparición (m)',
       ['Spawner death'] = 'Muerte del generador',
       ['Spawning'] = 'Aparición',
@@ -15333,6 +15349,7 @@ MOD.langs = {
       ['SMG-72 Pummeler'] = 'SMG-72 Esmurradora',
       ['SMG/FLAM-34 Stoker'] = 'SMG/FLAM-34 Foguista',
       ['SMG/FLAM-34 Stoker (underbarrel flamer)'] = 'SMG/FLAM-34 Stoker (lança-chamas acoplado)',
+      ['SPARKS'] = 'FAÍSCAS',
       ['STATUS EFFECTS'] = 'EFEITOS DE STATUS',
       ['STRATAGEM'] = 'ESTRATÉGIA',
       ['Safe below heat (%)'] = 'Seguro abaixo do calor (%)',
@@ -15430,6 +15447,9 @@ MOD.langs = {
       ['Sniper Scope 10x Helghast'] = 'Mira de franco-atirador 10x',
       ['Sniper crosshair in third person'] = 'Mira de precisão em terceira pessoa',
       ['Solo Silo'] = 'Silo Solo',
+      ['Spark damage'] = 'Dano das faíscas',
+      ['Spark durable damage'] = 'Dano durável das faíscas',
+      ['Sparks'] = 'Faíscas',
       ['Spawn height (m)'] = 'Altura de surgimento (m)',
       ['Spawner death'] = 'Morte do gerador',
       ['Spawning'] = 'Surgimento',
@@ -20787,6 +20807,14 @@ local function resolve_throwable(entry, placed)
     if hit then
         damage_rows(entry, 'Damage', '', hit)
         status_rows(entry, 'Damage', '', hit, 'hit')
+    end
+    -- the G-142 Pyrotech's sparks: a spray (SprayWeaponComponentData +200 damage row; their count, range and spray
+    -- time are not in it, all 0)
+    local spray = record(T_SPRAY)
+    local sparks = spray and damage(read_field(field_at(T_SPRAY, spray + 200, 'u32', 100000)))
+    if sparks then
+        damage_rows(entry, 'Sparks', 'spark_', sparks, 'Spark')
+        status_rows(entry, 'Sparks', 'spark_', sparks, 'hit')
     end
     local ex = record(TYPES.explosive)
     if not ex then return end
