@@ -1079,6 +1079,7 @@ MOD.langs = {
       ['Blast proximity (m)'] = '近炸触发距离（米）',
       ['Blast radius'] = '爆炸半径',
       ['Bleed (experimental)'] = '流血（实验性）',
+      ['Bleed-out drain (health/s)'] = '失血流失 (生命值/秒)',
       ['Bleed-out health'] = '流血状态生命值',
       ['Blind (experimental)'] = '致盲（实验性）',
       ['Blitzer'] = '雷霆',
@@ -2668,6 +2669,7 @@ MOD.langs = {
       ['heavycannon'] = '重炮',
       ['hellpod rack'] = '空投舱挂架',
       ['hexagon'] = '六边形',
+      ['how fast the bleed-out health runs out'] = '失血生命值耗尽的速度',
       ['how long it keeps after you once you break line of sight'] = '脱离视线后它继续追击你的时长',
       ['how much gas it takes to confuse it'] = '使其混乱所需的毒气量',
       ['how much stun it takes to stun it'] = '使其眩晕所需的眩晕量',
@@ -4631,6 +4633,7 @@ MOD.langs = {
       ['Blast proximity (m)'] = '近炸觸發距離（米）',
       ['Blast radius'] = '爆炸半徑',
       ['Bleed (experimental)'] = '流血（實驗性）',
+      ['Bleed-out drain (health/s)'] = '失血流失 (生命值/秒)',
       ['Bleed-out health'] = '流血狀態生命值',
       ['Blind (experimental)'] = '致盲（實驗性）',
       ['Blitzer'] = '閃擊者',
@@ -6220,6 +6223,7 @@ MOD.langs = {
       ['heavycannon'] = '重炮',
       ['hellpod rack'] = '空投艙掛架',
       ['hexagon'] = '六邊形',
+      ['how fast the bleed-out health runs out'] = '失血生命值耗盡的速度',
       ['how long it keeps after you once you break line of sight'] = '脫離視線後它繼續追擊你的時長',
       ['how much gas it takes to confuse it'] = '使其混亂所需的毒氣量',
       ['how much stun it takes to stun it'] = '使其眩暈所需的眩暈量',
@@ -8175,6 +8179,7 @@ MOD.langs = {
       ['Blast proximity (m)'] = 'Дистанция подрыва (м)',
       ['Blast radius'] = 'Радиус взрыва',
       ['Bleed (experimental)'] = 'Кровотечение (эксперимент.)',
+      ['Bleed-out drain (health/s)'] = 'Убывание здоровья при кровотечении (здоровье/с)',
       ['Bleed-out health'] = 'Здоровье при истекании кровью',
       ['Blind (experimental)'] = 'Ослепление (эксперимент.)',
       ['Blitzer'] = '«Налетчик»',
@@ -9642,6 +9647,7 @@ MOD.langs = {
       ['gunships, Dragonroaches, Leviathans and the like, where a planet has them'] = 'штурмовики, дракораканы, левиафаны и т. п., где они есть на планете',
       ['heavycannon'] = 'тяжелая пушка',
       ['hexagon'] = 'шестигранник',
+      ['how fast the bleed-out health runs out'] = 'как быстро заканчивается здоровье при кровотечении',
       ['how long it keeps after you once you break line of sight'] = 'как долго он преследует вас после потери из виду',
       ['how much gas it takes to confuse it'] = 'сколько газа нужно, чтобы его дезориентировать',
       ['how much stun it takes to stun it'] = 'сколько оглушения нужно, чтобы его оглушить',
@@ -14990,6 +14996,11 @@ function MOD.enemy.resolve(entry)
     row('Health', 'explosive', 'Explosive damage taken (x)', 388, 'f32', 100, 100, 0.05, 0.25)
     row('Health', 'bleed', 'Bleed-out health', 24, 'u32', 10000000, 1000000, 10, 100,
         'what it has left once its health is gone, lost over time')
+    -- +28 the bleed-out health's change per second (negative: shown as the health lost)
+    for _, p in ipairs(parts('bleed_drain', 28, 'f32', 10000000)) do p.field.signed = true end
+    local drain = row('Health', 'bleed_drain', 'Bleed-out drain (health/s)', 28, 'f32', 10000000, 1000000, 1, 10,
+                      'how fast the bleed-out health runs out')
+    if drain then drain.scale = -1 end
     row('Health', 'regen', 'Regeneration (health/s)', 4, 'f32', 1000000, 100000, 1, 10)
     row('Health', 'regen_delay', 'Regeneration delay after damage (s)', 12, 'f32', 3600, 600, 0.1, 1)
     local names = {}
@@ -16036,7 +16047,10 @@ local function row_value(row, default)
     if row.choice == 'grenade' and not default and row.parts[1].field.pending_value ~= nil then
         return row.parts[1].field.pending_value
     end
-    if row.choice or row.lead then return get(row.parts[1].field) end   -- lead: the others scale with it
+    if row.choice or row.lead then   -- lead: the others scale with it
+        local v = get(row.parts[1].field)
+        return (v and row.scale) and v * row.scale + 0 or v
+    end
     if row.span then
         local rate = get(row.parts[1].field)
         return as_time((default and row.span_default or row.span)(), rate and rate + (row.rate_plus or 0))
@@ -16048,7 +16062,7 @@ local function row_value(row, default)
         sum = sum + v
     end
     if row.zero and sum == 0 then return row.zero end   -- 0 stands for that (a reload played as animated)
-    return sum / #row.parts * (row.scale or 1)
+    return sum / #row.parts * (row.scale or 1) + 0   -- (+ 0: no -0 shown)
 end
 
 -- ---------------------------------------------------------------- config
@@ -17439,7 +17453,7 @@ local function change(row, delta_sign, big, exact)
             elseif d == nil then new = nil
             else new = row.inverse and d / target or d * target end
         elseif row.span then new = row.span() / target - (row.rate_plus or 0)
-        elseif #row.parts > 1 then new = (current > 0) and v * target / current or target
+        elseif #row.parts > 1 then new = (current > 0) and v * target / current or target / (row.scale or 1)
         elseif row.zero and math.abs(target - row.zero) < 1e-4 and defaults[p.field.key] == 0 then new = 0
         elseif row.scale then new = target / row.scale end
         local ok, why = false, 'its game value unread'
