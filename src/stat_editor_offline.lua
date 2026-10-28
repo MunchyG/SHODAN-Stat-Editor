@@ -835,6 +835,7 @@ MOD.langs = {
       ['15x100mm Thermite'] = '15x100mm铝热弹',
       ['15x100mm Toxic'] = '15x100mm毒弹',
       ['2'] = '2',
+      ['2 puts a second one on the other side of the pod'] = '2 在舱的另一侧再放一件',
       ['20mm APHET Rounds'] = '20mm穿甲高爆曳光弹',
       ['20mm Flak Rounds'] = '20mm 空爆炮弹',
       ['20mm HE Cannon'] = '20mm高爆炮弹',
@@ -1569,6 +1570,7 @@ MOD.langs = {
       ['Helldivers 2 is running: close it, then Install.'] = '《绝地潜兵 2》正在运行：请先关闭游戏，再点击“写入游戏”。',
       ['Helldivers 2 is running: close it, then restore.'] = 'Helldivers 2 正在运行：请先关闭游戏，再恢复。',
       ['Helldivers 2 is running: you can edit, but close it before you Install.'] = '《绝地潜兵 2》正在运行：可以编辑，但写入前必须关闭游戏。',
+      ['Hellpod'] = '地狱舱',
       ['Hellpod: initial drop'] = '地狱舱：初始空投',
       ['Hellpod: reinforcement'] = '地狱舱：增援',
       ['Helmet'] = '头盔',
@@ -1648,6 +1650,7 @@ MOD.langs = {
       ['Iron Sights Long'] = '长型机械瞄具',
       ['Iron fleet'] = '钢铁舰队',
       ['It doesn\'t take a loadout slot, but the HUD\'s stratagem list can fill up.'] = '不占配装栏位，但可能占满屏幕上的战略配备列表。',
+      ['Items per drop'] = '每次投放数量',
       ['Its effects are added to every armor with this passive.'] = '其效果会添加到拥有此被动的所有护甲上。',
       ['Its explosion keeps its speed, so shrapnel with Inherits velocity on flies on forward.'] = '它的爆炸保留它的速度，所以开启“继承速度”的弹片会继续向前飞。',
       ['Its stats above apply.'] = '上方的数值生效。',
@@ -2703,6 +2706,7 @@ MOD.langs = {
       ['how fast a body part\'s bleed-out health runs out'] = '部位失血生命值耗尽的速度',
       ['how fast the bleed-out health runs out'] = '失血生命值耗尽的速度',
       ['how long it keeps after you once you break line of sight'] = '脱离视线后它继续追击你的时长',
+      ['how many of the items on its rack come down in one pod'] = '一个舱里落下它架子上的几件物品',
       ['how much gas it takes to confuse it'] = '使其混乱所需的毒气量',
       ['how much stun it takes to stun it'] = '使其眩晕所需的眩晕量',
       ['how often the beam deals its damage while it touches'] = '光束接触时造成伤害的频率',
@@ -4414,6 +4418,7 @@ MOD.langs = {
       ['15x100mm Thermite'] = '15x100mm鋁熱彈',
       ['15x100mm Toxic'] = '15x100mm毒氣彈',
       ['2'] = '2',
+      ['2 puts a second one on the other side of the pod'] = '2 在艙的另一側再放一件',
       ['20mm APHET Rounds'] = '20mm穿甲高爆彈',
       ['20mm Flak Rounds'] = '20mm 空爆炮彈',
       ['20mm HE Cannon'] = '20mm高爆炮彈',
@@ -5148,6 +5153,7 @@ MOD.langs = {
       ['Helldivers 2 is running: close it, then Install.'] = '《絕地潛兵 2》正在執行：請先關閉遊戲，再點選「寫入遊戲」。',
       ['Helldivers 2 is running: close it, then restore.'] = 'Helldivers 2 正在執行：請先關閉遊戲，再恢復。',
       ['Helldivers 2 is running: you can edit, but close it before you Install.'] = '《絕地潛兵 2》正在執行：可以編輯，但寫入前必須關閉遊戲。',
+      ['Hellpod'] = '地獄艙',
       ['Hellpod: initial drop'] = '地獄艙：初始空投',
       ['Hellpod: reinforcement'] = '地獄艙：增援',
       ['Helmet'] = '頭盔',
@@ -5227,6 +5233,7 @@ MOD.langs = {
       ['Iron Sights Long'] = '長型機械瞄具',
       ['Iron fleet'] = '鋼鐵艦隊',
       ['It doesn\'t take a loadout slot, but the HUD\'s stratagem list can fill up.'] = '不佔配裝欄位，但可能佔滿螢幕上的戰略配備列表。',
+      ['Items per drop'] = '每次投放數量',
       ['Its effects are added to every armor with this passive.'] = '其效果會新增到擁有此被動的所有護甲上。',
       ['Its explosion keeps its speed, so shrapnel with Inherits velocity on flies on forward.'] = '它的爆炸保留它的速度，所以開啟「繼承速度」的彈片會繼續向前飛。',
       ['Its stats above apply.'] = '上方的數值生效。',
@@ -6282,6 +6289,7 @@ MOD.langs = {
       ['how fast a body part\'s bleed-out health runs out'] = '部位失血生命值耗盡的速度',
       ['how fast the bleed-out health runs out'] = '失血生命值耗盡的速度',
       ['how long it keeps after you once you break line of sight'] = '脫離視線後它繼續追擊你的時長',
+      ['how many of the items on its rack come down in one pod'] = '一個艙裡落下它架子上的幾件物品',
       ['how much gas it takes to confuse it'] = '使其混亂所需的毒氣量',
       ['how much stun it takes to stun it'] = '使其眩暈所需的眩暈量',
       ['how often the beam deals its damage while it touches'] = '光束接觸時造成傷害的頻率',
@@ -7990,6 +7998,7 @@ MOD.langs = {
       ['15x100mm Thermite'] = 'Термитные 15x100 мм',
       ['15x100mm Toxic'] = 'Ядовитые 15x100 мм',
       ['2'] = '2',
+      ['2 puts a second one on the other side of the pod'] = '2 ставит второй на другую сторону капсулы',
       ['20mm APHET Rounds'] = 'Бронебойно-фугасные снаряды 20 мм',
       ['20mm Flak Rounds'] = 'Зенитный снаряд 20 мм',
       ['20mm HE Cannon'] = 'ОФ пушка 20 мм',
@@ -8682,6 +8691,7 @@ MOD.langs = {
       ['Helldivers 2 is running: close it, then Install.'] = 'Helldivers 2 запущена: закройте её, затем нажмите «Установить в игру».',
       ['Helldivers 2 is running: close it, then restore.'] = 'Helldivers 2 запущена: закройте её, затем верните файлы.',
       ['Helldivers 2 is running: you can edit, but close it before you Install.'] = 'Helldivers 2 запущена: редактировать можно, но перед установкой закройте её.',
+      ['Hellpod'] = 'Адская капсула',
       ['Hellpod: initial drop'] = 'Адская капсула: первая высадка',
       ['Hellpod: reinforcement'] = 'Адская капсула: подкрепление',
       ['Helmet'] = 'Шлем',
@@ -8754,6 +8764,7 @@ MOD.langs = {
       ['Inverted aim assist (experimental)'] = 'Обратная помощь прицеливания (эксперимент.)',
       ['Iron Sights'] = 'Механический прицел',
       ['Iron fleet'] = 'Железный флот',
+      ['Items per drop'] = 'Предметов за сброс',
       ['Its effects are added to every armor with this passive.'] = 'Его эффекты добавляются всей броне с этим пассивным эффектом.',
       ['Its explosion keeps its speed, so shrapnel with Inherits velocity on flies on forward.'] = 'Его взрыв сохраняет его скорость, поэтому осколки с включённым «Наследует скорость» летят дальше вперёд.',
       ['Its stats above apply.'] = 'Его характеристики выше действуют.',
@@ -9731,6 +9742,7 @@ MOD.langs = {
       ['how fast a body part\'s bleed-out health runs out'] = 'как быстро заканчивается здоровье части тела при кровотечении',
       ['how fast the bleed-out health runs out'] = 'как быстро заканчивается здоровье при кровотечении',
       ['how long it keeps after you once you break line of sight'] = 'как долго он преследует вас после потери из виду',
+      ['how many of the items on its rack come down in one pod'] = 'сколько предметов с её стойки прилетает в одной капсуле',
       ['how much gas it takes to confuse it'] = 'сколько газа нужно, чтобы его дезориентировать',
       ['how much stun it takes to stun it'] = 'сколько оглушения нужно, чтобы его оглушить',
       ['how often the beam deals its damage while it touches'] = 'как часто луч наносит урон при касании',
@@ -14572,6 +14584,23 @@ local function resolve_stratagem(entry)
     -- a backpack (in its hellpod rack's first slot): its own rows; a shield (the Shield Generator Relay, a
     -- shield backpack)
     local rt = tables[TYPES.rack]
+    -- how many of the rack's filled slots the pod drops (+556 spawn_payload_size; issue #104): the EAT-17's 2 of
+    -- 2, the Commando's and MG-43's 1 of 2 (one per side)
+    for _, key in ipairs(s.payloads) do
+        local rack = rt and rt.index[key]
+        local slots = rack and api.read(rt.copies[1] + HEADER_BYTES + rack, 512)
+        local filled = 0
+        for k = 0, slots and #slots == 512 and 7 or -1 do   -- (the game's slots: a copy this mod put in does not count)
+            if (default_of(field_at(TYPES.rack, rack + k * 64, 'u32', 4294967295)) or 0) ~= 0
+               or (default_of(field_at(TYPES.rack, rack + k * 64 + 4, 'u32', 4294967295)) or 0) ~= 0 then filled = filled + 1 end
+        end
+        if filled >= 2 and not entry.by_id.pod_items then
+            add_row(entry, 'Hellpod', 'pod_items', 'Items per drop', 'u32', { part('pod_items', TYPES.rack, rack + 556, 'u32', 8) },
+                    1, filled, 1, 1).note = 'how many of the items on its rack come down in one pod'
+        elseif filled == 1 and u32(slots, 8) == MOD.pod.LEFT and not entry.by_id.pod_twin then
+            MOD.pod.twin_row(entry, rack)
+        end
+    end
     for _, key in ipairs(s.payloads) do
         local rack = rt and rt.index[key]
         local carried = rack and api.read(rt.copies[1] + HEADER_BYTES + rack, 8)
@@ -16210,6 +16239,7 @@ local function row_value(row, default)
         return row.parts[1].field.pending_value
     end
     if row.choice == 'holster' then return MOD.holster.value(row, default) end
+    if row.choice == 'pod_twin' then return MOD.pod.value(row, default) end
     if row.choice or row.lead then   -- lead: the others scale with it
         local v = get(row.parts[1].field)
         return (v and row.scale) and v * row.scale + 0 or v
@@ -16713,7 +16743,7 @@ end
 -- each of theirs. nil: none.
 function MOD.parts_of(weapon, id)
     local own = weapon.by_id[id]
-    if own and own.row and own.row.choice and own.row.choice ~= 'holster' and own.row.parts[1] == own then return own.row.parts end   -- (holster: each part its own value)
+    if own and own.row and own.row.choice and not own.row.each and own.row.parts[1] == own then return own.row.parts end   -- (each: every part its own value)
     if own then return { own } end
     local out = {}
     for _, listed in ipairs(weapon.legacy and weapon.legacy[id] or {}) do out[#out + 1] = weapon.by_id[listed] end
@@ -16919,6 +16949,23 @@ function MOD.slot.place(weapon, row)
     table.insert(weapon.rows, at, row)
 end
 
+-- A pod with one weapon on the rack's left (node 76C6D1E3, side 2: the Leveller, Meltagun, Breaching Hammer): 2 puts a
+-- copy on the right (slot 1 = slot 0's 64 bytes with the right's node 7FE13CFF, side 1, as the Commando's) and
+-- drops both (+556 2). Parts: slot 1's 16 words, then +556.
+MOD.pod = { LEFT = 0x76C6D1E3, RIGHT = 0x7FE13CFF }
+function MOD.pod.twin_row(entry, rack)
+    local parts = {}
+    for w = 0, 15 do parts[#parts + 1] = part('pod_twin' .. (w > 0 and ('_' .. w) or ''), TYPES.rack, rack + 64 + w * 4, 'u32', 4294967295) end
+    parts[#parts + 1] = part('pod_twin_count', TYPES.rack, rack + 556, 'u32', 8)
+    local row = add_row(entry, 'Hellpod', 'pod_twin', 'Items per drop', 'u32', parts, 1, 2, 1, 1)
+    row.choice, row.each, row.rack = 'pod_twin', true, rack
+    row.note = '2 puts a second one on the other side of the pod'
+end
+function MOD.pod.value(row, default)
+    local get = default and default_of or read_field
+    return (get(row.parts[3].field) == MOD.pod.RIGHT and (get(row.parts[17].field) or 0) >= 2) and 2 or 1
+end
+
 -- Holster position (issue #101): a primary carried on the back, or on the hip where pistols hang. EquipmentComponent
 -- +28 the holster node (primaries EC864C61, pistols CCF501C7), +32 / +44 its rotation (deg) / position offsets
 -- (pistols: none). Hip writes the pistols' node and no offsets; Back puts the weapon's own back.
@@ -16934,7 +16981,7 @@ function MOD.holster.row(weapon)
         parts[k + 1].field.signed = true
     end
     local row = add_row(weapon, 'Loadout', 'holster', 'Holster position (choice)', 'u32', parts, 0, 1, 1, 1)
-    row.choice = 'holster'
+    row.choice, row.each = 'holster', true
     row.label_of = function() return 'Holster: ' .. MOD.holster.NAMES[MOD.holster.value(row)] end
     row.note = 'where it hangs when put away: 0 on the back, 1 on the hip'
     MOD.slot.place(weapon, row)
@@ -17563,6 +17610,25 @@ local function change(row, delta_sign, big, exact)
             for k, p in ipairs(row.parts) do
                 local d = default_of(p.field)
                 local new = target == 0 and d or (k == 1 and MOD.holster.HIP or 0)
+                local ok, why = write_field(p.field, new)
+                if ok then set_override(weapon, p, unless_default(new, d))
+                else log('write refused: ' .. weapon.name .. ' ' .. p.id .. ': ' .. why) end
+            end
+            ui.version = ui.version + 1
+            return
+        end
+        if row.choice == 'pod_twin' then   -- 1 the game's, 2 a copy of the left slot on the right, both dropped
+            local target = math.max(1, math.min(2, exact and math.floor(exact + 0.5) or 3 - current))
+            if target == current then return end
+            local rt = tables[TYPES.rack]
+            local left = api.read(rt.copies[1] + HEADER_BYTES + row.rack, 64)
+            if not left or #left ~= 64 then return end
+            for k, p in ipairs(row.parts) do
+                local d = default_of(p.field)
+                local new = d
+                if target == 2 then
+                    new = k == 17 and math.max(2, d or 0) or k == 3 and MOD.pod.RIGHT or k == 14 and 1 or u32(left, (k - 1) * 4)
+                end
                 local ok, why = write_field(p.field, new)
                 if ok then set_override(weapon, p, unless_default(new, d))
                 else log('write refused: ' .. weapon.name .. ' ' .. p.id .. ': ' .. why) end
