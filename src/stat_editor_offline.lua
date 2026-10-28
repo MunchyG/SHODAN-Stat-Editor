@@ -923,6 +923,7 @@ MOD.langs = {
       ['A preset keeps every change you have made as one set, under a name you choose.'] = '预设会把你所有的修改作为一组保存，并取一个你指定的名字。',
       ['A preset keeps every enemy and spawning change as one custom difficulty, under a name you choose. Your weapon changes are kept apart.'] = '预设会把所有敌人与生成的改动保存为一个自定义难度，名称由你决定。武器改动单独保存。',
       ['A value changed on an enemy\'s own page stays red: this page leaves it as it is.'] = '在敌人自己页面上更改的数值保持红色：此页面不会改动它。',
+      ['A weapon whose own Sway multiplier you changed keeps it. Sway this row changes shows in blue.'] = '你单独改过晃动系数的武器保留其数值。此行改变的晃动以蓝色显示。',
       ['A/AC-8 Autocannon Sentry'] = 'A/AC-8 自动哨戒炮',
       ['A/ARC-3 Tesla Tower'] = 'A/ARC-3 特斯拉塔',
       ['A/FLAM-40 Flame Sentry'] = 'A/FLAM-40 火焰喷射哨戒炮',
@@ -1403,6 +1404,7 @@ MOD.langs = {
       ['Every enemy of this faction at once. Enemies you have edited on their own page keep their values.'] = '一次调整该阵营的所有敌人。在各自页面修改过的敌人保留其数值。',
       ['Every helldiver in your game. Restore the game\'s files before joining other players\' lobbies.'] = '你游戏中的所有绝地潜兵。加入其他玩家的大厅前，请先恢复游戏文件。',
       ['Every passive is in already.'] = '所有被动都已添加。',
+      ['Every weapon you aim yourself, emplacements and vehicle guns too: the game\'s sway times this. 0 = no sway.'] = '你亲手瞄准的所有武器，包括固定炮台和载具武器：游戏的晃动乘以此数。0 = 无晃动。',
       ['Evictor'] = '驱逐者',
       ['Expendable Anti-Tank'] = '消耗性反坦克武器',
       ['Expendable Anti-Tank (Booster)'] = '消耗性反坦克武器（增强配备）',
@@ -2718,6 +2720,8 @@ MOD.langs = {
       ['Water'] = '水',
       ['Weapon spread (x)'] = '武器散布 (x)',
       ['Weapon stats'] = '武器数值',
+      ['Weapon sway (x)'] = '武器晃动 (x)',
+      ['Weapons'] = '武器',
       ['Weaves'] = '蛇形飞行',
       ['What goes off when they die. Each explosion is shared by every enemy that uses it.'] = '它们死亡时引发的爆炸。每种爆炸由所有使用它的敌人共用。',
       ['Wind-down time (s)'] = '转管减速时间（秒）',
@@ -4588,6 +4592,7 @@ MOD.langs = {
       ['A preset keeps every change you have made as one set, under a name you choose.'] = '預設會把你所有的修改作為一組儲存，並取一個你指定的名字。',
       ['A preset keeps every enemy and spawning change as one custom difficulty, under a name you choose. Your weapon changes are kept apart.'] = '預設會把所有敵人與生成的改動儲存為一個自定義難度，名稱由你決定。武器改動單獨儲存。',
       ['A value changed on an enemy\'s own page stays red: this page leaves it as it is.'] = '在敵人自己頁面上更改的數值保持紅色：此頁面不會改動它。',
+      ['A weapon whose own Sway multiplier you changed keeps it. Sway this row changes shows in blue.'] = '你單獨改過晃動係數的武器保留其數值。此行改變的晃動以藍色顯示。',
       ['A/AC-8 Autocannon Sentry'] = 'A/AC-8 哨戒機炮',
       ['A/ARC-3 Tesla Tower'] = 'A/ARC-3 特斯拉塔',
       ['A/FLAM-40 Flame Sentry'] = 'A/FLAM-40 火焰火箭炮',
@@ -5068,6 +5073,7 @@ MOD.langs = {
       ['Every enemy of this faction at once. Enemies you have edited on their own page keep their values.'] = '一次調整該陣營的所有敵人。在各自頁面修改過的敵人保留其數值。',
       ['Every helldiver in your game. Restore the game\'s files before joining other players\' lobbies.'] = '你遊戲中的所有絕地潛兵。加入其他玩家的大廳前，請先恢復遊戲檔案。',
       ['Every passive is in already.'] = '所有被動都已新增。',
+      ['Every weapon you aim yourself, emplacements and vehicle guns too: the game\'s sway times this. 0 = no sway.'] = '你親手瞄準的所有武器，包括固定炮台和載具武器：遊戲的晃動乘以此數。0 = 無晃動。',
       ['Evictor'] = '驅離者',
       ['Expendable Anti-Tank'] = '反坦克消耗品',
       ['Expendable Anti-Tank (Booster)'] = '消耗性反坦克武器（增強配備）',
@@ -6383,6 +6389,8 @@ MOD.langs = {
       ['Water'] = '水',
       ['Weapon spread (x)'] = '武器散佈 (x)',
       ['Weapon stats'] = '武器數值',
+      ['Weapon sway (x)'] = '武器晃動 (x)',
+      ['Weapons'] = '武器',
       ['Weaves'] = '蛇形飛行',
       ['What goes off when they die. Each explosion is shared by every enemy that uses it.'] = '它們死亡時引發的爆炸。每種爆炸由所有使用它的敵人共用。',
       ['Wind-down time (s)'] = '轉管減速時間（秒）',
@@ -8251,6 +8259,7 @@ MOD.langs = {
       ['A preset keeps every change you have made as one set, under a name you choose.'] = 'Пресет хранит все ваши изменения одним набором под выбранным вами именем.',
       ['A preset keeps every enemy and spawning change as one custom difficulty, under a name you choose. Your weapon changes are kept apart.'] = 'Пресет хранит все изменения врагов и их появления как свой уровень сложности под выбранным вами именем. Изменения оружия хранятся отдельно.',
       ['A value changed on an enemy\'s own page stays red: this page leaves it as it is.'] = 'Значение, изменённое на странице самого врага, остаётся красным: эта страница его не трогает.',
+      ['A weapon whose own Sway multiplier you changed keeps it. Sway this row changes shows in blue.'] = 'Оружие, у которого вы изменили свой Множитель колебания, сохраняет его. Колебание, изменённое этой строкой, показано синим.',
       ['A/AC-8 Autocannon Sentry'] = 'A/AC-8 «Турель с автопушкой»',
       ['A/ARC-3 Tesla Tower'] = 'A/ARC-3 «Тесла-башня»',
       ['A/FLAM-40 Flame Sentry'] = 'A/FLAM-40 Турель-огнемет',
@@ -8709,6 +8718,7 @@ MOD.langs = {
       ['Every enemy of this faction at once. Enemies you have edited on their own page keep their values.'] = 'Все враги фракции сразу. Враги, изменённые на своей странице, сохраняют свои значения.',
       ['Every helldiver in your game. Restore the game\'s files before joining other players\' lobbies.'] = 'Все десантники в вашей игре. Восстановите файлы игры, прежде чем заходить в лобби других игроков.',
       ['Every passive is in already.'] = 'Все пассивные эффекты уже добавлены.',
+      ['Every weapon you aim yourself, emplacements and vehicle guns too: the game\'s sway times this. 0 = no sway.'] = 'Всё оружие, которым вы целитесь сами, включая турели-укрепления и оружие техники: колебание игры, умноженное на это число. 0 = без колебания.',
       ['Evictor'] = 'Вытеснитель',
       ['Expendable Anti-Tank'] = '«Одноразовый бронебой»',
       ['Expendable Napalm'] = 'Одноразовый напалм',
@@ -9951,6 +9961,8 @@ MOD.langs = {
       ['Water'] = 'Вода',
       ['Weapon spread (x)'] = 'Разброс оружия (x)',
       ['Weapon stats'] = 'Характеристики оружия',
+      ['Weapon sway (x)'] = 'Колебание оружия (x)',
+      ['Weapons'] = 'Оружие',
       ['Weaves'] = 'Петляет',
       ['What goes off when they die. Each explosion is shared by every enemy that uses it.'] = 'Что взрывается при их гибели. Каждый взрыв общий для всех врагов, которые его используют.',
       ['Wind-down time (s)'] = 'Время замедления (с)',
@@ -11149,6 +11161,7 @@ MOD.langs = {
       ['A preset keeps every change you have made as one set, under a name you choose.'] = 'Un perfil guarda todos tus cambios como un conjunto, con el nombre que elijas.',
       ['A preset keeps every enemy and spawning change as one custom difficulty, under a name you choose. Your weapon changes are kept apart.'] = 'Un perfil guarda todos los cambios de enemigos y aparición como una dificultad personalizada, con el nombre que elijas. Tus cambios de armas se guardan aparte.',
       ['A value changed on an enemy\'s own page stays red: this page leaves it as it is.'] = 'Un valor cambiado en la página propia de un enemigo queda en rojo: esta página lo deja como está.',
+      ['A weapon whose own Sway multiplier you changed keeps it. Sway this row changes shows in blue.'] = 'Un arma cuyo propio Multiplicador de balanceo cambiaste lo conserva. El balanceo que cambia esta fila se muestra en azul.',
       ['A/AC-8 Autocannon Sentry'] = 'A/AC-8 Vigía de cañón automático',
       ['A/ARC-3 Tesla Tower'] = 'A/ARC-3 Torre tesla',
       ['A/FLAM-40 Flame Sentry'] = 'A/FLAM-40 Vigía de llamas',
@@ -11607,6 +11620,7 @@ MOD.langs = {
       ['Every enemy of this faction at once. Enemies you have edited on their own page keep their values.'] = 'Todos los enemigos de esta facción a la vez. Los enemigos que editaste en su propia página conservan sus valores.',
       ['Every helldiver in your game. Restore the game\'s files before joining other players\' lobbies.'] = 'Todos los helldivers de tu partida. Restaura los archivos del juego antes de unirte a partidas de otros jugadores.',
       ['Every passive is in already.'] = 'Ya están todas las pasivas.',
+      ['Every weapon you aim yourself, emplacements and vehicle guns too: the game\'s sway times this. 0 = no sway.'] = 'Toda arma que apuntas tú mismo, también emplazamientos y armas de vehículos: el balanceo del juego por este valor. 0 = sin balanceo.',
       ['Evictor'] = 'Desalojador',
       ['Expendable Anti-Tank'] = 'Antitanque desechable',
       ['Expendable Napalm'] = 'Napalm desechable',
@@ -12847,6 +12861,8 @@ MOD.langs = {
       ['Water'] = 'Agua',
       ['Weapon spread (x)'] = 'Dispersión de armas (x)',
       ['Weapon stats'] = 'Estadísticas del arma',
+      ['Weapon sway (x)'] = 'Balanceo de armas (x)',
+      ['Weapons'] = 'Armas',
       ['Weaves'] = 'Tejedores',
       ['What goes off when they die. Each explosion is shared by every enemy that uses it.'] = 'Lo que explota cuando mueren. Cada explosión la comparten todos los enemigos que la usan.',
       ['Wind-down time (s)'] = 'Tiempo de frenado (s)',
@@ -14024,6 +14040,7 @@ MOD.langs = {
       ['A preset keeps every change you have made as one set, under a name you choose.'] = 'Um perfil guarda todas as suas mudanças como um conjunto, com o nome que você escolher.',
       ['A preset keeps every enemy and spawning change as one custom difficulty, under a name you choose. Your weapon changes are kept apart.'] = 'Um perfil guarda todas as mudanças de inimigos e surgimento como uma dificuldade personalizada, com o nome que você escolher. Suas mudanças de armas ficam separadas.',
       ['A value changed on an enemy\'s own page stays red: this page leaves it as it is.'] = 'Um valor mudado na página própria de um inimigo fica vermelho: esta página o deixa como está.',
+      ['A weapon whose own Sway multiplier you changed keeps it. Sway this row changes shows in blue.'] = 'Uma arma cujo próprio Multiplicador de balanço você mudou o mantém. O balanço que esta linha muda aparece em azul.',
       ['A/AC-8 Autocannon Sentry'] = 'A/AC-8 Canhão Automático Sentinela',
       ['A/ARC-3 Tesla Tower'] = 'A/ARC-3 Torre Tesla',
       ['A/FLAM-40 Flame Sentry'] = 'A/FLAM-40 Sentinela ígnea',
@@ -14482,6 +14499,7 @@ MOD.langs = {
       ['Every enemy of this faction at once. Enemies you have edited on their own page keep their values.'] = 'Todos os inimigos desta facção de uma vez. Inimigos que você editou na própria página mantêm seus valores.',
       ['Every helldiver in your game. Restore the game\'s files before joining other players\' lobbies.'] = 'Todos os helldivers da sua partida. Restaure os arquivos do jogo antes de entrar em partidas de outros jogadores.',
       ['Every passive is in already.'] = 'Todas as passivas já estão incluídas.',
+      ['Every weapon you aim yourself, emplacements and vehicle guns too: the game\'s sway times this. 0 = no sway.'] = 'Toda arma que você mesmo mira, também posições fixas e armas de veículos: o balanço do jogo vezes este valor. 0 = sem balanço.',
       ['Evictor'] = 'Ordem de Despejo',
       ['Expendable Anti-Tank'] = 'Antitanque Descartável',
       ['Expendable Napalm'] = 'Napalm Descartável',
@@ -15722,6 +15740,8 @@ MOD.langs = {
       ['Water'] = 'Água',
       ['Weapon spread (x)'] = 'Dispersão das armas (x)',
       ['Weapon stats'] = 'Atributos da arma',
+      ['Weapon sway (x)'] = 'Balanço das armas (x)',
+      ['Weapons'] = 'Armas',
       ['Weaves'] = 'Tecelões',
       ['What goes off when they die. Each explosion is shared by every enemy that uses it.'] = 'O que explode quando morrem. Cada explosão é compartilhada por todos os inimigos que a usam.',
       ['Wind-down time (s)'] = 'Tempo de desaceleração (s)',
@@ -18714,6 +18734,12 @@ KINDS[TYPES.avatar].resolve = function(entry)
             end
         end
     end
+    -- every hand-aimed weapon's sway at once (MOD.enemy.faction_refresh writes it); only its own value is saved
+    local sway = { id = 'weapon_sway', field = field_at(0, 'helldiver:weapon_sway', 'virtual', 1000) }
+    sway.field.default = 1
+    add_row(entry, 'Weapons', 'weapon_sway', 'Weapon sway (x)', 'f32', { sway }, 0, 100, 0.05, 0.25).tip =
+        { 'Every weapon you aim yourself, emplacements and vehicle guns too: the game\'s sway times this. 0 = no sway.',
+          'A weapon whose own Sway multiplier you changed keeps it. Sway this row changes shows in blue.' }
     -- melee strikes: damage rows DamageInfoType_Ability_Avatar_Melee (560) and _Melee_Bayonet (568), shared by every weapon
     for _, m in ipairs({ { 560, 'Melee', 'melee_' }, { 568, 'Bayonet melee', 'bayonet_' } }) do
         local drow = tables[T_DAMAGE] and tables[T_DAMAGE].index[m[1]]
@@ -22788,6 +22814,23 @@ function MOD.enemy.faction_refresh()
             end
         end
     end
+    -- the Helldiver's Weapon sway (x): the game's sway x it on every weapon aimed by hand (not the SEAF copies,
+    -- sentries or Guard Dogs; emplacements: 'E/'), but where a weapon's own Sway multiplier is changed; shown blue like a faction row's
+    local hd = by_hash[KINDS[TYPES.avatar].ENTITY]
+    local lead = hd and hd.by_id.weapon_sway
+    if lead then
+        local v = read_field(lead.field) or 1
+        for _, w in ipairs(weapons) do
+            local f = w.by_id.sway and w.by_id.sway.field
+            local d = f and not w.enemy and not owned[f.key] and (w.mounted or w.sentry_defs and w.name:find('^E/') or (w.slot == 'Primary'
+                      or w.slot == 'Secondary' or w.slot == 'Support') and not w.name:find('(SEAF)', 1, true)) and default_of(f)
+            if d then
+                local new, now = d * v, read_field(f)
+                if now == nil or math.abs(now - new) > 1e-4 * math.max(1, math.abs(new)) then write_field(f, new) end
+                if math.abs(new - d) > 1e-4 * math.max(1, math.abs(d)) then by_all[f.key] = true end
+            end
+        end
+    end
     -- the pages with a value only a faction-wide row changed (their name in the list: MOD.enemy.ALL_INK)
     local pages = {}
     for _, page in ipairs(weapons) do
@@ -25071,8 +25114,9 @@ local function draw(width, height)
                 end
                 local value, default = row_value(row), row_value(row, true)
                 local changed = value ~= nil and default ~= nil and math.abs(value - default) > 1e-4
-                -- changed only by an 'All <faction>' row: its value in that colour, no Reset (nothing of its own)
-                local by_all = weapon.enemy and not weapon.enemy.faction and MOD.enemy.by_all_value(row)
+                -- changed only by an 'All <faction>' row (or the Helldiver's Weapon sway): its value in that colour,
+                -- no Reset (nothing of its own)
+                local by_all = not (weapon.enemy and weapon.enemy.faction) and MOD.enemy.by_all_value(row)
                 local ink = changed and GOLD or WHITE
                 if by_all and default ~= nil and math.abs(by_all - default) > 1e-4 then
                     value, ink, changed = by_all, MOD.enemy.ALL_INK, false
