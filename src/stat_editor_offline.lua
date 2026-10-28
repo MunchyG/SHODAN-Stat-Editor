@@ -12510,7 +12510,10 @@ function MOD.kits.build()
     by_hash[MOD.kits.HASH] = { name = 'Armor weight', slot = 'Armors', hash = MOD.kits.HASH, key = hash_key(MOD.kits.HASH),
                                rows = {}, by_id = {}, kits = true,
                                note = 'Light, medium or heavy, per armor (every armor set with that name).' }
-    weapons[#weapons + 1] = by_hash[MOD.kits.HASH]
+    -- at the top of the Armors tab, below the Helldiver
+    local at = #weapons + 1
+    for k, w in ipairs(weapons) do if w.slot == 'Armors' then at = k + (w.player and 1 or 0); break end end
+    table.insert(weapons, at, by_hash[MOD.kits.HASH])
 end
 function MOD.kits.resolve(entry)
     local by_name, order = {}, {}
@@ -18404,6 +18407,8 @@ local function draw(width, height)
             text((changed and '* ' or '') .. settings.tr(weapon.name) .. id, 24, y + 4, 16, ink, searching and 226 or 302)
         end
         region(key, 16, y, 318, 25)
+        -- the Armors tab's own pages (Helldiver, Armor weight): a line parts them from the passives
+        if not searching and (weapon.player or weapon.kits) then rect(16, y + 24, 318, 2, MUTED, 952) end
     end
     -- the Boosters tab: why only some boosters are there, under the list
     if ui.tab == 'Boosters' and not searching and not presets_tab and #list > 0 and #list <= LIST_ROWS - 5 then
