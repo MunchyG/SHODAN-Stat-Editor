@@ -980,6 +980,7 @@ MOD.langs = {
       ['Aim limit, right (deg)'] = '瞄准右限（度）',
       ['Aim limit, up (deg)'] = '瞄准上限（度）',
       ['Aim recovery (per second)'] = '瞄准恢复（每秒）',
+      ['Aim steadies again after (s)'] = '瞄准恢复稳定所需时间（秒）',
       ['Aim zoom (x)'] = '瞄准放大倍率 (x)',
       ['Aiming sway'] = '瞄准晃动',
       ['Airborne'] = '空降',
@@ -1476,6 +1477,8 @@ MOD.langs = {
       ['Flight height (m)'] = '飞行高度（米）',
       ['Flinch'] = '受击瞄准抖动',
       ['Flinch (0 prevents it)'] = '受击瞄准抖动（0 为免疫）',
+      ['Flinch from your fire'] = '受你火力影响的瞄准抖动',
+      ['Flinch from your fire (x)'] = '受你火力影响的瞄准抖动 (x)',
       ['Floating depth offset (m)'] = '漂浮深度偏移（米）',
       ['Folder'] = '文件夹',
       ['Folder path copied.'] = '已复制文件夹路径。',
@@ -1946,6 +1949,7 @@ MOD.langs = {
       ['Neck'] = '颈部',
       ['Neck armor'] = '颈部装甲',
       ['Neck body'] = '颈部（本体）',
+      ['Never'] = '从不',
       ['No changes: loading it puts every value back to the game\'s.'] = '没有修改：读取它会把所有数值恢复为游戏原值。',
       ['No presets yet.'] = '还没有预设。',
       ['Noise'] = '噪音',
@@ -2792,7 +2796,11 @@ MOD.langs = {
       ['how fast a body part\'s bleed-out health runs out'] = '部位失血生命值耗尽的速度',
       ['how fast its aim settles again; higher: sooner'] = '其瞄准恢复稳定的速度；越高越快',
       ['how fast the bleed-out health runs out'] = '失血生命值耗尽的速度',
+      ['how hard your fire throws off its aim; 0: never; higher: a little fire throws it off fully'] = '你的火力对其瞄准的干扰强度；0：从不；越高：少量火力就能完全打乱其瞄准',
       ['how long it keeps after you once you break line of sight'] = '脱离视线后它继续追击你的时长',
+      ['how long it keeps hunting you once you break line of sight; x1: as in the game, x2: twice as long'] = '你脱离其视线后它继续追击你的时长；x1：与游戏相同，x2：两倍时长',
+      ['how long its aim stays thrown off after your fire stops'] = '你停火后其瞄准保持混乱的时长',
+      ['how long its aim stays thrown off after your fire stops; Never: it never steadies'] = '你停火后其瞄准保持混乱的时长；从不：瞄准永远不会恢复稳定',
       ['how many of the items on its rack come down in one pod'] = '一个舱里落下它架子上的几件物品',
       ['how much gas it takes to confuse it'] = '使其混乱所需的毒气量',
       ['how much stun it takes to stun it'] = '使其眩晕所需的眩晕量',
@@ -4668,6 +4676,7 @@ MOD.langs = {
       ['Aim limit, right (deg)'] = '瞄準右限（度）',
       ['Aim limit, up (deg)'] = '瞄準上限（度）',
       ['Aim recovery (per second)'] = '瞄準恢復（每秒）',
+      ['Aim steadies again after (s)'] = '瞄準恢復穩定所需時間（秒）',
       ['Aim zoom (x)'] = '瞄準放大倍率 (x)',
       ['Aiming sway'] = '瞄準晃動',
       ['Airborne'] = '空降',
@@ -5164,6 +5173,8 @@ MOD.langs = {
       ['Flight height (m)'] = '飛行高度（米）',
       ['Flinch'] = '受擊瞄準抖動',
       ['Flinch (0 prevents it)'] = '受擊瞄準抖動（0 為免疫）',
+      ['Flinch from your fire'] = '受你火力影響的瞄準抖動',
+      ['Flinch from your fire (x)'] = '受你火力影響的瞄準抖動 (x)',
       ['Floating depth offset (m)'] = '漂浮深度偏移（米）',
       ['Folder'] = '資料夾',
       ['Folder path copied.'] = '已複製資料夾路徑。',
@@ -5634,6 +5645,7 @@ MOD.langs = {
       ['Neck'] = '頸部',
       ['Neck armor'] = '頸部裝甲',
       ['Neck body'] = '頸部（本體）',
+      ['Never'] = '從不',
       ['No changes: loading it puts every value back to the game\'s.'] = '沒有修改：讀取它會把所有數值恢復為遊戲原值。',
       ['No presets yet.'] = '還沒有預設。',
       ['Noise'] = '噪音',
@@ -6480,7 +6492,11 @@ MOD.langs = {
       ['how fast a body part\'s bleed-out health runs out'] = '部位失血生命值耗盡的速度',
       ['how fast its aim settles again; higher: sooner'] = '其瞄準恢復穩定的速度；越高越快',
       ['how fast the bleed-out health runs out'] = '失血生命值耗盡的速度',
+      ['how hard your fire throws off its aim; 0: never; higher: a little fire throws it off fully'] = '你的火力對其瞄準的干擾強度；0：從不；越高：少量火力就能完全打亂其瞄準',
       ['how long it keeps after you once you break line of sight'] = '脫離視線後它繼續追擊你的時長',
+      ['how long it keeps hunting you once you break line of sight; x1: as in the game, x2: twice as long'] = '你脫離其視線後它繼續追擊你的時長；x1：與遊戲相同，x2：兩倍時長',
+      ['how long its aim stays thrown off after your fire stops'] = '你停火後其瞄準保持混亂的時長',
+      ['how long its aim stays thrown off after your fire stops; Never: it never steadies'] = '你停火後其瞄準保持混亂的時長；從不：瞄準永遠不會恢復穩定',
       ['how many of the items on its rack come down in one pod'] = '一個艙裡落下它架子上的幾件物品',
       ['how much gas it takes to confuse it'] = '使其混亂所需的毒氣量',
       ['how much stun it takes to stun it'] = '使其眩暈所需的眩暈量',
@@ -8354,6 +8370,7 @@ MOD.langs = {
       ['Aim limit, right (deg)'] = 'Предел наведения вправо (°)',
       ['Aim limit, up (deg)'] = 'Предел наведения вверх (°)',
       ['Aim recovery (per second)'] = 'Восстановление прицела (в секунду)',
+      ['Aim steadies again after (s)'] = 'Прицел восстанавливается через (с)',
       ['Aim zoom (x)'] = 'Увеличение при прицеливании (x)',
       ['Aiming sway'] = 'Покачивание при прицеливании',
       ['Airborne'] = 'десант',
@@ -8823,6 +8840,8 @@ MOD.langs = {
       ['Flight height (m)'] = 'Высота полёта (м)',
       ['Flinch'] = 'Вздрагивание',
       ['Flinch (0 prevents it)'] = 'Вздрагивание (0 — нет)',
+      ['Flinch from your fire'] = 'Сбой прицела от вашего огня',
+      ['Flinch from your fire (x)'] = 'Сбой прицела от вашего огня (x)',
       ['Floating depth offset (m)'] = 'Смещение глубины всплытия (м)',
       ['Folder'] = 'Папка',
       ['Folder path copied.'] = 'Путь к папке скопирован.',
@@ -9268,6 +9287,7 @@ MOD.langs = {
       ['Neck'] = 'Шея',
       ['Neck armor'] = 'Броня шеи',
       ['Neck body'] = 'Шея (тело)',
+      ['Never'] = 'Никогда',
       ['No changes: loading it puts every value back to the game\'s.'] = 'Изменений нет: загрузка вернет все значения игры.',
       ['No presets yet.'] = 'Пресетов пока нет.',
       ['Noise'] = 'Шум',
@@ -10051,7 +10071,11 @@ MOD.langs = {
       ['how fast a body part\'s bleed-out health runs out'] = 'как быстро заканчивается здоровье части тела при кровотечении',
       ['how fast its aim settles again; higher: sooner'] = 'как быстро его прицел восстанавливается; больше: быстрее',
       ['how fast the bleed-out health runs out'] = 'как быстро заканчивается здоровье при кровотечении',
+      ['how hard your fire throws off its aim; 0: never; higher: a little fire throws it off fully'] = 'насколько сильно ваш огонь сбивает его прицел; 0: никогда; больше: даже немного огня сбивает его полностью',
       ['how long it keeps after you once you break line of sight'] = 'как долго он преследует вас после потери из виду',
+      ['how long it keeps hunting you once you break line of sight; x1: as in the game, x2: twice as long'] = 'как долго он продолжает охоту на вас после потери из виду; x1: как в игре, x2: вдвое дольше',
+      ['how long its aim stays thrown off after your fire stops'] = 'как долго его прицел остаётся сбитым после того, как вы прекратили огонь',
+      ['how long its aim stays thrown off after your fire stops; Never: it never steadies'] = 'как долго его прицел остаётся сбитым после того, как вы прекратили огонь; Никогда: он никогда не восстанавливается',
       ['how many of the items on its rack come down in one pod'] = 'сколько предметов с её стойки прилетает в одной капсуле',
       ['how much gas it takes to confuse it'] = 'сколько газа нужно, чтобы его дезориентировать',
       ['how much stun it takes to stun it'] = 'сколько оглушения нужно, чтобы его оглушить',
@@ -21594,17 +21618,26 @@ function MOD.enemy.more_rows(entry)
     end
     if #keep > 0 then
         MOD.enemy.mult_row(entry, 'Senses', 'retention', 'Tracking after losing sight (x)', keep, 20, true,
-                           'how long it keeps after you once you break line of sight')
+                           'how long it keeps hunting you once you break line of sight; x1: as in the game, x2: twice as long')
     end
     row(TYPES.sensor, 'Senses', 'sight_h', 'Sight cone width (degrees)', { 12 }, 'f32', 360, 0, 360, 1, 10)
     row(TYPES.sensor, 'Senses', 'sight_v', 'Sight cone height (degrees)', { 16 }, 'f32', 360, 0, 360, 1, 10)
     row(TYPES.ear, 'Senses', 'hearing', 'Hearing (x)', { 4 }, 'f32', 100, 0, 100, 0.05, 0.25)
     row(TYPES.danger, 'Suppression', 'danger_radius', 'Shots count within (m)', { 4 }, 'f32', 1000, 0, 100, 0.5, 2,
         'how close your shots must land to rattle it')
-    row(TYPES.targeting, 'Suppression', 'flinch', 'Aim flinch when shot at', { 36 }, 'f32', 1000, 0, 100, 0.1, 0.5,
-        'how much your fire throws off its aim; 0: never')
-    row(TYPES.targeting, 'Suppression', 'flinch_recover', 'Aim recovery (per second)', { 40 }, 'f32', 10000, 0, 1000, 1, 10,
-        'how fast its aim settles again; higher: sooner')
+    row(TYPES.targeting, 'Suppression', 'flinch', 'Flinch from your fire', { 36 }, 'f32', 1000, 0, 100, 0.1, 0.5,
+        'how hard your fire throws off its aim; 0: never; higher: a little fire throws it off fully')
+    -- shown as the seconds a fully thrown-off aim takes to settle: the flinch cap (+44) over how fast it drains (+40)
+    local tg = members[1] and at(TYPES.targeting, members[1])
+    if tg then
+        local cap = field_at(TYPES.targeting, tg + 44, 'f32', 1000)
+        local r = row(TYPES.targeting, 'Suppression', 'flinch_recover', 'Aim steadies again after (s)', { 40 }, 'f32', 10000, 0.01, 60, 0.05, 0.25,
+                      'how long its aim stays thrown off after your fire stops; Never: it never steadies')
+        if r then   -- (every variant written from the first's cap, so not a lead row)
+            r.span, r.span_default, r.lead = function() return read_field(cap) end, function() return default_of(cap) end, nil
+            r.never = true   -- a drain of 0 shows as Never (Tanks, Berserkers...), not blank
+        end
+    end
     row(TYPES.unit, 'Size', 'scale', 'Size (x)', { 8, 12 }, 'f32', 100, 0.1, 10, 0.05, 0.25,
         'the model and its body parts; on some enemies the hitboxes may not match the model, and on others it may not work at all')
     local jam_note = 'stratagems cannot be called within this distance while it stands'
@@ -21785,7 +21818,7 @@ MOD.enemy.FACTION_STATS = {
       function(page, r, p) return r.id == 'speed' and p ~= r.parts[1] end },
     { 'Senses', 'all_sight', 'Sight range (x)', 'mult', 10, nil,
       function(page, r) return not page.enemy.gun and r.id == 'sight' end },
-    { 'Suppression', 'all_flinch', 'Aim flinch when shot at (x)', 'mult', 20, 'enemies at 0 stay immune',
+    { 'Suppression', 'all_flinch', 'Flinch from your fire (x)', 'mult', 20, 'enemies at 0 stay immune',
       function(page, r) return not page.enemy.gun and r.id == 'flinch' end },
     { 'Suppression', 'all_danger_radius', 'Shots count within (x)', 'mult', 10, nil,
       function(page, r) return not page.enemy.gun and r.id == 'danger_radius' end },
@@ -22522,6 +22555,7 @@ local function row_value(row, default)
     end
     if row.span then
         local rate = get(row.parts[1].field)
+        if row.never and rate == 0 then return 0 end
         return as_time((default and row.span_default or row.span)(), rate and rate + (row.rate_plus or 0))
     end
     local sum = 0
@@ -25282,7 +25316,8 @@ local function draw(width, height)
                     region('row:' .. n, x0 - 6, y - 1, 430, pitch - 1)
                     region('value:' .. n, 572, y, 212, bh, value ~= nil)
                 else
-                    text(was and ('was ' .. fmt(default, row.storage)) or '', 690, y + bh / 2 - 7, 14, DIM, 90, true)
+                    local shown = function(v) return row.never and v == 0 and 'Never' or fmt(v, row.storage) end
+                    text(was and ('was ' .. shown(default)) or '', 690, y + bh / 2 - 7, 14, DIM, 90, true)
                     local typing = ui.value and ui.value.n == n and ui.value.weapon == weapon
                     if typing or (ui.hover == 'value:' .. n and value ~= nil) then
                         rect(696, y, 88, bh, typing and color(20, 26, 34) or color(40, 52, 64), 951)
@@ -25291,7 +25326,7 @@ local function draw(width, height)
                     if typing then
                         text(ui.value.text .. '_', 780, y + bh / 2 - 8, 17, WHITE, 84, true)
                     else
-                        text(fmt(value, row.storage), 780, y + bh / 2 - 8, 17, ink, 84, true)
+                        text(shown(value), 780, y + bh / 2 - 8, 17, ink, 84, true)
                     end
                     local ok = value ~= nil
                     button('dec_big:' .. n, '--', 790, y, 40, bh, ok)
