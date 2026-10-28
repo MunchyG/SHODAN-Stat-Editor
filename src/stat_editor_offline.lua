@@ -715,6 +715,10 @@ MOD.ENEMY_LIST = {
     { 'automatons', 'structure', 'Stratagem Jammer', '', '23C85E970FB46685', '', '' },
     { 'illuminate', 'structure', 'Cognitive Disruptor', '', '3478839C3C9B6646', '', '' },
     { 'automatons', 'structure', 'Stratagem Scrambler (convoy)', '', 'B971B1141E1CBFAC', '', '' },
+    { 'illuminate', 'structure', 'Grounded Warp Ship', '', 'B3C9CDB79DC17937', '', '' },
+    { 'illuminate', 'structure', 'Warp Ship (invasion)', '', '2AD2E055DAD21F6E', '', '' },
+    { 'illuminate', 'structure', 'Warp Gateway', '', '7DF314C744F0D935', '', '' },
+    { 'terminids', 'structure', 'Infested Tower', '', 'AFC719AF96F10DC3', '', '' },
     { 'seaf', 'enemy', 'SEAF Soldier', 'Variant 1', '75F7E96AF7DCD303', '0=head;1=torso;2=left_arm;3=right_arm;4=left_leg;5=right_leg', '' },
     { 'seaf', 'enemy', 'SEAF Soldier', 'Variant 2', '6B22AE8E5F669D4F', '0=head;1=torso;2=left_arm;3=right_arm;4=left_leg;5=right_leg', '' },
     { 'seaf', 'enemy', 'SEAF Soldier', 'Variant 3', 'A00331F24DEEF2EE', '0=head;1=torso;2=left_arm;3=right_arm;4=left_leg;5=right_leg', '' },
@@ -1506,6 +1510,7 @@ MOD.langs = {
       ['Grenadier Battlement'] = '掷弹兵防卫墙',
       ['Grinder'] = '粉碎者',
       ['Ground All-Terrain Extraction Rig (GATER)'] = '地面全地形采集钻机（GATER）',
+      ['Grounded Warp Ship'] = '着陆穿梭舰',
       ['Guard Dog (Drone)'] = '护卫犬无人机',
       ['Guard Dog (Drone) Stun'] = '电击护卫犬无人机',
       ['Guard Dog Flamethrower (Drone)'] = '火焰护卫犬无人机',
@@ -1605,6 +1610,7 @@ MOD.langs = {
       ['Incendiary MG Devastator'] = '燃烧机枪蹂躏者',
       ['Incendiary Mine Deployer'] = '燃烧布雷器',
       ['Incinerator FRV'] = '炽灼型快速侦察载具',
+      ['Infested Tower'] = '侵染塔巢',
       ['Inflammable'] = '易燃易爆',
       ['Injures you above heat (%)'] = '超过此热量会灼伤(%)',
       ['Inner body'] = '内身体',
@@ -2607,8 +2613,10 @@ MOD.langs = {
       ['Walking backwards (multiplier)'] = '后退行走(倍率)',
       ['Walking speed (m/s)'] = '弹幕推进速度（米/秒）',
       ['War Strider'] = '战争纵步者',
+      ['Warp Gateway'] = '传送门',
       ['Warp Pack'] = '传送背包',
       ['Warp Ship'] = '穿梭舰',
+      ['Warp Ship (invasion)'] = '穿梭舰（入侵）',
       ['Warp distance (m)'] = '跃迁距离(米)',
       ['Warp pack'] = '传送背包',
       ['Warrant'] = '法令',
@@ -3395,6 +3403,7 @@ MOD.langs = {
       ['incendiary mg devastator'] = '燃烧机枪蹂躏者',
       ['incendiary mine deployer'] = '燃烧布雷器',
       ['incinerator frv'] = '炽灼型快速侦察载具',
+      ['infested tower'] = '侵染塔巢',
       ['inflammable'] = '易燃易爆',
       ['injures you above heat (%)'] = '超过此热量会灼伤(%)',
       ['inner radius (m)'] = '内半径(米)',
@@ -4018,6 +4027,7 @@ MOD.langs = {
       ['walking speed (m/s)'] = '弹幕推进速度（米/秒）',
       ['war strider'] = '战争纵步者',
       ['warp distance (m)'] = '跃迁距离(米)',
+      ['warp gateway'] = '传送门',
       ['warp pack'] = '传送背包',
       ['warp ship'] = '穿梭舰',
       ['warrant'] = '法令',
@@ -5060,6 +5070,7 @@ MOD.langs = {
       ['Grenadier Battlement'] = '擲彈兵掩體',
       ['Grinder'] = '粉碎者',
       ['Ground All-Terrain Extraction Rig (GATER)'] = '全地形越野鑽機（GATER）',
+      ['Grounded Warp Ship'] = '著陸穿梭艦',
       ['Guard Dog (Drone)'] = '護衛犬無人機',
       ['Guard Dog (Drone) Stun'] = '電擊護衛犬無人機',
       ['Guard Dog Flamethrower (Drone)'] = '火焰護衛犬無人機',
@@ -5159,6 +5170,7 @@ MOD.langs = {
       ['Incendiary MG Devastator'] = '燃燒機槍破壞者',
       ['Incendiary Mine Deployer'] = '燃燒佈雷器',
       ['Incinerator FRV'] = '焚燒者FRV',
+      ['Infested Tower'] = '蟲巢塔',
       ['Inflammable'] = '易燃物',
       ['Injures you above heat (%)'] = '超過此熱量會灼傷(%)',
       ['Inner body'] = '內身體',
@@ -6161,8 +6173,10 @@ MOD.langs = {
       ['Walking backwards (multiplier)'] = '後退行走(倍率)',
       ['Walking speed (m/s)'] = '彈幕推進速度（米/秒）',
       ['War Strider'] = '戰爭闊步者',
+      ['Warp Gateway'] = '傳送通道',
       ['Warp Pack'] = '傳送背包',
       ['Warp Ship'] = '傳送艇',
+      ['Warp Ship (invasion)'] = '穿梭艦（入侵）',
       ['Warp distance (m)'] = '躍遷距離(米)',
       ['Warp pack'] = '傳送背包',
       ['Warrant'] = '搜查令',
@@ -6949,6 +6963,7 @@ MOD.langs = {
       ['incendiary mg devastator'] = '燃燒機槍破壞者',
       ['incendiary mine deployer'] = '燃燒佈雷器',
       ['incinerator frv'] = '焚燒者FRV',
+      ['infested tower'] = '蟲巢塔',
       ['inflammable'] = '易燃物',
       ['injures you above heat (%)'] = '超過此熱量會灼傷(%)',
       ['inner radius (m)'] = '內半徑(米)',
@@ -7572,6 +7587,7 @@ MOD.langs = {
       ['walking speed (m/s)'] = '彈幕推進速度（米/秒）',
       ['war strider'] = '戰爭闊步者',
       ['warp distance (m)'] = '躍遷距離(米)',
+      ['warp gateway'] = '傳送通道',
       ['warp pack'] = '傳送背包',
       ['warp ship'] = '傳送艇',
       ['warrant'] = '搜查令',
@@ -8575,6 +8591,7 @@ MOD.langs = {
       ['Grenadier Battlement'] = 'Амбразура гранатометчика',
       ['Grinder'] = 'Измельчитель',
       ['Ground All-Terrain Extraction Rig (GATER)'] = 'Аппарат быстрой откачки ресурсов (ЗАБОР)',
+      ['Grounded Warp Ship'] = 'Приземлившийся варп-корабль',
       ['Guidance on after (s)'] = 'Наведение включается через (с)',
       ['Gun'] = 'Орудие',
       ['Gunner FRV'] = 'МТР «Стрелок»',
@@ -8664,6 +8681,7 @@ MOD.langs = {
       ['Incendiary Impact'] = 'Зажигательная ударная',
       ['Incendiary MG Devastator'] = 'Зажигательный пулеметчик-разрушитель',
       ['Incinerator FRV'] = 'Огнеметная МТР',
+      ['Infested Tower'] = 'Зараженная башня',
       ['Inflammable'] = 'Огнеопасный',
       ['Injures you above heat (%)'] = 'Ранит вас при нагреве выше (%)',
       ['Inner body'] = 'Внутреннее тело',
@@ -9606,8 +9624,10 @@ MOD.langs = {
       ['Walking backwards (multiplier)'] = 'Ходьба назад (множитель)',
       ['Walking speed (m/s)'] = 'Скорость ходьбы (м/с)',
       ['War Strider'] = 'Боевой шатун',
+      ['Warp Gateway'] = 'Варп-врата',
       ['Warp Pack'] = 'Варп-ранец',
       ['Warp Ship'] = 'Варп-корабль',
+      ['Warp Ship (invasion)'] = 'Варп-корабль (вторжение)',
       ['Warp distance (m)'] = 'Дальность варпа (м)',
       ['Warp pack'] = 'Варп-ранец',
       ['Warrant'] = 'Ордер',
@@ -10123,6 +10143,7 @@ MOD.langs = {
       ['incendiary impact'] = 'Зажигательная ударная',
       ['incendiary mg devastator'] = 'Зажигательный пулеметчик-разрушитель',
       ['incinerator frv'] = 'Огнеметная МТР',
+      ['infested tower'] = 'Зараженная башня',
       ['inflammable'] = 'Огнеопасный',
       ['integrated explosives'] = 'Встроенная взрывчатка',
       ['iron sights'] = 'Механический прицел',
@@ -10394,6 +10415,7 @@ MOD.langs = {
       ['vox engine'] = 'Глас-двигатель',
       ['w.a.s.p. launcher'] = 'Ракетомет W.A.S.P.',
       ['war strider'] = 'Боевой шатун',
+      ['warp gateway'] = 'Варп-врата',
       ['warp pack'] = 'Варп-ранец',
       ['warp ship'] = 'Варп-корабль',
       ['warrant'] = 'Ордер',
@@ -13767,12 +13789,18 @@ KINDS[TYPES.destruction].body_rows = function(entry, key, section, prefix)
     if prefix == 'unit_' then   -- (issue #86; the deployers have their own Armor row) +280, with the zones that match
         add_row(entry, section, prefix .. 'armor', 'Armor', 'u32', follow('armor', 280, 216, 'u32', 10), 0, 10, 1, 1)
     end
+    KINDS[TYPES.destruction].demolition_rows(entry, key, section, prefix, at)
+end
+
+-- For each destruction level of the entity (`key`) the demolition force that destroys it (its tier; direct
+-- hits: the level's own when set). `at`: its health record, when it has one (the tier it dies at).
+KINDS[TYPES.destruction].demolition_rows = function(entry, key, section, prefix, at)
     local spec = KINDS[TYPES.destruction]
     local n = spec.ready() and tables[TYPES.destruction_map].index[key]
     local block = n and spec.found[n + 1]
     if not block then return end
     local base = block - spec.found[1]
-    local death = field_at(TYPES.health, at + spec.DEATH, 'u32', 100)
+    local death = at and field_at(TYPES.health, at + spec.DEATH, 'u32', 100)
     local levels = {}
     for level = 0, 2 do
         for _, o in ipairs({ 16, 32 }) do
@@ -13780,7 +13808,7 @@ KINDS[TYPES.destruction].body_rows = function(entry, key, section, prefix)
             local own = default_of(f)
             if own and own > 0 then
                 local t = spec.at(tables[TYPES.destruction].copies[1] + HEADER_BYTES + base + level * 48 + o + 8)
-                if t and t == default_of(death) then f.death = death end
+                if death and t and t == default_of(death) then f.death = death end
                 levels[#levels + 1] = { f = f, level = level, hit = o == 32 }
             end
         end
@@ -13798,7 +13826,7 @@ KINDS[TYPES.destruction].body_rows = function(entry, key, section, prefix)
         local t = {}
         for _, l in ipairs(levels) do t[#t + 1] = (l.hit and 'hit ' or 'level ') .. (l.level + 1) .. ' ' .. tostring(default_of(l.f)) end
         log('destruction: ' .. entry.name .. ' settings ' .. n .. ': ' .. table.concat(t, ', ') ..
-            ', on death ' .. tostring(default_of(death)))
+            ', on death ' .. tostring(death and default_of(death)))
     end
 end
 
@@ -14974,7 +15002,11 @@ end
 -- damage passed to the body +248, fatal +244 (byte).
 function MOD.enemy.resolve(entry)
     local members = entry.enemy.members
-    if not members[1].at then MOD.enemy.more_rows(entry); return end
+    -- a structure's demolition force (after its health rows)
+    local function demolition()
+        if entry.enemy.structure then KINDS[TYPES.destruction].demolition_rows(entry, members[1].key, 'Health', '', members[1].at) end
+    end
+    if not members[1].at then demolition(); MOD.enemy.more_rows(entry); return end
     local function parts(id, offset, storage, limit)
         local out = {}
         for n, m in ipairs(members) do out[n] = part(n == 1 and id or (id .. '_' .. n), TYPES.health, m.at + offset, storage, limit) end
@@ -15003,6 +15035,7 @@ function MOD.enemy.resolve(entry)
     if drain then drain.scale = -1 end
     row('Health', 'regen', 'Regeneration (health/s)', 4, 'f32', 1000000, 100000, 1, 10)
     row('Health', 'regen_delay', 'Regeneration delay after damage (s)', 12, 'f32', 3600, 600, 0.1, 1)
+    demolition()
     local names = {}
     for z, n in (entry.enemy.zones or ''):gmatch('(%d+)=([^;]*)') do names[tonumber(z)] = n end
     local ht = tables[TYPES.health]
