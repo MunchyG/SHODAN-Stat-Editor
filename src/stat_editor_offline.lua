@@ -24657,6 +24657,13 @@ do
                 -- (an enemy page's value at the game's own: kept, as a faction-wide row's exception)
                 if ok then set_override(weapon, p, (weapon.enemy and not weapon.enemy.faction) and o.value or unless_default(o.value, d)) end
                 if ok and #parts == 1 and p.row and p.row.mult and p.row.parts[1] == p then MOD.enemy.mult_fields(weapon, p.row, o.value) end
+                if ok and #parts == 1 and p.row and p.row.lead and p.row.storage == 'flag' and p.row.parts[1] == p then   -- (a switch over several records)
+                    for k = 2, #p.row.parts do
+                        local q = p.row.parts[k]
+                        local dq = default_of(q.field)
+                        if write_field(q.field, o.value) then set_override(weapon, q, unless_default(o.value, dq)) end
+                    end
+                end
             end
             if not ok then refused = refused + 1; log('preset "' .. preset.name .. '": ' .. (weapon and weapon.name or o.hash) .. ' ' .. o.id .. ': ' .. tostring(why)) end
         end
