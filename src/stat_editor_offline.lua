@@ -13181,12 +13181,18 @@ local function resolve_gun(weapon, key)
                 weapon.sealed = default_of(field_at(T_MAGAZINE, magazine + 140, 'u32', 100000)) == 0
                                 and default_of(field_at(T_MAGAZINE, magazine + 148, 'u32', 100000)) == 0
             end
+            -- not a player's gun (sentries, emplacements, vehicles) and no spare magazines to start with or hold:
+            -- no magazine rows (their reload stays)
+            local spares = not (magazine and not item and weapon.slot ~= 'Primary' and weapon.slot ~= 'Secondary'
+                                and weapon.slot ~= 'Support'
+                                and default_of(field_at(T_MAGAZINE, magazine + 140, 'u32', 100000)) == 0
+                                and default_of(field_at(T_MAGAZINE, magazine + 148, 'u32', 100000)) == 0)
             -- the game keeps at most 2048 rounds in a magazine (more drops to 2048 at the first shot): rows stop
             -- there, and going past it says why (row.limit)
             for _, m in ipairs(magazine and { { 'capacity', 'Magazine size', 136, 1, 2048, 10 },
-                                              not weapon.sealed and { 'mags_start', 'Starting magazines', 140, 0, 100000, 50 } or nil,
-                                              not weapon.sealed and { 'mags_supply', 'Magazines from supply', 144, 0, 100000, 50 } or nil,
-                                              not weapon.sealed and { 'mags_max', 'Max spare magazines', 148, 0, 100000, 50 } or nil } or {}) do
+                                              not weapon.sealed and spares and { 'mags_start', 'Starting magazines', 140, 0, 100000, 50 } or nil,
+                                              not weapon.sealed and spares and { 'mags_supply', 'Magazines from supply', 144, 0, 100000, 50 } or nil,
+                                              not weapon.sealed and spares and { 'mags_max', 'Max spare magazines', 148, 0, 100000, 50 } or nil } or {}) do
                 local r = row('Ammo', m[1], m[2], 'u32', get(m[1], '5:' .. m[3], T_MAGAZINE, magazine + m[3], 'u32', 100000), m[4], m[5], 1, m[6])
                 if r and m[1] == 'capacity' then r.limit = 'The game holds at most 2048 rounds in a magazine.' end
             end
