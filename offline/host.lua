@@ -105,7 +105,7 @@ local function main()
     local id = ffi.C.GetUserDefaultUILanguage()
     local primary, sub = id % 1024, math.floor(id / 1024)
     if rawget(_G, 'SHODAN_OFFLINE_LANG') == nil then rawset(_G, 'SHODAN_OFFLINE_LANG', primary == 0x04 and ((sub == 2 or sub == 4) and 'zh-Hans' or 'zh-Hant')
-                                      or primary == 0x19 and 'ru' or nil) end
+                                      or primary == 0x19 and 'ru' or primary == 0x0A and 'es-419' or primary == 0x16 and 'pt-BR' or nil) end
     stingray = shim.engine()
     function update(dt) end
     local editor = arg and arg[1] or here .. 'stat_editor.lua'
