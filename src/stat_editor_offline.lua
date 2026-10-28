@@ -2197,6 +2197,8 @@ MOD.langs = {
       ['Rounds 2, 3, 4 projectile'] = '第 2、3、4 发弹丸',
       ['Rounds from supply'] = '补给获得的弹数',
       ['Rounds loaded'] = '已装填弹数',
+      ['Rounds loaded, first tube'] = '已装填弹数（第一弹管）',
+      ['Rounds loaded, second tube'] = '已装填弹数（第二弹管）',
       ['Rounds per reload'] = '每次装填弹数',
       ['Run length (m)'] = '攻击航线长度（米）',
       ['Rupture Charger'] = '爆裂强袭虫',
@@ -5763,6 +5765,8 @@ MOD.langs = {
       ['Rounds 2, 3, 4 projectile'] = '第 2、3、4 發射彈',
       ['Rounds from supply'] = '補給獲得的彈數',
       ['Rounds loaded'] = '已裝填彈數',
+      ['Rounds loaded, first tube'] = '已裝填彈數（第一彈管）',
+      ['Rounds loaded, second tube'] = '已裝填彈數（第二彈管）',
       ['Rounds per reload'] = '每次裝填彈數',
       ['Run length (m)'] = '攻擊航線長度（米）',
       ['Rupture Charger'] = '裂破衝鋒蟲',
@@ -9256,6 +9260,8 @@ MOD.langs = {
       ['Rounds 2, 3, 4 projectile'] = 'Снаряд выстрелов 2, 3, 4',
       ['Rounds from supply'] = 'Патроны из снабжения',
       ['Rounds loaded'] = 'Патронов заряжено',
+      ['Rounds loaded, first tube'] = 'Патронов заряжено, первая трубка',
+      ['Rounds loaded, second tube'] = 'Патронов заряжено, вторая трубка',
       ['Rounds per reload'] = 'Патронов за перезарядку',
       ['Run length (m)'] = 'Длина захода (м)',
       ['Rupture Charger'] = 'Прорывной громила',
@@ -13310,8 +13316,15 @@ local function resolve_gun(weapon, key)
     end
     stock(nil, true)
     if rounds then
-        add_row(weapon, 'Ammo', 'rounds_capacity', 'Rounds loaded', 'f32',
+        -- +72 the first magazine's capacity, +76 the second's (0: none; the Punisher, Slugger, Cookout and Halt
+        -- have two 8-round tubes, 16 in all)
+        local tubes = (default_of(field_at(T_ROUNDS, rounds + 76, 'f32', 100000)) or 0) > 0
+        add_row(weapon, 'Ammo', 'rounds_capacity', tubes and 'Rounds loaded, first tube' or 'Rounds loaded', 'f32',
                 { part('rounds_capacity', T_ROUNDS, rounds + 72, 'f32', 100000) }, 1, 999, 1, 5)
+        if tubes then
+            add_row(weapon, 'Ammo', 'rounds_capacity2', 'Rounds loaded, second tube', 'f32',
+                    { part('rounds_capacity2', T_ROUNDS, rounds + 76, 'f32', 100000) }, 1, 999, 1, 5)
+        end
         local function rnd(id, label, offset)
             add_row(weapon, 'Ammo', id, label, 'u32', { part(id, T_ROUNDS, rounds + offset, 'u32', 100000) }, 0, 9999, 1, 10)
         end
