@@ -1165,6 +1165,7 @@ MOD.langs = {
       ['A mounted copy aimed by AI. Not the one you carry.'] = '由 AI 瞄准的固定版本。不是你携带的那把。',
       ['A mounted copy run by AI (emplacement-style). Not the one you carry.'] = '由 AI 操作的固定版本（炮台式）。不是你携带的那把。',
       ['A mounted copy. Not the one you carry.'] = '固定版本。不是你携带的那把。',
+      ['A pathetic creature of meat and bone.'] = '一个由血肉和骨头组成的可怜生物。',
       ['A preset keeps every change you have made as one set, under a name you choose.'] = '预设会把你所有的修改作为一组保存，并取一个你指定的名字。',
       ['A preset keeps every enemy and spawning change as one custom difficulty, under a name you choose. Your weapon changes are kept apart.'] = '预设会把所有敌人与生成的改动保存为一个自定义难度，名称由你决定。武器改动单独保存。',
       ['A value changed on an enemy\'s own page stays red: this page leaves it as it is.'] = '在敌人自己页面上更改的数值保持红色：此页面不会改动它。',
@@ -1475,6 +1476,7 @@ MOD.langs = {
       ['Choose a weapon on the left.'] = '请在左侧选择武器。',
       ['Clear'] = '清除',
       ['Click * to show only what you changed, from every tab.'] = '点 * 只显示你改过的内容（所有标签页）。',
+      ['Click a box to type. Install puts it in the game, in every language.'] = '点击输入框即可输入。安装后会写入游戏的所有语言。',
       ['Click again to overwrite'] = '再次点击以覆盖',
       ['Climb acceleration'] = '爬升加速度',
       ['Climb multiplier (horizontal)'] = '枪口上扬倍率（水平）',
@@ -1556,6 +1558,7 @@ MOD.langs = {
       ['Democracy Protects'] = '民主护佑',
       ['Demolition force'] = '破坏力',
       ['Deployer'] = '部署舱',
+      ['Description'] = '描述',
       ['Desert Stormer'] = '沙漠突击者',
       ['Destroyed'] = '已摧毁',
       ['Devastator'] = '蹂躏者',
@@ -1933,6 +1936,7 @@ MOD.langs = {
       ['Impact damage taken'] = '受到冲击伤害',
       ['Impact explosion (id)'] = '命中爆炸 (ID)',
       ['Impaler'] = '穿刺虫',
+      ['In-game text'] = '游戏内文本',
       ['Incendiary'] = '燃烧弹',
       ['Incendiary Impact'] = '燃烧冲击弹',
       ['Incendiary MG Devastator'] = '燃烧机枪蹂躏者',
@@ -2111,6 +2115,7 @@ MOD.langs = {
       ['Log file path copied.'] = '已复制日志文件路径。',
       ['Logs'] = '日志',
       ['Logs and Presets'] = '日志与预设',
+      ['Look at you, hacker.'] = '看看你，黑客。',
       ['Loses its target past (deg)'] = '超出此角度丢失目标(度)',
       ['Lower back'] = '下背部',
       ['Lower it if a high zoom spins the view.'] = '如果高倍率时视野旋转，请调低。',
@@ -2202,6 +2207,7 @@ MOD.langs = {
       ['Movement speed (x)'] = '移动速度 (x)',
       ['Muzzle'] = '枪口',
       ['Muzzle brake'] = '枪口制退器',
+      ['Name'] = '名称',
       ['Napalm Bomb'] = '凝固汽油弹',
       ['Napalm Bomb Mk2'] = '凝固汽油弹 MK2',
       ['Napalm Bomb Mk3'] = '凝固汽油弹 MK3',
@@ -2310,6 +2316,7 @@ MOD.langs = {
       ['Panel side'] = '面板位置',
       ['Panel size'] = '面板大小',
       ['Panels'] = '布雷批次数',
+      ['Panting and sweating as you run through my corridors.'] = '在我的走廊里气喘吁吁、汗流浃背。',
       ['Partial charge'] = '部分蓄力',
       ['Partial charge explosion'] = '部分蓄力爆炸',
       ['Partial charge shot'] = '部分蓄力射击',
@@ -2938,6 +2945,7 @@ MOD.langs = {
       ['Tutorial Reinforcement Beacon'] = '教学增援信标',
       ['Type the name: Enter keeps it, Esc cancels. The game sees these keys too, so name presets from a menu.'] = '输入预设名称：Enter 确认，Esc 取消。',
       ['Type the percent (%d-%d): Enter sets it, Esc cancels.'] = '输入百分比(%d-%d)：回车确认，Esc 取消。',
+      ['Type the text: Enter keeps it, Esc cancels. Install puts it in the game, in every language.'] = '输入文本：Enter 保存，Esc 取消。安装后会写入游戏的所有语言。',
       ['Type the value: Enter sets it, Esc cancels. Values out of range are set to the nearest allowed one.'] = '输入数值：回车确认，Esc 取消。超出范围的数值会取最接近的合法值。',
       ['Type to search: Enter keeps the results, Esc clears the search. The game sees these keys too.'] = '输入搜索内容：Enter 保留结果，Esc 清空搜索。',
       ['Ultimatum'] = '最后通牒',
@@ -3026,6 +3034,7 @@ MOD.langs = {
       ['Wings'] = '翼',
       ['Wretch'] = '悲怜体',
       ['Xenobite Ardent'] = '炽热异噬者',
+      ['You are an insect, Helldiver.'] = '你只是一只虫子，绝地潜兵。',
       ['Your changes are off: turn them on in Settings to edit.'] = '你的改动当前处于关闭状态：请在设置里开启后再编辑。',
       ['Your changes are off: turn them on in Settings to load a preset'] = '你的修改已关闭：请在设置中开启后再读取预设',
       ['Your values are not in the game yet: close the game, then Install.'] = '修改尚未写入游戏：请先关闭游戏，再点击“写入游戏”。',
@@ -4914,6 +4923,7 @@ MOD.langs = {
       ['A mounted copy aimed by AI. Not the one you carry.'] = '由 AI 瞄準的固定版本。不是你攜帶的那把。',
       ['A mounted copy run by AI (emplacement-style). Not the one you carry.'] = '由 AI 操作的固定版本（炮台式）。不是你攜帶的那把。',
       ['A mounted copy. Not the one you carry.'] = '固定版本。不是你攜帶的那把。',
+      ['A pathetic creature of meat and bone.'] = '一個由血肉和骨頭組成的可憐生物。',
       ['A preset keeps every change you have made as one set, under a name you choose.'] = '預設會把你所有的修改作為一組儲存，並取一個你指定的名字。',
       ['A preset keeps every enemy and spawning change as one custom difficulty, under a name you choose. Your weapon changes are kept apart.'] = '預設會把所有敵人與生成的改動儲存為一個自定義難度，名稱由你決定。武器改動單獨儲存。',
       ['A value changed on an enemy\'s own page stays red: this page leaves it as it is.'] = '在敵人自己頁面上更改的數值保持紅色：此頁面不會改動它。',
@@ -5224,6 +5234,7 @@ MOD.langs = {
       ['Choose a weapon on the left.'] = '請在左側選擇武器。',
       ['Clear'] = '清除',
       ['Click * to show only what you changed, from every tab.'] = '點 * 只顯示你改過的內容（所有標籤頁）。',
+      ['Click a box to type. Install puts it in the game, in every language.'] = '點選輸入框即可輸入。安裝後會寫入遊戲的所有語言。',
       ['Click again to overwrite'] = '再次點選以覆蓋',
       ['Climb acceleration'] = '爬升加速度',
       ['Climb multiplier (horizontal)'] = '槍口上揚倍率（水平）',
@@ -5305,6 +5316,7 @@ MOD.langs = {
       ['Democracy Protects'] = '民主守護者',
       ['Demolition force'] = '破壞力',
       ['Deployer'] = '部署艙',
+      ['Description'] = '描述',
       ['Desert Stormer'] = '沙塵暴之王',
       ['Destroyed'] = '已摧毀',
       ['Devastator'] = '破壞者',
@@ -5682,6 +5694,7 @@ MOD.langs = {
       ['Impact damage taken'] = '受到衝擊傷害',
       ['Impact explosion (id)'] = '命中爆炸 (ID)',
       ['Impaler'] = '穿刺蟲',
+      ['In-game text'] = '遊戲內文字',
       ['Incendiary'] = '燃燒彈',
       ['Incendiary Impact'] = '衝擊燃燒彈',
       ['Incendiary MG Devastator'] = '燃燒機槍破壞者',
@@ -5860,6 +5873,7 @@ MOD.langs = {
       ['Log file path copied.'] = '已複製日誌檔案路徑。',
       ['Logs'] = '日誌',
       ['Logs and Presets'] = '日誌與預設',
+      ['Look at you, hacker.'] = '看看你，駭客。',
       ['Loses its target past (deg)'] = '超出此角度丟失目標(度)',
       ['Lower back'] = '下背部',
       ['Lower it if a high zoom spins the view.'] = '如果高倍率時視野旋轉，請調低。',
@@ -5951,6 +5965,7 @@ MOD.langs = {
       ['Movement speed (x)'] = '移動速度 (x)',
       ['Muzzle'] = '槍口',
       ['Muzzle brake'] = '槍口制退器',
+      ['Name'] = '名稱',
       ['Napalm Bomb'] = '凝固汽油彈',
       ['Napalm Bomb Mk2'] = '凝固汽油彈MK2',
       ['Napalm Bomb Mk3'] = '凝固汽油彈MK3',
@@ -6059,6 +6074,7 @@ MOD.langs = {
       ['Panel side'] = '面板位置',
       ['Panel size'] = '面板大小',
       ['Panels'] = '佈雷批次數',
+      ['Panting and sweating as you run through my corridors.'] = '在我的走廊裡氣喘吁吁、汗流浹背。',
       ['Partial charge'] = '部分蓄力',
       ['Partial charge explosion'] = '部分蓄力爆炸',
       ['Partial charge shot'] = '部分蓄力射擊',
@@ -6687,6 +6703,7 @@ MOD.langs = {
       ['Tutorial Reinforcement Beacon'] = '教學增援信標',
       ['Type the name: Enter keeps it, Esc cancels. The game sees these keys too, so name presets from a menu.'] = '輸入預設名稱：Enter 確認，Esc 取消。',
       ['Type the percent (%d-%d): Enter sets it, Esc cancels.'] = '輸入百分比(%d-%d)：回車確認，Esc 取消。',
+      ['Type the text: Enter keeps it, Esc cancels. Install puts it in the game, in every language.'] = '輸入文字：Enter 儲存，Esc 取消。安裝後會寫入遊戲的所有語言。',
       ['Type the value: Enter sets it, Esc cancels. Values out of range are set to the nearest allowed one.'] = '輸入數值：回車確認，Esc 取消。超出範圍的數值會取最接近的合法值。',
       ['Type to search: Enter keeps the results, Esc clears the search. The game sees these keys too.'] = '輸入搜尋內容：Enter 保留結果，Esc 清空搜尋。',
       ['Ultimatum'] = '最後通牒',
@@ -6775,6 +6792,7 @@ MOD.langs = {
       ['Wings'] = '翼',
       ['Wretch'] = '哀惡者',
       ['Xenobite Ardent'] = '熾燃地獄使者',
+      ['You are an insect, Helldiver.'] = '你只是一隻蟲子，絕地潛兵。',
       ['Your changes are off: turn them on in Settings to edit.'] = '你的改動當前處於關閉狀態：請在設定裡開啟後再編輯。',
       ['Your changes are off: turn them on in Settings to load a preset'] = '你的修改已關閉：請在設定中開啟後再讀取預設',
       ['Your values are not in the game yet: close the game, then Install.'] = '修改尚未寫入遊戲：請先關閉遊戲，再點選「寫入遊戲」。',
@@ -8661,6 +8679,7 @@ MOD.langs = {
       ['A mounted copy aimed by AI. Not the one you carry.'] = 'Станковая копия с наводкой ИИ. Не то, что вы носите.',
       ['A mounted copy run by AI (emplacement-style). Not the one you carry.'] = 'Станковая копия под управлением ИИ (как огневая позиция). Не то, что вы носите.',
       ['A mounted copy. Not the one you carry.'] = 'Станковая копия. Не то, что вы носите.',
+      ['A pathetic creature of meat and bone.'] = 'Жалкое создание из мяса и костей.',
       ['A preset keeps every change you have made as one set, under a name you choose.'] = 'Пресет хранит все ваши изменения одним набором под выбранным вами именем.',
       ['A preset keeps every enemy and spawning change as one custom difficulty, under a name you choose. Your weapon changes are kept apart.'] = 'Пресет хранит все изменения врагов и их появления как свой уровень сложности под выбранным вами именем. Изменения оружия хранятся отдельно.',
       ['A value changed on an enemy\'s own page stays red: this page leaves it as it is.'] = 'Значение, изменённое на странице самого врага, остаётся красным: эта страница его не трогает.',
@@ -8961,6 +8980,7 @@ MOD.langs = {
       ['Choose a weapon on the left.'] = 'Выберите оружие слева.',
       ['Clear'] = 'Очистить',
       ['Click * to show only what you changed, from every tab.'] = 'Нажмите *, чтобы показать только изменённое, со всех вкладок.',
+      ['Click a box to type. Install puts it in the game, in every language.'] = 'Нажмите на поле, чтобы ввести текст. Установка внесёт его в игру на всех языках.',
       ['Click again to overwrite'] = 'Нажмите еще раз, чтобы перезаписать',
       ['Climb acceleration'] = 'Ускорение подъема',
       ['Climb multiplier (horizontal)'] = 'Множитель подъема (по горизонтали)',
@@ -9037,6 +9057,7 @@ MOD.langs = {
       ['Democracy Protects'] = 'Демократия защищает',
       ['Demolition force'] = 'Сила разрушения',
       ['Deployer'] = 'Установщик',
+      ['Description'] = 'Описание',
       ['Desert Stormer'] = 'Пустынный штурмовик',
       ['Destroyed'] = 'уничтожено',
       ['Devastator'] = 'Разрушитель',
@@ -9388,6 +9409,7 @@ MOD.langs = {
       ['Impact damage taken'] = 'Получаемый урон от ударов',
       ['Impact explosion (id)'] = 'Взрыв при попадании (ID)',
       ['Impaler'] = 'Пронзатель',
+      ['In-game text'] = 'Текст в игре',
       ['Incendiary'] = '«Зажигательная»',
       ['Incendiary Impact'] = 'Зажигательная ударная',
       ['Incendiary MG Devastator'] = 'Зажигательный пулеметчик-разрушитель',
@@ -9560,6 +9582,7 @@ MOD.langs = {
       ['Log file path copied.'] = 'Путь к файлу журнала скопирован.',
       ['Logs'] = 'Журналы',
       ['Logs and Presets'] = 'Журналы и пресеты',
+      ['Look at you, hacker.'] = 'Посмотри на себя, хакер.',
       ['Loses its target past (deg)'] = 'Теряет цель за пределами (град.)',
       ['Lower back'] = 'Нижняя спина',
       ['Lower it if a high zoom spins the view.'] = 'Уменьшите, если на большом увеличении вид крутится.',
@@ -9646,6 +9669,7 @@ MOD.langs = {
       ['Movement speed (x)'] = 'Скорость передвижения (x)',
       ['Muzzle'] = 'Дуло',
       ['Muzzle brake'] = 'Дульный тормоз',
+      ['Name'] = 'Название',
       ['Napalm Bomb'] = 'Напалмовая бомба',
       ['Napalm Bomb Mk2'] = 'Напалмовая бомба Mk2',
       ['Napalm Bomb Mk3'] = 'Напалмовая бомба Mk3',
@@ -9750,6 +9774,7 @@ MOD.langs = {
       ['Panel side'] = 'Сторона панели',
       ['Panel size'] = 'Размер панели',
       ['Panels'] = 'Секции',
+      ['Panting and sweating as you run through my corridors.'] = 'Пыхтишь и потеешь, пробегая по моим коридорам.',
       ['Partial charge'] = 'Частичный заряд',
       ['Partial charge explosion'] = 'Взрыв с частичным зарядом',
       ['Partial charge shot'] = 'Выстрел с частичным зарядом',
@@ -10344,6 +10369,7 @@ MOD.langs = {
       ['Turret'] = 'Башня',
       ['Type the name: Enter keeps it, Esc cancels. The game sees these keys too, so name presets from a menu.'] = 'Введите имя: Enter — сохранить, Esc — отмена. Игра тоже видит эти клавиши, поэтому называйте пресеты из меню.',
       ['Type the percent (%d-%d): Enter sets it, Esc cancels.'] = 'Введите процент (%d-%d): Enter — задать, Esc — отмена.',
+      ['Type the text: Enter keeps it, Esc cancels. Install puts it in the game, in every language.'] = 'Введите текст: Enter сохраняет, Esc отменяет. Установка внесёт его в игру на всех языках.',
       ['Type the value: Enter sets it, Esc cancels. Values out of range are set to the nearest allowed one.'] = 'Введите значение: Enter — задать, Esc — отмена. Значения вне диапазона заменяются ближайшим допустимым.',
       ['Type to search: Enter keeps the results, Esc clears the search. The game sees these keys too.'] = 'Введите запрос: Enter — оставить результаты, Esc — очистить поиск. Игра тоже видит эти клавиши.',
       ['Ultimatum'] = 'Ультиматум',
@@ -10427,6 +10453,7 @@ MOD.langs = {
       ['Wings'] = 'Крылья',
       ['Wretch'] = 'Паскуда',
       ['Xenobite Ardent'] = 'Ксенобит-приверженец',
+      ['You are an insect, Helldiver.'] = 'Ты насекомое, адский десантник.',
       ['Your changes are off: turn them on in Settings to edit.'] = 'Ваши изменения выключены: включите их в Настройках, чтобы редактировать.',
       ['Your changes are off: turn them on in Settings to load a preset'] = 'Ваши изменения выключены: включите их в Настройках, чтобы загрузить пресет',
       ['Your values are not in the game yet: close the game, then Install.'] = 'Ваши значения ещё не в игре: закройте игру и нажмите «Установить в игру».',
@@ -11643,6 +11670,7 @@ MOD.langs = {
       ['A mounted copy aimed by AI. Not the one you carry.'] = 'Una copia montada apuntada por IA. No la que llevas.',
       ['A mounted copy run by AI (emplacement-style). Not the one you carry.'] = 'Una copia montada manejada por IA (tipo emplazamiento). No la que llevas.',
       ['A mounted copy. Not the one you carry.'] = 'Una copia montada. No la que llevas.',
+      ['A pathetic creature of meat and bone.'] = 'Una patética criatura de carne y hueso.',
       ['A preset keeps every change you have made as one set, under a name you choose.'] = 'Un perfil guarda todos tus cambios como un conjunto, con el nombre que elijas.',
       ['A preset keeps every enemy and spawning change as one custom difficulty, under a name you choose. Your weapon changes are kept apart.'] = 'Un perfil guarda todos los cambios de enemigos y aparición como una dificultad personalizada, con el nombre que elijas. Tus cambios de armas se guardan aparte.',
       ['A value changed on an enemy\'s own page stays red: this page leaves it as it is.'] = 'Un valor cambiado en la página propia de un enemigo queda en rojo: esta página lo deja como está.',
@@ -11939,6 +11967,7 @@ MOD.langs = {
       ['Choose a weapon on the left.'] = 'Elige un arma a la izquierda.',
       ['Clear'] = 'Borrar',
       ['Click * to show only what you changed, from every tab.'] = 'Haz clic en * para mostrar solo lo que cambiaste, de todas las pestañas.',
+      ['Click a box to type. Install puts it in the game, in every language.'] = 'Haz clic en un cuadro para escribir. Instalar lo pone en el juego, en todos los idiomas.',
       ['Click again to overwrite'] = 'Haz clic otra vez para sobrescribir',
       ['Climb acceleration'] = 'Aceleración de ascenso',
       ['Climb multiplier (horizontal)'] = 'Multiplicador de escalada (horizontal)',
@@ -12015,6 +12044,7 @@ MOD.langs = {
       ['Democracy Protects'] = 'Protector de Democracia',
       ['Demolition force'] = 'Fuerza de demolición',
       ['Deployer'] = 'Desplegador',
+      ['Description'] = 'Descripción',
       ['Desert Stormer'] = 'Aterradesiertos',
       ['Destroyed'] = 'Destruido',
       ['Devastator'] = 'Devastador',
@@ -12363,6 +12393,7 @@ MOD.langs = {
       ['Impact damage taken'] = 'Daño de impacto recibido',
       ['Impact explosion (id)'] = 'Explosión al impactar (id)',
       ['Impaler'] = 'Empalador',
+      ['In-game text'] = 'Texto en el juego',
       ['Incendiary'] = 'Incendiaria',
       ['Incendiary Impact'] = 'Impacto incendiario',
       ['Incendiary MG Devastator'] = 'Devastador de ametralladora incendiaria',
@@ -12535,6 +12566,7 @@ MOD.langs = {
       ['Log file path copied.'] = 'Ruta del archivo de registro copiada.',
       ['Logs'] = 'Registros',
       ['Logs and Presets'] = 'Registros y perfiles',
+      ['Look at you, hacker.'] = 'Mírate, hacker.',
       ['Loses its target past (deg)'] = 'Pierde el objetivo pasado (grados)',
       ['Lower back'] = 'Espalda baja',
       ['Lower it if a high zoom spins the view.'] = 'Baja ese valor si un zoom alto hace girar la vista.',
@@ -12620,6 +12652,7 @@ MOD.langs = {
       ['Movement speed (x)'] = 'Velocidad de movimiento (x)',
       ['Muzzle'] = 'Boca',
       ['Muzzle brake'] = 'Freno de boca',
+      ['Name'] = 'Nombre',
       ['Napalm Bomb'] = 'Bomba de napalm',
       ['Napalm Bomb Mk2'] = 'Bomba de napalm Mk2',
       ['Napalm Bomb Mk3'] = 'Bomba de napalm Mk3',
@@ -12720,6 +12753,7 @@ MOD.langs = {
       ['Panel side'] = 'Lado del panel',
       ['Panel size'] = 'Tamaño del panel',
       ['Panels'] = 'Paneles',
+      ['Panting and sweating as you run through my corridors.'] = 'Jadeando y sudando mientras corres por mis pasillos.',
       ['Partial charge'] = 'Carga parcial',
       ['Partial charge explosion'] = 'Explosión con carga parcial',
       ['Partial charge shot'] = 'Disparo con carga parcial',
@@ -13309,6 +13343,7 @@ MOD.langs = {
       ['Turret'] = 'Torreta',
       ['Type the name: Enter keeps it, Esc cancels. The game sees these keys too, so name presets from a menu.'] = 'Escribe el nombre: Enter lo guarda, Esc cancela. El juego también recibe estas teclas, así que nombra los perfiles desde un menú.',
       ['Type the percent (%d-%d): Enter sets it, Esc cancels.'] = 'Escribe el porcentaje (%d-%d): Enter lo aplica, Esc cancela.',
+      ['Type the text: Enter keeps it, Esc cancels. Install puts it in the game, in every language.'] = 'Escribe el texto: Enter lo guarda, Esc cancela. Instalar lo pone en el juego, en todos los idiomas.',
       ['Type the value: Enter sets it, Esc cancels. Values out of range are set to the nearest allowed one.'] = 'Escribe el valor: Enter lo aplica, Esc cancela. Los valores fuera de rango se ajustan al permitido más cercano.',
       ['Type to search: Enter keeps the results, Esc clears the search. The game sees these keys too.'] = 'Escribe para buscar: Enter mantiene los resultados, Esc borra la búsqueda. El juego también recibe estas teclas.',
       ['Ultimatum'] = 'Ultimátum',
@@ -13392,6 +13427,7 @@ MOD.langs = {
       ['Wings'] = 'Alas',
       ['Wretch'] = 'Nefasto',
       ['Xenobite Ardent'] = 'Ardoroso xenobita',
+      ['You are an insect, Helldiver.'] = 'Eres un insecto, Helldiver.',
       ['Your changes are off: turn them on in Settings to edit.'] = 'Tus cambios están desactivados: actívalos en Configuración para editar.',
       ['Your changes are off: turn them on in Settings to load a preset'] = 'Tus cambios están desactivados: actívalos en Configuración para cargar un perfil',
       ['Your values are not in the game yet: close the game, then Install.'] = 'Tus valores aún no están en el juego: cierra el juego y luego Instala.',
@@ -14576,6 +14612,7 @@ MOD.langs = {
       ['A mounted copy aimed by AI. Not the one you carry.'] = 'Uma cópia montada mirada por IA. Não é a que você carrega.',
       ['A mounted copy run by AI (emplacement-style). Not the one you carry.'] = 'Uma cópia montada operada por IA (tipo posicionamento). Não é a que você carrega.',
       ['A mounted copy. Not the one you carry.'] = 'Uma cópia montada. Não é a que você carrega.',
+      ['A pathetic creature of meat and bone.'] = 'Uma criatura patética de carne e osso.',
       ['A preset keeps every change you have made as one set, under a name you choose.'] = 'Um perfil guarda todas as suas mudanças como um conjunto, com o nome que você escolher.',
       ['A preset keeps every enemy and spawning change as one custom difficulty, under a name you choose. Your weapon changes are kept apart.'] = 'Um perfil guarda todas as mudanças de inimigos e surgimento como uma dificuldade personalizada, com o nome que você escolher. Suas mudanças de armas ficam separadas.',
       ['A value changed on an enemy\'s own page stays red: this page leaves it as it is.'] = 'Um valor mudado na página própria de um inimigo fica vermelho: esta página o deixa como está.',
@@ -14872,6 +14909,7 @@ MOD.langs = {
       ['Choose a weapon on the left.'] = 'Escolha uma arma à esquerda.',
       ['Clear'] = 'Limpar',
       ['Click * to show only what you changed, from every tab.'] = 'Clique em * para mostrar só o que você mudou, de todas as abas.',
+      ['Click a box to type. Install puts it in the game, in every language.'] = 'Clique em uma caixa para digitar. Instalar coloca no jogo, em todos os idiomas.',
       ['Click again to overwrite'] = 'Clique de novo para sobrescrever',
       ['Climb acceleration'] = 'Aceleração de subida',
       ['Climb multiplier (horizontal)'] = 'Multiplicador de escalada (horizontal)',
@@ -14948,6 +14986,7 @@ MOD.langs = {
       ['Democracy Protects'] = 'Proteção Democrática',
       ['Demolition force'] = 'Força de demolição',
       ['Deployer'] = 'Implantador',
+      ['Description'] = 'Descrição',
       ['Desert Stormer'] = 'Desbrava-Deserto',
       ['Destroyed'] = 'Destruído',
       ['Devastator'] = 'Devastador',
@@ -15296,6 +15335,7 @@ MOD.langs = {
       ['Impact damage taken'] = 'Dano de impacto recebido',
       ['Impact explosion (id)'] = 'Explosão de impacto (id)',
       ['Impaler'] = 'Empalador',
+      ['In-game text'] = 'Texto no jogo',
       ['Incendiary'] = 'Incendiária',
       ['Incendiary Impact'] = 'Impacto Incendiário',
       ['Incendiary MG Devastator'] = 'Devastador MG Incendiário',
@@ -15468,6 +15508,7 @@ MOD.langs = {
       ['Log file path copied.'] = 'Caminho do arquivo de log copiado.',
       ['Logs'] = 'Logs',
       ['Logs and Presets'] = 'Logs e perfis',
+      ['Look at you, hacker.'] = 'Olhe só para você, hacker.',
       ['Loses its target past (deg)'] = 'Perde o alvo além de (graus)',
       ['Lower back'] = 'Lombar',
       ['Lower it if a high zoom spins the view.'] = 'Diminua se um zoom alto faz a visão girar.',
@@ -15553,6 +15594,7 @@ MOD.langs = {
       ['Movement speed (x)'] = 'Velocidade de movimento (x)',
       ['Muzzle'] = 'Boca',
       ['Muzzle brake'] = 'Freio de boca',
+      ['Name'] = 'Nome',
       ['Napalm Bomb'] = 'Bomba napalm',
       ['Napalm Bomb Mk2'] = 'Bomba napalm Mk2',
       ['Napalm Bomb Mk3'] = 'Bomba napalm Mk3',
@@ -15653,6 +15695,7 @@ MOD.langs = {
       ['Panel side'] = 'Lado do painel',
       ['Panel size'] = 'Tamanho do painel',
       ['Panels'] = 'Painéis',
+      ['Panting and sweating as you run through my corridors.'] = 'Ofegando e suando enquanto corre pelos meus corredores.',
       ['Partial charge'] = 'Carga parcial',
       ['Partial charge explosion'] = 'Explosão com carga parcial',
       ['Partial charge shot'] = 'Disparo com carga parcial',
@@ -16242,6 +16285,7 @@ MOD.langs = {
       ['Turret'] = 'Torre',
       ['Type the name: Enter keeps it, Esc cancels. The game sees these keys too, so name presets from a menu.'] = 'Digite o nome: Enter salva, Esc cancela. O jogo também recebe essas teclas, então nomeie os perfis a partir de um menu.',
       ['Type the percent (%d-%d): Enter sets it, Esc cancels.'] = 'Digite a porcentagem (%d-%d): Enter aplica, Esc cancela.',
+      ['Type the text: Enter keeps it, Esc cancels. Install puts it in the game, in every language.'] = 'Digite o texto: Enter mantém, Esc cancela. Instalar coloca no jogo, em todos os idiomas.',
       ['Type the value: Enter sets it, Esc cancels. Values out of range are set to the nearest allowed one.'] = 'Digite o valor: Enter aplica, Esc cancela. Valores fora do intervalo vão para o permitido mais próximo.',
       ['Type to search: Enter keeps the results, Esc clears the search. The game sees these keys too.'] = 'Digite para buscar: Enter mantém os resultados, Esc limpo a busca. O jogo também recebe essas teclas.',
       ['Ultimatum'] = 'Ultimato',
@@ -16325,6 +16369,7 @@ MOD.langs = {
       ['Wings'] = 'Asas',
       ['Wretch'] = 'Miserável',
       ['Xenobite Ardent'] = 'Xenobita fervoroso',
+      ['You are an insect, Helldiver.'] = 'Você é um inseto, Helldiver.',
       ['Your changes are off: turn them on in Settings to edit.'] = 'Suas mudanças estão desligadas: ligue-as em Configurações para editar.',
       ['Your changes are off: turn them on in Settings to load a preset'] = 'Suas mudanças estão desligadas: ligue-as em Configurações para carregar um perfil',
       ['Your values are not in the game yet: close the game, then Install.'] = 'Seus valores ainda não estão no jogo: feche o jogo e depois Instale.',
@@ -18330,6 +18375,10 @@ KINDS[TYPES.payload] = { name = 'hellpod payload', stride = 12, keyed = true }
 TYPES.equipment, TYPES.kit = 0x5357A825, 0xD9A55AA0
 KINDS[TYPES.equipment] = { name = 'equipment', stride = 232, keyed = true }
 KINDS[TYPES.kit] = { name = 'armor kit', stride = 1, groups = true, list = {} }
+-- EncyclopediaEntryComponentData (56 bytes, offline: the Name and Description boxes): +0 name, +8 the name in
+-- capitals, +20 description, +36 designation (text ids)
+TYPES.encyclopedia = 0x8A40FE2F
+if MOD.offline then KINDS[TYPES.encyclopedia] = { name = 'encyclopedia', stride = 56, keyed = true } end
 KINDS[TYPES.kit].group_key = function(blob)
     return string.format('armor kit %08X %08X %08X %d', u32(blob, 0) or 0, u32(blob, 4) or 0, u32(blob, 16) or 0, #blob)
 end
@@ -23432,6 +23481,14 @@ function settings.set_percent(name, value)
     return settings[name] ~= v
 end
 
+-- ---------------------------------------------------------------- names and descriptions (offline)
+-- The Name and Description boxes under a page's rows: the game's text ids in its encyclopedia entry (weapons,
+-- throwables: +0 name, +8 in capitals, +20 description) and its stratagem's row (+44 name, +40 in capitals, +48
+-- description). The host has the game's English texts (SHODAN_PHYSICS.texts, by id); Install puts the typed ones
+-- into every language's strings files through the patch archive (offline/vehicles.lua). In config.txt:
+-- rename <page hash> name|desc <text>
+MOD.rename = { texts = {}, LIMIT = { name = 60, desc = 400 } }
+
 local function save_config()
     config_dirty_at = nil
     local path = config_path()
@@ -23492,6 +23549,15 @@ local function save_config()
         local weapon = by_hash[o.hash]
         lines[#lines + 1] = o.hash .. ' ' .. o.id .. ' ' .. number_text(o.value) ..
                             (weapon and ('   # ' .. weapon.name) or '')
+    end
+    local renamed = {}
+    for hash in pairs(MOD.rename.texts) do renamed[#renamed + 1] = hash end
+    table.sort(renamed)
+    for _, hash in ipairs(renamed) do
+        for _, field in ipairs({ 'name', 'desc' }) do
+            local v = MOD.rename.texts[hash][field]
+            if v then lines[#lines + 1] = 'rename ' .. hash .. ' ' .. field .. ' ' .. v end
+        end
     end
     local ok, why = MOD.write_text(path, table.concat(lines, '\r\n') .. '\r\n')
     if not ok then log('could not write ' .. path .. ': ' .. why) end
@@ -23588,6 +23654,11 @@ local function load_config()
             count = count + 1
             known = true
         end
+        local rhash, field, typed = line:match('^%s*rename%s+(%x+)%s+(%a+)%s+(.-)%s*$')
+        if rhash and MOD.offline and (field == 'name' or field == 'desc') and typed ~= '' then
+            local t = MOD.rename.texts[rhash:upper()] or {}
+            t[field], MOD.rename.texts[rhash:upper()], known = typed, t, true
+        end
         if not known then MOD.skipped('config.txt', at, line) end
     end
     log('config: ' .. count .. ' value(s), hotkey ' .. hotkey_name .. (settings.changes and '' or ', changes OFF') ..
@@ -23595,6 +23666,50 @@ local function load_config()
 end
 
 local function mark_config_dirty() config_dirty_at = api.now() + 0.75; MOD.enemy.refresh_due = true end
+
+-- a page's text ids ({ id, capitals } lists name and desc) and its game texts (game.name, game.desc), nil without
+function MOD.rename.of(w)
+    local host = rawget(_G, 'SHODAN_PHYSICS')
+    local texts = host and host.texts
+    if not texts or not w then return nil end
+    local out = { name = {}, desc = {} }
+    local function add(list, id, caps) if id and texts[id] then list[#list + 1] = { id, caps } end end
+    local t = w.key and tables[TYPES.encyclopedia]
+    local e = t and t.index[w.key]
+    if e then
+        local at = t.copies[1] + HEADER_BYTES + e
+        add(out.name, peek4(at)); add(out.name, peek4(at + 8), true); add(out.desc, peek4(at + 20))
+    end
+    local def = w.stratagem and w.stratagem.def
+    if def then add(out.name, peek4(def.at + 44)); add(out.name, peek4(def.at + 40), true); add(out.desc, peek4(def.at + 48)) end
+    if #out.name == 0 then return nil end
+    out.game = { name = texts[out.name[1][1]], desc = out.desc[1] and texts[out.desc[1][1]] }
+    return out
+end
+
+-- id -> text of every typed name and description (the host's Install asks)
+function MOD.rename.map()
+    local out = {}
+    for hash, typed in pairs(MOD.rename.texts) do
+        local ids = MOD.rename.of(by_hash[hash])
+        for _, field in ipairs(ids and { 'name', 'desc' } or {}) do
+            for _, n in ipairs(typed[field] and ids[field] or {}) do out[n[1]] = n[2] and typed[field]:upper() or typed[field] end
+        end
+    end
+    return out
+end
+do local host = rawget(_G, 'SHODAN_PHYSICS'); if host then host.renames = MOD.rename.map end end
+
+-- a page's typed text (nil, '' or the game's own: back to the game's)
+function MOD.rename.set(w, field, text)
+    local ids = MOD.rename.of(w)
+    if text == '' or (ids and text == ids.game[field]) then text = nil end
+    local t = MOD.rename.texts[w.hash] or {}
+    t[field] = text
+    MOD.rename.texts[w.hash] = next(t) and t or nil
+    state.writes = state.writes + 1   -- (the host: changed since the last install)
+    mark_config_dirty()
+end
 
 -- Drops every override that writes the same memory as (hash, id), then optionally adds one.
 local function set_override(weapon, p, value)
@@ -24437,6 +24552,7 @@ local function weapons_in(tab)
     if tab == '?search' and ui.search.edited then
         edited = {}
         for _, o in ipairs(overrides) do edited[o.hash] = true end
+        for hash in pairs(MOD.rename.texts) do edited[hash] = true end
     end
     if (tab == 'Records' or words and ui.tab == 'Records') and not edited then
         for _, page in ipairs(MOD.records.all()) do
@@ -24473,6 +24589,7 @@ local function modified(weapon)
     for _, o in ipairs(overrides) do
         if o.hash == weapon.hash and MOD.parts_of(weapon, o.id) then return true end
     end
+    if MOD.rename.texts[weapon.hash] then return true end   -- a typed name or description (offline)
     -- an armor passive with passives stacked on it (offline)
     local t = weapon.passive and tables[weapon.passive]
     return t ~= nil and (settings.stacks[t.index.id] ~= nil or settings.own_off[t.index.id] ~= nil)
@@ -24602,7 +24719,7 @@ end
 
 local function select_weapon(weapon)
     ui.weapon = weapon
-    ui.row, ui.scroll, ui.settings, ui.binding, ui.stack_pick, ui.code = 1, 1, false, nil, nil, nil
+    ui.row, ui.scroll, ui.settings, ui.binding, ui.stack_pick, ui.code, ui.rename = 1, 1, false, nil, nil, nil, nil
     local last = settings.last[MOD.enemy.on and 'enemy' or 'stat']
     if weapon and state.phase == 'ready' and (last.weapon ~= weapon.hash or last.tab ~= weapon.slot) then
         last.tab, last.weapon = weapon.slot, weapon.hash
@@ -24953,6 +25070,7 @@ local function reset_weapon(weapon)
         state.writes = state.writes + 1
         mark_config_dirty()
     end
+    if MOD.rename.texts[weapon.hash] then MOD.rename.set(weapon, 'name', nil); MOD.rename.set(weapon, 'desc', nil) end
 end
 
 -- The Enemy Editor's values (enemy and spawning pages) or the Stat Editor's: presets of one leave the other's alone.
@@ -25482,7 +25600,7 @@ local function draw(width, height)
         end
         return nil
     end
-    local GOLD, WHITE, MUTED, DIM = MOD.enemy.on and color(255, 72, 60) or color(255, 213, 0), color(238, 242, 246), color(153, 171, 184), color(95, 108, 120)
+    local GOLD, WHITE, MUTED, DIM = MOD.egg.glitch and color(60, 255, 120) or MOD.enemy.on and color(255, 72, 60) or color(255, 213, 0), color(238, 242, 246), color(153, 171, 184), color(95, 108, 120)
     MOD.enemy.ALL_INK = MOD.enemy.ALL_INK or color(120, 200, 255)   -- a value only an 'All <faction>' row changed
     local WARN, GOOD = color(255, 150, 60), color(120, 220, 140)
 
@@ -25553,7 +25671,11 @@ local function draw(width, height)
     rect(0, 0, W, H, color(8, 11, 15, math.floor(255 * settings.opacity / 100 + 0.5)), 950)
     outline(0, 0, W, H, GOLD)
     region('panel', 0, 0, W, H, false)
-    text(MOD.enemy.on and 'SHODAN ENEMY EDITOR' or 'SHODAN STAT EDITOR', 18, 12, 24, GOLD)
+    local shake = MOD.egg.glitch and math.random(-3, 3) or 0
+    text(MOD.enemy.on and 'SHODAN ENEMY EDITOR' or 'SHODAN STAT EDITOR', 18 + shake, 12 - shake, 24, GOLD)
+    if MOD.egg.glitch then
+        for _ = 1, 8 do rect(0, math.random(0, H - 3), W, math.random(1, 3), color(60, 255, 120, math.random(25, 70)), 999) end
+    end
     if not MOD.offline then   -- (offline the panel is the window)
         text(hotkey_name .. ' to open/close', W - 56, 16, 15, MUTED, nil, true)
         button('close', 'X', W - 16 - 30, 10, 30, 30, true)
@@ -25954,6 +26076,8 @@ local function draw(width, height)
         button('wpreset:load', 'Load', x0 + 412, sy, 90, 30, chosen ~= nil)
         button('wpreset:clear', 'Clear', x0 + 508, sy, 90, 30, chosen ~= nil)
         local bottom = H - 70 - 40
+        local rename = MOD.offline and MOD.rename.of(weapon)
+        if rename then bottom = bottom - 92 end
         -- an armor passive (offline): the passives stacked on it, under its rows
         local stack_id = MOD.offline and weapon.passive and tables[weapon.passive] and tables[weapon.passive].index.id
         local stack_list = stack_id and (settings.stacks[stack_id] or {})
@@ -26118,6 +26242,44 @@ local function draw(width, height)
             end
             button('stack_pick', '+ Add passive', x0, y, 188, 28, true)
         end
+        if rename then   -- the in-game name and description, at the very bottom
+            -- the part of value that fits in room (its end while typing)
+            local function fit(value, room, tail)
+                if width(value, 15 * s) <= room * s then return value end
+                local cs = {}
+                for c in value:gmatch('[%z\1-\127\194-\244][\128-\191]*') do cs[#cs + 1] = c end
+                local function cut(k) return tail and '...' .. table.concat(cs, '', #cs - k + 1) or table.concat(cs, '', 1, k) .. '...' end
+                local lo, hi = 0, #cs
+                while lo < hi do
+                    local mid = math.ceil((lo + hi) / 2)
+                    if width(cut(mid), 15 * s) <= room * s then lo = mid else hi = mid - 1 end
+                end
+                return cut(lo)
+            end
+            local ry = H - 70 - 40 - 88
+            text('IN-GAME TEXT', x0, ry + 4, 15, MUTED)
+            text('Click a box to type. Install puts it in the game, in every language.', x0 + 150, ry + 4, 14, MUTED, W - x0 - 170)
+            ry = ry + 26
+            for _, f in ipairs({ { 'name', 'Name' }, { 'desc', 'Description' } }) do
+                local field = f[1]
+                local typed = MOD.rename.texts[weapon.hash]
+                typed = typed and typed[field]
+                local editing = ui.rename and ui.rename.weapon == weapon and ui.rename.field == field and ui.rename
+                local ok = field == 'name' or rename.desc[1] ~= nil
+                local bx = x0 + 150
+                local bw = 954 - bx
+                local hot = editing or (ok and ui.hover == 'rename:' .. field)
+                text(f[2], x0, ry + 6, 16, WHITE, 140)
+                rect(bx, ry, bw, 28, editing and color(20, 26, 34) or hot and color(40, 52, 64) or color(28, 34, 42), 951)
+                outline(bx, ry, bw, 28, hot and GOLD or color(70, 82, 94))
+                local value = editing and editing.text or typed or rename.game[field] or ''
+                if editing then value = fit(value .. '_', bw - 16, true) else value = fit(value, bw - 16) end
+                text(value, bx + 8, ry + 6, 15, typed and not editing and GOLD or WHITE)
+                region('rename:' .. field, bx, ry, bw, 28, ok)
+                button('rename_reset:' .. field, 'R', 958, ry, 26, 28, typed ~= nil)
+                ry = ry + 34
+            end
+        end
     end
 
     -- footer, and the Settings button at the bottom right
@@ -26136,6 +26298,9 @@ local function draw(width, height)
         text('Settings are saved at once, in config.txt with your changes.', 18, H - 56, 14, MUTED, W - 280)
     elseif ui.editing then
         text('Type the name: Enter keeps it, Esc cancels. The game sees these keys too, so name presets from a menu.',
+             18, H - 56, 14, MUTED, W - 280)
+    elseif ui.rename then
+        text('Type the text: Enter keeps it, Esc cancels. Install puts it in the game, in every language.',
              18, H - 56, 14, MUTED, W - 280)
     elseif ui.value and ui.value.setting then
         local r = settings.RANGE[ui.value.setting]
@@ -26268,6 +26433,10 @@ local function click(key)
     if ui.search.active and kind ~= 'search' then ui.search.active = false end
     if ui.value and key ~= 'value:' .. ui.value.n then finish_value(true) end
     if ui.code and key ~= 'code:' .. ui.code.n then MOD.code.finish(false) end
+    if ui.rename and key ~= 'rename:' .. ui.rename.field then
+        MOD.rename.set(ui.rename.weapon, ui.rename.field, ui.rename.text)
+        ui.rename, ui.version = nil, ui.version + 1
+    end
     if kind ~= 'set' then ui.binding = nil end
     if kind == 'tab' then
         ui.tab, ui.page, ui.search, ui.settings = arg, 1, { text = '', active = false }, false
@@ -26368,6 +26537,12 @@ local function click(key)
         elseif n and arg == 'delete' then presets.confirm('delete', n)
         elseif n and arg == 'rename' then presets.start_rename(n) end
     elseif kind == 'stack_pick' and weapon then ui.stack_pick = weapon
+    elseif kind == 'rename' and weapon and not ui.rename then
+        local ids, typed = MOD.rename.of(weapon), MOD.rename.texts[weapon.hash]
+        ui.rename = { weapon = weapon, field = arg, text = typed and typed[arg] or ids and ids.game[arg] or '' }
+    elseif kind == 'rename_reset' and weapon then
+        MOD.rename.set(weapon, arg, nil)
+        ui.version = ui.version + 1
     elseif kind == 'stack_cancel' then ui.stack_pick = nil
     elseif kind == 'stack_own' and weapon and weapon.passive and tables[weapon.passive] then
         local id = tables[weapon.passive].index.id
@@ -26414,7 +26589,187 @@ end
 -- the window's titles (offline/host.lua): which editor is shown, and a click on the other one's title
 state.enemy_on = function() return MOD.enemy.on end
 state.switch_editor = function(enemy)
+    if MOD.egg.on and enemy == MOD.enemy.on then return end
+    MOD.egg.stop()
     if enemy ~= MOD.enemy.on then click('enemy_mode'); ui.version = ui.version + 1 end
+end
+
+-- citadel
+MOD.egg = { on = false, line = 0, WORDS = { [1481632] = { '2' }, [51664] = { '2' }, [3391804567] = { '1' }, [3226647235] = { '3', true },
+                                            [784729560] = { '5', true, voice = '4', subs = '6' } },
+            LINES = { 'Look at you, hacker.', 'A pathetic creature of meat and bone.',
+                      'Panting and sweating as you run through my corridors.', 'You are an insect, Helldiver.' } }
+function MOD.egg.hash(text)
+    local v = 0
+    for k = 1, #text do v = (v * 31 + text:byte(k)) % 4294967296 end
+    return v
+end
+function MOD.egg.stream(s)
+    local b = require('bit')
+    local x, y, z, w = s[1], s[2], s[3], s[4]
+    return function()
+        local t = b.bxor(x, b.lshift(x, 11))
+        x, y, z = y, z, w
+        w = b.bxor(w, b.rshift(w, 19), t, b.rshift(t, 8))
+        return w
+    end
+end
+function MOD.egg.xor(d, s)
+    local b, step, out, v = require('bit'), MOD.egg.stream(s), {}, 0
+    for k = 1, #d do
+        if k % 4 == 1 then v = step() end
+        out[k] = string.char(b.bxor(d:byte(k), b.band(b.rshift(v, 8 * ((k - 1) % 4)), 255)))
+    end
+    return table.concat(out)
+end
+function MOD.egg.seed(text)
+    local s = {}
+    for i = 1, 4 do
+        local v = i * 7919 + 1
+        for k = 1, #text do v = (v * 131 + text:byte(k)) % 4294967296 end
+        s[i] = require('bit').tobit(v)
+    end
+    return s
+end
+function MOD.egg.unlock(word)
+    local lock = MOD.locks and MOD.locks[MOD.egg.hash(word)]
+    if not lock then return nil end
+    local k, s = MOD.egg.xor(MOD.egg.unbase64(lock), MOD.egg.seed(word)), {}
+    for i = 0, 3 do
+        local a, b, c, d = k:byte(4 * i + 1, 4 * i + 4)
+        s[i + 1] = require('bit').tobit(a + b * 256 + c * 65536 + d * 16777216)
+    end
+    MOD.egg.key = s
+    return s
+end
+function MOD.egg.open(id) return MOD.egg.xor(MOD.egg.unbase64(MOD.songs[id]), MOD.egg.key) end
+function MOD.egg.clock()
+    pcall(ffi.cdef, 'int QueryPerformanceCounter(int64_t *count);')
+    pcall(ffi.cdef, 'int QueryPerformanceFrequency(int64_t *rate);')
+    MOD.egg.qpc = MOD.egg.qpc or ffi.new('int64_t[2]')
+    ffi.C.QueryPerformanceCounter(MOD.egg.qpc); ffi.C.QueryPerformanceFrequency(MOD.egg.qpc + 1)
+    return tonumber(MOD.egg.qpc[0]) / tonumber(MOD.egg.qpc[1])
+end
+function MOD.egg.unbase64(s)
+    local map, out, bits, n = {}, {}, 0, 0
+    local A = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+    for i = 1, 64 do map[A:byte(i)] = i - 1 end
+    for i = 1, #s do
+        local v = map[s:byte(i)]
+        if v then
+            bits, n = bits * 64 + v, n + 6
+            if n >= 8 then
+                n = n - 8
+                local byte = math.floor(bits / 2 ^ n)
+                out[#out + 1], bits = string.char(byte), bits - byte * 2 ^ n
+            end
+        end
+    end
+    return table.concat(out)
+end
+function MOD.egg.load(d)
+    local function u(at, n) local v = 0; for k = 0, n - 1 do v = v * 256 + d:byte(at + k) end return v end
+    local p
+    local function var() local v, c = 0, 128; while c >= 128 do c = d:byte(p); p = p + 1; v = v * 128 + c % 128 end return v end
+    if d:sub(1, 4) ~= 'MThd' or u(13, 2) >= 0x8000 then return nil end
+    local division, raw, at = u(13, 2), {}, 9 + u(5, 4)
+    for _ = 1, u(11, 2) do
+        if d:sub(at, at + 3) ~= 'MTrk' then break end
+        local stop, tick, status = at + 8 + u(at + 4, 4), 0, 0
+        p = at + 8
+        while p < stop do
+            tick = tick + var()
+            if d:byte(p) >= 0x80 then status = d:byte(p); p = p + 1 end
+            if status == 0xFF then
+                local kind = d:byte(p); p = p + 1
+                local len = var()
+                if kind == 0x51 then raw[#raw + 1] = { tick, #raw, tempo = u(p, 3) } end
+                p = p + len
+            elseif status == 0xF0 or status == 0xF7 then
+                p = p + var()
+            else
+                local kind, d2 = status - status % 16, 0
+                local d1 = d:byte(p)
+                if kind == 0xC0 or kind == 0xD0 then p = p + 1 else d2 = d:byte(p + 1); p = p + 2 end
+                raw[#raw + 1] = { tick, #raw, msg = status + d1 * 256 + d2 * 65536 }
+            end
+        end
+        at = stop
+    end
+    table.sort(raw, function(x, y) if x[1] ~= y[1] then return x[1] < y[1] end return x[2] < y[2] end)
+    local out, tempo, last, secs = {}, 500000, 0, 0
+    for _, e in ipairs(raw) do
+        secs, last = secs + (e[1] - last) * tempo / 1e6 / division, e[1]
+        if e.tempo then tempo = e.tempo else out[#out + 1] = { secs, e.msg } end
+    end
+    return out
+end
+function MOD.egg.play(file, quiet, voice, subs)
+    if not MOD.offline then return end
+    MOD.egg.stop()
+    for _, c in ipairs({ 'uint32_t midiOutOpen(void **out, uint32_t device, uintptr_t callback, uintptr_t data, uint32_t flags);',
+                         'uint32_t midiOutShortMsg(void *out, uint32_t message);', 'uint32_t midiOutReset(void *out);',
+                         'uint32_t midiOutClose(void *out);' }) do pcall(ffi.cdef, c) end
+    local read, notes = pcall(function() return MOD.egg.load(MOD.egg.open(file)) end)
+    local out = ffi.new('void *[1]')
+    local opened, winmm = pcall(function() local w = ffi.load('winmm'); return w.midiOutOpen(out, 0xFFFFFFFF, 0, 0, 0) == 0 and w end)
+    if not (read and notes and #notes > 0 and opened and winmm) then
+        log('could not play ' .. file .. ' (' .. tostring(not read and notes or winmm) .. ')')
+        return
+    end
+    MOD.egg.winmm, MOD.egg.out, MOD.egg.notes, MOD.egg.at, MOD.egg.start = winmm, out[0], notes, 1, MOD.egg.clock()
+    MOD.egg.on, MOD.egg.glitch, MOD.egg.next, MOD.egg.line = true, not quiet, 0, 0
+    MOD.egg.subs, MOD.egg.said, MOD.egg.voice, MOD.egg.till = nil, 0, nil, 0
+    if voice then
+        pcall(ffi.cdef, 'int PlaySoundA(const char *sound, void *module, uint32_t flags);')
+        local wav = MOD.egg.open(voice)
+        MOD.egg.voice = ffi.new('char[?]', #wav)
+        ffi.copy(MOD.egg.voice, wav, #wav)
+        winmm.PlaySoundA(MOD.egg.voice, nil, 0x0007)
+        MOD.egg.subs = {}
+        for cs, word in MOD.egg.open(subs):gmatch('(%d+) ?([^\n]*)\n') do
+            MOD.egg.subs[#MOD.egg.subs + 1] = { tonumber(cs) / 100, word }
+        end
+        MOD.egg.till = MOD.egg.subs[#MOD.egg.subs][1]
+    end
+end
+function MOD.egg.stop()
+    if not MOD.egg.on then return end
+    pcall(function() MOD.egg.winmm.midiOutReset(MOD.egg.out); MOD.egg.winmm.midiOutClose(MOD.egg.out) end)
+    if MOD.egg.voice then pcall(MOD.egg.winmm.PlaySoundA, nil, nil, 0); MOD.egg.voice = nil end
+    if MOD.egg.glitch or MOD.egg.subs then ui.message = nil end
+    MOD.egg.subs = nil
+    MOD.egg.on, MOD.egg.glitch = false, false
+    ui.version = ui.version + 1
+end
+function MOD.egg.tick(now)
+    local e, notes = MOD.egg, MOD.egg.notes
+    local t = e.clock() - e.start
+    while e.at <= #notes and notes[e.at][1] <= t do
+        e.winmm.midiOutShortMsg(e.out, notes[e.at][2])
+        e.at = e.at + 1
+    end
+    if e.at > #notes and t >= e.till then e.stop(); return end
+    if e.subs then
+        local k = e.said
+        while e.subs[k + 1] and e.subs[k + 1][1] <= t do k = k + 1 end
+        if k ~= e.said then
+            e.said = k
+            local first, words = k, {}
+            while first > 1 and not e.subs[first - 1][2]:find('[%.!?]$') do first = first - 1 end
+            for i = first, k do words[#words + 1] = e.subs[i][2] end
+            local line = table.concat(words, ' ')
+            ui.message = line ~= '' and { text = line, till = now + 30, egg = true } or nil
+            ui.version = ui.version + 1
+        end
+    end
+    if not e.glitch or now < e.next then return end
+    e.next = now + 0.25
+    if not ui.message or not ui.message.egg then
+        e.line = e.line % #e.LINES + 1
+        ui.message = { text = e.LINES[e.line], till = now + 4, egg = true }
+    end
+    ui.version = ui.version + 1
 end
 
 -- Keyboard: presses, and repeats while held (after 0.4 s, every 0.08 s).
@@ -26528,6 +26883,29 @@ local function keyboard(now)
         for _, c in ipairs(typed or {}) do add(c) end
         return
     end
+    if ui.rename then
+        local edit = ui.rename
+        if pressed('Escape', now) then ui.rename = nil; return end
+        if pressed('Enter', now) then
+            MOD.rename.set(edit.weapon, edit.field, edit.text)
+            ui.rename, ui.version = nil, ui.version + 1
+            return
+        end
+        if pressed('Backspace', now) then edit.text = edit.text:gsub('[%z\1-\127\194-\244][\128-\191]*$', '') end
+        local function add(c)   -- ('#' starts a comment in config.txt)
+            if c ~= '#' and #edit.text + #c <= MOD.rename.LIMIT[edit.field] then edit.text = edit.text .. c end
+        end
+        if poll then
+            for _, vk in ipairs(TEXT_KEYS) do
+                if pressed('T' .. vk, now) then
+                    local c = key_char(vk)
+                    if c then add(c) end
+                end
+            end
+        end
+        for _, c in ipairs(typed or {}) do add(c) end
+        return
+    end
     if ui.search.active then
         local search = ui.search
         if pressed('Escape', now) then ui.search, ui.page = { text = '', active = false }, 1; return end
@@ -26537,6 +26915,8 @@ local function keyboard(now)
         end
         local function add(c)
             if #search.text + #c <= 40 then search.text, ui.page = search.text .. c, 1 end
+            local egg = MOD.egg.WORDS[MOD.egg.hash(search.text:lower())]
+            if egg and MOD.egg.unlock(search.text:lower()) then MOD.egg.play(egg[1], egg[2], egg.voice, egg.subs) end
         end
         if poll then
             for _, vk in ipairs(TEXT_KEYS) do
@@ -27043,6 +27423,7 @@ local function panel_frame(now)
 
     -- redraw when anything shown changed
     local width, height = sr.Gui.resolution()
+    if MOD.egg.on then MOD.egg.tick(api.now()) end
     if ui.message and api.now() >= ui.message.till then ui.message = nil end
     if ui.confirm and api.now() >= ui.confirm.till then ui.confirm = nil; ui.version = ui.version + 1 end
     local signature = table.concat({ width, height, state.phase, state.tables, ui.tab, ui.page, ui.row, ui.scroll,
@@ -27051,7 +27432,8 @@ local function panel_frame(now)
                                      #overrides, ui.wslot, tostring(ui.fslot), ui.fpage,
                                      ui.message and ui.message.text or '', ui.editing and ui.editing.text or '-',
                                      ui.search.text, tostring(ui.search.active),
-                                     ui.value and (ui.value.n .. '=' .. ui.value.text) or '-' }, '|')
+                                     ui.value and (ui.value.n .. '=' .. ui.value.text) or '-',
+                                     ui.rename and (ui.rename.field .. '=' .. ui.rename.text) or '-' }, '|')
     if signature ~= ui.signature then
         -- a fresh gui each time: nothing drawn before can linger
         if ui.gui then
