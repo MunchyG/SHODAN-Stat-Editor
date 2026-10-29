@@ -27087,14 +27087,14 @@ function MOD.egg.tick(now)
     ui.version = ui.version + 1
 end
 
--- Keyboard: presses, and repeats while held (after 0.4 s, every 0.08 s).
+-- Keyboard: presses, and repeats while held (after 0.4 s, every 0.08 s; or after `delay`, every `every`).
 local held = {}
-local function pressed(name, now)
+local function pressed(name, now, delay, every)
     local down = key_down(VK[name])
     local h = held[name]
     if not down then held[name] = nil; return false end
-    if not h then held[name] = { next = now + 0.4 }; return true end
-    if now >= h.next then h.next = now + 0.08; return true end
+    if not h then held[name] = { next = now + (delay or 0.4) }; return true end
+    if now >= h.next then h.next = now + (every or 0.08); return true end
     return false
 end
 
@@ -27206,7 +27206,8 @@ local function keyboard(now)
             ui.rename, ui.version = nil, ui.version + 1
             return
         end
-        if pressed('Backspace', now) then edit.text = edit.text:gsub('[%z\1-\127\194-\244][\128-\191]*$', '') end
+        -- held: about one character a frame (long descriptions)
+        if pressed('Backspace', now, 0.3, 0.015) then edit.text = edit.text:gsub('[%z\1-\127\194-\244][\128-\191]*$', '') end
         local function add(c)   -- ('#' starts a comment in config.txt)
             if c ~= '#' and #edit.text + #c <= MOD.rename.LIMIT[edit.field] then edit.text = edit.text .. c end
         end
