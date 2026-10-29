@@ -1478,6 +1478,7 @@ MOD.langs = {
       ['Chest damage taken'] = '受到胸部伤害',
       ['Choked (experimental)'] = '窒息（实验性）',
       ['Choose a weapon on the left.'] = '请在左侧选择武器。',
+      ['Choose the vehicles, then Copy. They get every value shown in this section.'] = '选择载具，然后点击复制。它们会获得此部分显示的所有数值。',
       ['Clear'] = '清除',
       ['Click * to show only what you changed, from every tab.'] = '点 * 只显示你改过的内容（所有标签页）。',
       ['Click a box to type. Install puts it in the game, in every language.'] = '点击输入框即可输入。安装后会写入游戏的所有语言。',
@@ -1516,6 +1517,7 @@ MOD.langs = {
       ['Cooldown (s)'] = '冷却时间(秒)',
       ['Cooling (% per s)'] = '散热(每秒%)',
       ['Copy'] = '复制',
+      ['Copy to...'] = '复制到...',
       ['Countdown before delivery (s)'] = '投送前倒计时（秒）',
       ['Coyote'] = '野狼',
       ['Cremator'] = '焚燃者',
@@ -2241,6 +2243,7 @@ MOD.langs = {
       ['Neck body'] = '颈部（本体）',
       ['Never'] = '从不',
       ['No changes: loading it puts every value back to the game\'s.'] = '没有修改：读取它会把所有数值恢复为游戏原值。',
+      ['No other vehicle has this section.'] = '没有其他载具有此部分。',
       ['No presets yet.'] = '还没有预设。',
       ['Noise'] = '噪音',
       ['None'] = '无',
@@ -4597,6 +4600,8 @@ MOD.langs = {
       { '^Gear (%d+) ratio$', '%1 挡传动比' },
       { '^fires (.+)$', '发射：%1' },
       { '^drops (.+)$', '投下：%1' },
+      { '^Copy (.+) to$', '将 %1 复制到' },
+      { '^Copied (%d+) value%(s%) to (%d+) vehicle%(s%)%.$', '已复制 %1 个数值到 %2 辆载具。' },
       { '^Heat level (%d+)$', '热量等级 %1' },
       { '^(.+); ammo type shared with (.+)$', '%1；弹种与以下共用：%L2' },
       { '^fires: (.+)%. The rows above stay its own$', '发射：%1。上方各行仍为其自身数值' },
@@ -5268,6 +5273,7 @@ MOD.langs = {
       ['Chest damage taken'] = '受到胸部傷害',
       ['Choked (experimental)'] = '窒息（實驗性）',
       ['Choose a weapon on the left.'] = '請在左側選擇武器。',
+      ['Choose the vehicles, then Copy. They get every value shown in this section.'] = '選擇載具，然後點選複製。它們會獲得此部分顯示的所有數值。',
       ['Clear'] = '清除',
       ['Click * to show only what you changed, from every tab.'] = '點 * 只顯示你改過的內容（所有標籤頁）。',
       ['Click a box to type. Install puts it in the game, in every language.'] = '點選輸入框即可輸入。安裝後會寫入遊戲的所有語言。',
@@ -5306,6 +5312,7 @@ MOD.langs = {
       ['Cooldown (s)'] = '冷卻時間(秒)',
       ['Cooling (% per s)'] = '散熱(每秒%)',
       ['Copy'] = '複製',
+      ['Copy to...'] = '複製到...',
       ['Countdown before delivery (s)'] = '投送前倒計時（秒）',
       ['Coyote'] = '郊狼',
       ['Cremator'] = '火葬者',
@@ -6031,6 +6038,7 @@ MOD.langs = {
       ['Neck body'] = '頸部（本體）',
       ['Never'] = '從不',
       ['No changes: loading it puts every value back to the game\'s.'] = '沒有修改：讀取它會把所有數值恢復為遊戲原值。',
+      ['No other vehicle has this section.'] = '沒有其他載具有此部分。',
       ['No presets yet.'] = '還沒有預設。',
       ['Noise'] = '噪音',
       ['None'] = '無',
@@ -8387,6 +8395,8 @@ MOD.langs = {
       { '^Gear (%d+) ratio$', '%1 擋傳動比' },
       { '^fires (.+)$', '發射：%1' },
       { '^drops (.+)$', '投下：%1' },
+      { '^Copy (.+) to$', '將 %1 複製到' },
+      { '^Copied (%d+) value%(s%) to (%d+) vehicle%(s%)%.$', '已複製 %1 個數值到 %2 輛載具。' },
       { '^Heat level (%d+)$', '熱量等級 %1' },
       { '^(.+); ammo type shared with (.+)$', '%1；彈種與以下共用：%L2' },
       { '^fires: (.+)%. The rows above stay its own$', '發射：%1。上方各行仍為其自身數值' },
@@ -9046,6 +9056,7 @@ MOD.langs = {
       ['Chest damage taken'] = 'Получаемый урон в грудь',
       ['Choked (experimental)'] = 'Удушье (эксперимент.)',
       ['Choose a weapon on the left.'] = 'Выберите оружие слева.',
+      ['Choose the vehicles, then Copy. They get every value shown in this section.'] = 'Выберите технику и нажмите «Копировать». Она получит все значения этого раздела.',
       ['Clear'] = 'Очистить',
       ['Click * to show only what you changed, from every tab.'] = 'Нажмите *, чтобы показать только изменённое, со всех вкладок.',
       ['Click a box to type. Install puts it in the game, in every language.'] = 'Нажмите на поле, чтобы ввести текст. Установка внесёт его в игру на всех языках.',
@@ -9081,7 +9092,8 @@ MOD.langs = {
       ['Cool-down time, full heat (s)'] = 'Время остывания с полного нагрева (с)',
       ['Cooldown (s)'] = 'Перезарядка (с)',
       ['Cooling (% per s)'] = 'Охлаждение (% в с)',
-      ['Copy'] = 'Копир.',
+      ['Copy'] = 'Копировать',
+      ['Copy to...'] = 'Копировать в...',
       ['Countdown before delivery (s)'] = 'Отсчёт до доставки (с)',
       ['Coyote'] = 'Койот',
       ['Cremator'] = 'Крематорий',
@@ -9767,6 +9779,7 @@ MOD.langs = {
       ['Neck body'] = 'Шея (тело)',
       ['Never'] = 'Никогда',
       ['No changes: loading it puts every value back to the game\'s.'] = 'Изменений нет: загрузка вернет все значения игры.',
+      ['No other vehicle has this section.'] = 'Ни у какой другой техники нет этого раздела.',
       ['No presets yet.'] = 'Пресетов пока нет.',
       ['Noise'] = 'Шум',
       ['None'] = 'Нет',
@@ -11447,6 +11460,8 @@ MOD.langs = {
       { '^Gear (%d+) ratio$', 'Передаточное число %1-й передачи' },
       { '^fires (.+)$', 'стреляет: %1' },
       { '^drops (.+)$', 'сбрасывает: %1' },
+      { '^Copy (.+) to$', 'Копировать %1 в' },
+      { '^Copied (%d+) value%(s%) to (%d+) vehicle%(s%)%.$', 'Скопировано значений: %1, техника: %2.' },
       { '^Heat level (%d+)$', 'Уровень нагрева %1' },
       { '^(.+); ammo type shared with (.+)$', '%1; тип боеприпасов общий с: %L2' },
       { '^fires: (.+)%. The rows above stay its own$', 'стреляет: %1. Строки выше остаются его собственными' },
@@ -12065,6 +12080,7 @@ MOD.langs = {
       ['Chest damage taken'] = 'Daño recibido en el pecho',
       ['Choked (experimental)'] = 'Asfixia (experimental)',
       ['Choose a weapon on the left.'] = 'Elige un arma a la izquierda.',
+      ['Choose the vehicles, then Copy. They get every value shown in this section.'] = 'Elige los vehículos y pulsa Copiar. Reciben todos los valores de esta sección.',
       ['Clear'] = 'Borrar',
       ['Click * to show only what you changed, from every tab.'] = 'Haz clic en * para mostrar solo lo que cambiaste, de todas las pestañas.',
       ['Click a box to type. Install puts it in the game, in every language.'] = 'Haz clic en un cuadro para escribir. Instalar lo pone en el juego, en todos los idiomas.',
@@ -12101,6 +12117,7 @@ MOD.langs = {
       ['Cooldown (s)'] = 'Tiempo de recarga (s)',
       ['Cooling (% per s)'] = 'Enfriamiento (% por s)',
       ['Copy'] = 'Copiar',
+      ['Copy to...'] = 'Copiar a...',
       ['Countdown before delivery (s)'] = 'Cuenta regresiva de entrega (s)',
       ['Coyote'] = 'Coyote',
       ['Cremator'] = 'Cremador',
@@ -12780,6 +12797,7 @@ MOD.langs = {
       ['Neck armor'] = 'Blindaje del cuello',
       ['Neck body'] = 'Cuerpo del cuello',
       ['No changes: loading it puts every value back to the game\'s.'] = 'Sin cambios: cargarlo devuelve todos los valores a los del juego.',
+      ['No other vehicle has this section.'] = 'Ningún otro vehículo tiene esta sección.',
       ['No presets yet.'] = 'Aún no hay perfiles.',
       ['Noise'] = 'Ruido',
       ['None'] = 'Ninguno',
@@ -14528,6 +14546,8 @@ MOD.langs = {
       { '^Part (%d+)$', 'Parte %1' },
       { '^Weapon (%d+)$', 'Arma %1' },
       { '^(.+) %(([A-Z][^()]*)%)$', '%1 (%2)' },
+      { '^Copy (.+) to$', 'Copiar %1 a' },
+      { '^Copied (%d+) value%(s%) to (%d+) vehicle%(s%)%.$', 'Se copiaron %1 valor(es) a %2 vehículo(s).' },
     },
     prefix = {
       { 'PgUp/PgDn change weapon, Del resets, Ctrl+1-5 loads a weapon preset, Ctrl+Shift+1-5 saves one; ', 'RePág/AvPág: arma, Supr: restablecer, Ctrl(+Shift)+1-5: perfiles; ' },
@@ -15039,6 +15059,7 @@ MOD.langs = {
       ['Chest damage taken'] = 'Dano recebido no peito',
       ['Choked (experimental)'] = 'Sufocamento (experimental)',
       ['Choose a weapon on the left.'] = 'Escolha uma arma à esquerda.',
+      ['Choose the vehicles, then Copy. They get every value shown in this section.'] = 'Escolha os veículos e clique em Copiar. Eles recebem todos os valores desta seção.',
       ['Clear'] = 'Limpar',
       ['Click * to show only what you changed, from every tab.'] = 'Clique em * para mostrar só o que você mudou, de todas as abas.',
       ['Click a box to type. Install puts it in the game, in every language.'] = 'Clique em uma caixa para digitar. Instalar coloca no jogo, em todos os idiomas.',
@@ -15075,6 +15096,7 @@ MOD.langs = {
       ['Cooldown (s)'] = 'Tempo de recarga (s)',
       ['Cooling (% per s)'] = 'Resfriamento (% por s)',
       ['Copy'] = 'Copiar',
+      ['Copy to...'] = 'Copiar para...',
       ['Countdown before delivery (s)'] = 'Contagem antes da entrega (s)',
       ['Coyote'] = 'Coiote',
       ['Cremator'] = 'Cremador',
@@ -15754,6 +15776,7 @@ MOD.langs = {
       ['Neck armor'] = 'Blindagem do pescoço',
       ['Neck body'] = 'Corpo do pescoço',
       ['No changes: loading it puts every value back to the game\'s.'] = 'Sem mudanças: carregar devolve todos os valores aos do jogo.',
+      ['No other vehicle has this section.'] = 'Nenhum outro veículo tem esta seção.',
       ['No presets yet.'] = 'Ainda não há perfis.',
       ['Noise'] = 'Ruído',
       ['None'] = 'Nenhum',
@@ -17502,6 +17525,8 @@ MOD.langs = {
       { '^Part (%d+)$', 'Parte %1' },
       { '^Weapon (%d+)$', 'Arma %1' },
       { '^(.+) %(([A-Z][^()]*)%)$', '%1 (%2)' },
+      { '^Copy (.+) to$', 'Copiar %1 para' },
+      { '^Copied (%d+) value%(s%) to (%d+) vehicle%(s%)%.$', '%1 valor(es) copiado(s) para %2 veículo(s).' },
     },
     prefix = {
       { 'PgUp/PgDn change weapon, Del resets, Ctrl+1-5 loads a weapon preset, Ctrl+Shift+1-5 saves one; ', 'PgUp/PgDn: arma, Del: redefinir, Ctrl(+Shift)+1-5: perfis; ' },
@@ -24945,6 +24970,7 @@ end
 local function select_weapon(weapon)
     ui.weapon = weapon
     ui.row, ui.scroll, ui.settings, ui.binding, ui.stack_pick, ui.code, ui.rename = 1, 1, false, nil, nil, nil, nil
+    ui.copy = nil
     local last = settings.last[MOD.enemy.on and 'enemy' or 'stat']
     if weapon and state.phase == 'ready' and (last.weapon ~= weapon.hash or last.tab ~= weapon.slot) then
         last.tab, last.weapon = weapon.slot, weapon.hash
@@ -25218,6 +25244,36 @@ local function change(row, delta_sign, big, exact)
     end
     MOD.keep_times(weapon, keep)
     ui.version = ui.version + 1
+end
+
+-- Copy to (vehicle pages): a section's shown values onto other vehicles' rows of the same section and label
+-- (labels, not ids: body part zones are numbered per vehicle)
+MOD.COPY_SECTIONS = { Vehicle = true, ['Body parts'] = true, Handling = true, Wheels = true }
+function MOD.copy_targets(weapon, section)
+    local labels, out = {}, {}
+    for _, r in ipairs(weapon.rows) do if r.section == section then labels[r.label] = true end end
+    for _, w in ipairs(weapons) do
+        if w ~= weapon and w.stratagem and w.stratagem.vehicle then
+            for _, r in ipairs(w.rows) do
+                if r.section == section and labels[r.label] then out[#out + 1] = w; break end
+            end
+        end
+    end
+    return out
+end
+function MOD.copy_section(weapon, section, targets)
+    local shown, done = ui.weapon, 0
+    for _, w in ipairs(targets) do
+        ui.weapon = w   -- (change() edits the shown page's rows)
+        for _, r in ipairs(weapon.rows) do
+            local v = r.section == section and row_value(r)
+            for _, t in ipairs(v and w.rows or {}) do
+                if t.section == section and t.label == r.label then change(t, 0, false, v); done = done + 1; break end
+            end
+        end
+    end
+    ui.weapon = shown
+    return done
 end
 
 -- Ends typing a value: keep = true sets it (out of the stat's range: the nearest end, and says so).
@@ -26329,7 +26385,8 @@ local function draw(width, height)
                     if type(note) == 'function' then note, others = note(others), {} end
                     -- the note after the section's name (long ones: 'PARTIAL CHARGE EXPLOSION')
                     local nx = math.max(110, #section * 10 + 14, width(section:upper(), 15 * s) / s + 14)   -- (translated: measured)
-                    local room, shown = W - x0 - 20 - nx, 0
+                    local copy = weapon.stratagem and weapon.stratagem.vehicle and MOD.COPY_SECTIONS[section]
+                    local room, shown = W - x0 - 20 - nx - (copy and 120 or 0), 0
                     if note == '' and #others > 0 then
                         -- as many names (up to 3) as fit at full size, then '+N' (one name at least)
                         for k = math.min(3, #others), 1, -1 do
@@ -26340,6 +26397,7 @@ local function draw(width, height)
                         end
                     end
                     text(section:upper(), x0, y + 4, 15, MUTED)
+                    if copy then button('copy_pick:' .. section, 'Copy to...', 874, y, 110, 21, true) end
                     if note ~= '' then text(note, x0 + nx, y + 4, 14, WARN, room) end
                     -- a list cut short: hovering it shows every name
                     if #others > shown then   -- (a note of its own lists none)
@@ -26580,6 +26638,27 @@ local function draw(width, height)
         if #choices == 0 then text('Every passive is in already.', x + 16, y + 80, 16, MUTED, w - 32, false, 960) end
         button('stack_cancel', 'Cancel', x + w - 16 - 104, y + h - 16 - 30, 104, 30, true, false, nil, 961)
     end
+    -- Copy to: the other vehicles with this section, any number chosen, then Copy
+    if ui.copy and ui.copy.weapon == weapon and not ui.settings then
+        local choices = MOD.copy_targets(weapon, ui.copy.section)
+        table.sort(choices, function(a, b) return a.name:lower() < b.name:lower() end)
+        local x, y, w, h = 350, 84, W - 360, H - 104 - 84 - 8
+        rect(x, y, w, h, color(8, 11, 15), 958)
+        outline(x, y, w, h, GOLD, 959)
+        region('stack_modal', x, y, w, h, false)
+        text('Copy ' .. ui.copy.section:upper() .. ' to', x + 16, y + 14, 20, GOLD, w - 32, false, 960)
+        text('Choose the vehicles, then Copy. They get every value shown in this section.', x + 16, y + 44, 14, MUTED,
+             w - 32, false, 960)
+        local cols, bw = 3, math.floor((w - 32 - 16) / 3)
+        for k, c in ipairs(choices) do
+            local col, row = (k - 1) % cols, math.floor((k - 1) / cols)
+            button('copy_toggle:' .. c.hash, c.name, x + 16 + col * (bw + 8), y + 74 + row * 34, bw, 30, true,
+                   ui.copy.chosen[c.hash], nil, 961)
+        end
+        if #choices == 0 then text('No other vehicle has this section.', x + 16, y + 80, 16, MUTED, w - 32, false, 960) end
+        button('copy_go', 'Copy', x + w - 16 - 104 - 8 - 104, y + h - 16 - 30, 104, 30, next(ui.copy.chosen) ~= nil, false, nil, 961)
+        button('copy_cancel', 'Cancel', x + w - 16 - 104, y + h - 16 - 30, 104, 30, true, false, nil, 961)
+    end
     -- a hovered row's tip, under it (above it near the bottom)
     if tip_overlay then
         local w, h = 0, #tip_overlay.lines * 18 + 16
@@ -26769,6 +26848,17 @@ local function click(key)
         MOD.rename.set(weapon, arg, nil)
         ui.version = ui.version + 1
     elseif kind == 'stack_cancel' then ui.stack_pick = nil
+    elseif kind == 'copy_pick' and weapon then ui.copy = { weapon = weapon, section = arg, chosen = {} }
+    elseif kind == 'copy_toggle' and ui.copy then ui.copy.chosen[arg] = not ui.copy.chosen[arg] or nil
+    elseif kind == 'copy_cancel' then ui.copy = nil
+    elseif kind == 'copy_go' and ui.copy then
+        local c, list = ui.copy, {}
+        for hash in pairs(c.chosen) do list[#list + 1] = by_hash[hash] end
+        ui.copy = nil
+        local n = MOD.copy_section(c.weapon, c.section, list)
+        if settings.changes then
+            ui.message = { text = 'Copied ' .. n .. ' value(s) to ' .. #list .. ' vehicle(s).', till = api.now() + 4 }
+        end
     elseif kind == 'stack_own' and weapon and weapon.passive and tables[weapon.passive] then
         local id = tables[weapon.passive].index.id
         if (arg == 'off') ~= (settings.own_off[id] == true) then
@@ -27162,8 +27252,8 @@ local function keyboard(now)
         if pressed('Escape', now) then ui.settings = false end
         return
     end
-    if ui.stack_pick then   -- the passive picker is open: Esc closes it
-        if pressed('Escape', now) then ui.stack_pick = nil end
+    if ui.stack_pick or ui.copy then   -- the passive / Copy to picker is open: Esc closes it
+        if pressed('Escape', now) then ui.stack_pick, ui.copy = nil, nil end
         return
     end
     if pressed('PageDown', now) or pressed('PageUp', now) then
