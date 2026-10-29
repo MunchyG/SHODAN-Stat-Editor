@@ -163,9 +163,9 @@ local function changes(f)
     -- floats among the changed words (a salt for one-table files): a value with decimals between 1e-4 and 1e7
     local floats = {}
     for o in pairs(words) do
-        local v = ffi.cast('float *', orig + o)[0]
-        local i = u32(orig, o)
-        if v == v and math.abs(v) >= 1e-4 and math.abs(v) < 1e7 and i >= 0x38D1B717 then floats[#floats + 1] = o end
+        -- by the bits (|v| from 1e-4 up to 1e7, NaN out): LuaJIT reads the float FFFFFFFF (a -1 or none) as nil
+        local a = bit.band(u32(orig, o), 0x7FFFFFFF)
+        if a >= 0x38D1B718 and a < 0x4B189680 then floats[#floats + 1] = o end
     end
     table.sort(floats)
     return orig, n, changed, floats
