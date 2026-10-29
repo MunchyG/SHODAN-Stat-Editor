@@ -10,6 +10,8 @@ local G = require('gamedata')
 
 for _, declaration in ipairs({
     'int MoveFileExA(const char *from, const char *to, uint32_t flags);',
+    'int SetFileAttributesA(const char *path, uint32_t attributes);',
+    'uint32_t GetLastError(void);',
     'int CreateDirectoryA(const char *path, void *security);',
     'int DeleteFileA(const char *path);',
     'uint32_t GetEnvironmentVariableA(const char *name, char *out, uint32_t size);',
@@ -270,8 +272,13 @@ function M.write_files(game, writes, originals, skip_changed)
     local failed = {}
     for _, s in ipairs(staged) do
         -- MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH
-        if kernel.MoveFileExA(s.tmp, game .. '/' .. s.name, 0x9) == 0 or read(game .. '/' .. s.name) ~= s.data then
-            failed[#failed + 1] = s.name
+        local target = game .. '/' .. s.name
+        kernel.SetFileAttributesA(target, 0x80)   -- FILE_ATTRIBUTE_NORMAL: a read-only game file refuses the move (#114)
+        local moved = kernel.MoveFileExA(s.tmp, target, 0x9) ~= 0
+        local code = not moved and kernel.GetLastError()
+        if not moved or read(target) ~= s.data then
+            failed[#failed + 1] = s.name .. (code == 5 and ' (access denied)' or code == 32 and ' (in use by another program)'
+                                             or code and ' (Windows error ' .. tostring(code) .. ')' or '')
             os.remove(s.tmp)
         elseif s.data == originals[s.name] then
             list[s.name] = nil
