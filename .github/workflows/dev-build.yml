@@ -1,5 +1,5 @@
 # SHODAN Stat Editor Offline: the development build. Every push to main is built (LuaJIT at the commit the
-# releases use, libsodium's official build) and published as the "Development build" pre-release (tag: dev),
+# releases use, libsodium.dll from a release zip, as libsodium re-publishes its -stable download) and published as the "Development build" pre-release (tag: dev),
 # which SSEO follows with Settings > Update channel > Every commit. Pushes to ci/* branches only build (the zip
 # is kept as the run's artifact). Releases are not touched: the updater's Releases channel skips pre-releases.
 name: Development build
@@ -17,7 +17,7 @@ concurrency:
 
 env:
   LUAJIT_COMMIT: a4c064539ea931274d407e1249b4bb575424a0f4
-  LIBSODIUM_URL: https://download.libsodium.org/libsodium/releases/libsodium-1.0.22-stable-msvc.zip
+  LIBSODIUM_RELEASE: v4.1.0
   LIBSODIUM_DLL_SHA256: 396501C7495E4B03D0F8ACB2416F3E2431B0CDC404968E17CC0E25C2ABC5CA27
 
 jobs:
@@ -28,13 +28,16 @@ jobs:
 
       - name: Get LuaJIT and libsodium
         shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           git clone --quiet https://github.com/LuaJIT/LuaJIT.git "$env:RUNNER_TEMP\LuaJIT"
           git -C "$env:RUNNER_TEMP\LuaJIT" checkout --quiet $env:LUAJIT_COMMIT
-          Invoke-WebRequest $env:LIBSODIUM_URL -OutFile "$env:RUNNER_TEMP\sodium.zip"
+          gh release download $env:LIBSODIUM_RELEASE --pattern "SHODAN-Stat-Editor-Offline-$env:LIBSODIUM_RELEASE.zip" --output "$env:RUNNER_TEMP\sodium.zip"
+          if ($LASTEXITCODE -ne 0) { throw "could not download the $env:LIBSODIUM_RELEASE release zip" }
           Expand-Archive "$env:RUNNER_TEMP\sodium.zip" "$env:RUNNER_TEMP\sodium"
           New-Item -ItemType Directory -Force offline\runtime | Out-Null
-          Copy-Item "$env:RUNNER_TEMP\sodium\libsodium\x64\Release\v143\dynamic\libsodium.dll" offline\runtime\
+          Copy-Item "$env:RUNNER_TEMP\sodium\SHODAN Stat Editor Offline\libsodium.dll" offline\runtime\
           $hash = (Get-FileHash offline\runtime\libsodium.dll -Algorithm SHA256).Hash
           if ($hash -ne $env:LIBSODIUM_DLL_SHA256) { throw "libsodium.dll is not the build the releases ship: $hash" }
 

@@ -11,6 +11,7 @@ local G = require('gamedata')
 local D = require('hostdata')
 local I = require('install')
 local U = require('update')
+local V = require('vehicles')
 
 pcall(ffi.cdef, 'uint64_t GetTickCount64(void);')
 local function clock() return tonumber(ffi.C.GetTickCount64()) / 1000 end
@@ -25,6 +26,7 @@ local function log(text)
 end
 
 local BACK = { 255, 12, 15, 19 }
+local RED = { 255, 255, 72, 60 }   -- the Enemy Editor's (editor.lua's red)
 local GOLD, WHITE, MUTED, WARN, GOOD = { 255, 255, 213, 0 }, { 255, 238, 242, 246 }, { 255, 153, 171, 184 },
                                         { 255, 255, 150, 60 }, { 255, 120, 220, 140 }
 
@@ -52,14 +54,14 @@ local function fatal(text)
 end
 
 -- ---------------------------------------------------------------- start
--- where the window was when it last closed: its top left (window.txt: x y)
+-- where the window was when it last closed: its top left, and its height once the user resized it (window.txt: x y [h])
 local PLACE = I.home .. '/window.txt'
 local function saved_place()
     local f = io.open(PLACE, 'r')
     local text = f and f:read('*a') or ''
     if f then f:close() end
-    local x, y = text:match('^(%-?%d+) (%-?%d+)')
-    return x and { tonumber(x), tonumber(y) } or nil
+    local x, y, h = text:match('^(%-?%d+) (%-?%d+) ?(%d*)')
+    return x and { tonumber(x), tonumber(y), tonumber(h) } or nil
 end
 
 local function main()
@@ -75,7 +77,6 @@ local function main()
               .. I.home:gsub('/', '\\') .. '\\game folder.txt\nand start again.')
     end
     log('game: ' .. game)
-    log('hash search: ' .. (G.native and 'native, every core' or 'Lua (shodan_hash.dll not found)'))
     screen({ 'SHODAN Stat Editor Offline', 'Reading the game\'s data files...' })
     shim.pump()
     local originals, ours, problems, count = I.originals(game)
@@ -96,6 +97,12 @@ local function main()
                          .. '\n\nIf another tool changed them, verify the game files in Steam.', 0x30)
     end
 
+    -- the vehicles' handling (their physics, out of the game's archives): the panel offers it when this works
+    local physics_ok, physics_why = pcall(V.load, (game:gsub('[/\\]game$', '')), log)
+    if physics_ok and physics_why > 0 then rawset(_G, 'SHODAN_PHYSICS', V.shared)
+    elseif not physics_ok then log('vehicle physics: not offered: ' .. tostring(physics_why)) end
+    local patch = I.patch_installed(game)   -- this editor's patch archive in the game (its name), or nil
+
     -- ------------------------------------------------------------ the editor
     screen({ 'SHODAN Stat Editor Offline', 'Finding the stats...' })
     rawset(_G, 'SHODAN_OFFLINE', true)
@@ -104,7 +111,7 @@ local function main()
     local id = ffi.C.GetUserDefaultUILanguage()
     local primary, sub = id % 1024, math.floor(id / 1024)
     if rawget(_G, 'SHODAN_OFFLINE_LANG') == nil then rawset(_G, 'SHODAN_OFFLINE_LANG', primary == 0x04 and ((sub == 2 or sub == 4) and 'zh-Hans' or 'zh-Hant')
-                                      or primary == 0x19 and 'ru' or nil) end
+                                      or primary == 0x19 and 'ru' or primary == 0x0A and 'es-419' or primary == 0x16 and 'pt-BR' or nil) end
     stingray = shim.engine()
     function update(dt) end
     local editor = arg and arg[1] or here .. 'stat_editor.lua'
@@ -135,11 +142,25 @@ local function main()
             bar.buttons[3] = { key = 'update', label = 'Update to ' .. bar.release.label, x0 = x1 - 170 * s, x1 = x1,
                                y0 = 9 * s, y1 = 41 * s, gold = true }   -- top right, in the tagline's place
         end
+        -- the titles (paint_bar): Stat Editor, then Enemy Editor once the editor offers the switch
+        local x = 30 * s
+        bar.titles = {}
+        for _, t in ipairs({ { 'title_stat', 'SHODAN Stat Editor', GOLD }, { 'title_enemy', 'SHODAN Enemy Editor', RED } }) do
+            if t[1] == 'title_stat' or type(state.switch_editor) == 'function' then
+                local w = shim.text_width(t[2], 22 * s, true) + 24 * s   -- a box: 12 px each side of the text
+                bar.titles[#bar.titles + 1] = { key = t[1], label = t[2], color = t[3], x0 = x, x1 = x + w, y0 = 6 * s, y1 = 42 * s }
+                x = x + w + 12 * s
+            end
+        end
         bar.s, bar.h = s, shim.h
     end
     layout()
 
-    local function installed_count() local n = 0; for _, v in pairs(ours) do if v then n = n + 1 end end return n end
+    local function installed_count()
+        local n = patch and 1 or 0
+        for _, v in pairs(ours) do if v then n = n + 1 end end
+        return n
+    end
 
     local function status()
         if bar.busy then return bar.busy, WARN end
@@ -157,9 +178,34 @@ local function main()
         local s = bar.s
         shim.fill(0, 1032 * s, shim.w, shim.h, BACK)
         shim.fill(0, 0, shim.w, 46 * s, BACK)
-        shim.text('SHODAN Stat Editor', 30 * s, 32 * s, 24 * s, GOLD, true)
+        -- the two editors' titles, as buttons: the one shown bright in a box of its colour, the other dimmed
+        -- (brighter under the mouse); a click swaps
+        local enemy = type(state.enemy_on) == 'function' and state.enemy_on()
+        local function toward_back(c, k)
+            return { 255, math.floor(BACK[2] + (c[2] - BACK[2]) * k), math.floor(BACK[3] + (c[3] - BACK[3]) * k),
+                     math.floor(BACK[4] + (c[4] - BACK[4]) * k) }
+        end
+        for _, t in ipairs(bar.titles) do
+            local on = (t.key == 'title_enemy') == (enemy and true or false)
+            local hovered = bar.hover == t.key and not on
+            local c = on and t.color or toward_back(t.color, hovered and 0.65 or 0.4)
+            local fill = on and toward_back(t.color, 0.3) or hovered and { 255, 40, 48, 58 } or { 255, 24, 29, 36 }
+            local edge = on and t.color or hovered and toward_back(t.color, 0.8) or { 255, 70, 82, 94 }
+            local e = math.max(1, math.floor(2 * s + 0.5))
+            shim.fill(t.x0, t.y0, t.x1, t.y1, fill)
+            shim.fill(t.x0, t.y0, t.x1, t.y0 + e, edge); shim.fill(t.x0, t.y1 - e, t.x1, t.y1, edge)
+            shim.fill(t.x0, t.y0, t.x0 + e, t.y1, edge); shim.fill(t.x1 - e, t.y0, t.x1, t.y1, edge)
+            shim.flush()
+            shim.text(t.label, t.x0 + 12 * s, (t.y0 + t.y1) / 2 + 22 * s * 0.35, 22 * s, c, true)
+        end
         local t = tr('OFFLINE  -  edits the game\'s files; they apply when the game starts')
-        if not bar.release then shim.text(t, shim.w - 30 * s - shim.text_width(t, 15 * s), 31 * s, 15 * s, MUTED) end
+        if not bar.release then
+            -- smaller where it would run into the titles (a longer translation)
+            local last = bar.titles[#bar.titles]
+            local room, size = shim.w - 30 * s - (last and last.x1 + 16 * s or 0), 15 * s
+            while size > 10 * s and shim.text_width(t, size) > room do size = size - 0.5 * s end
+            shim.text(t, shim.w - 30 * s - shim.text_width(t, size), 31 * s, size, MUTED)
+        end
         for _, b in ipairs(bar.buttons) do
             local hovered = bar.hover == b.key and not bar.busy
             shim.fill(b.x0, b.y0, b.x1, b.y1, hovered and { 255, 52, 66, 80 } or { 255, 28, 34, 42 })
@@ -215,6 +261,15 @@ local function main()
             say('Not installed: the armor passives could not be stacked (' .. tostring(why_not) .. '). Nothing was changed.', WARN)
             return
         end
+        local coded
+        coded, why_not = D.codes(changes, state.codes and state.codes(), log)
+        if not coded then
+            for _, c in ipairs(changes) do G.free(c.plain) end
+            bar.busy = nil
+            log('install stopped: stratagem codes: ' .. tostring(why_not))
+            say('Not installed: the stratagem codes could not be set (' .. tostring(why_not) .. '). Nothing was changed.', WARN)
+            return
+        end
         local writes, made, back = {}, 0, 0
         for k, c in ipairs(changes) do
             busy(string.format('Installing: preparing %s (%d of %d)...', c.name, k, #changes))
@@ -231,20 +286,35 @@ local function main()
         for name, mine in pairs(ours) do
             if mine and not writes[name] then writes[name], back = originals[name], back + 1 end
         end
-        if not next(writes) then
+        local physics, vehicles = nil, nil
+        if rawget(_G, 'SHODAN_PHYSICS') then physics, vehicles = V.patch() end
+        if not next(writes) and not physics and not patch then
             bar.busy, bar.base = nil, state.writes
             say('Nothing to install: your values are the game\'s own.', GOOD)
             return
         end
         busy('Installing: writing the files...')
-        local done, why = I.write_files(game, writes, originals)
+        local done, why = true, nil
+        if next(writes) then done, why = I.write_files(game, writes, originals) end
+        if done then for name, data in pairs(writes) do ours[name] = data ~= originals[name] end end
+        if done and (physics or patch) then
+            local name
+            done, name = I.write_patch(game, V.BASE, physics)
+            if done then
+                if physics then made = made + 1 elseif patch then back = back + 1 end
+                patch = name
+                log(physics and ('vehicle handling: ' .. name .. ' (' .. table.concat(vehicles, ', ') .. ')')
+                    or 'vehicle handling: patch removed')
+            else
+                why = name
+            end
+        end
         bar.busy = nil
         if not done then
             log('install failed: ' .. tostring(why))
             say('Not installed: ' .. tostring(why), WARN)
             return
         end
-        for name, data in pairs(writes) do ours[name] = data ~= originals[name] end
         bar.base = state.writes
         log(string.format('installed: %d changed, %d back to the original', made, back))
         say(string.format('Installed (%d game files changed%s). Start the game to play with your values.', made,
@@ -255,15 +325,30 @@ local function main()
         if I.game_running() then say('Helldivers 2 is running: close it, then restore.', WARN); return end
         local writes = {}
         for name, mine in pairs(ours) do if mine then writes[name] = originals[name] end end
-        if not next(writes) then say('The game\'s own files are already in place.', GOOD); return end
+        if not next(writes) and not patch then say('The game\'s own files are already in place.', GOOD); return end
         busy('Restoring the game\'s files...')
-        local done, why = I.write_files(game, writes, originals)
+        local names = {}
+        for name in pairs(writes) do names[#names + 1] = name end
+        local done, why = true, {}
+        if next(writes) then done, why = I.write_files(game, writes, originals, true) end
+        if done and patch then
+            local removed, problem = I.write_patch(game, V.BASE, nil)
+            if removed then patch = nil; log('vehicle handling: patch removed') else done, why = nil, problem end
+        end
         bar.busy = nil
         if not done then say('Not restored: ' .. tostring(why), WARN); return end
-        for name in pairs(writes) do ours[name] = false end
+        -- files another tool changed since: left as they are (theirs now); files another mod had changed before
+        -- this editor: back to that mod's version, which Steam's file check replaces (issue #90)
+        local modded = 0
+        for _, name in ipairs(names) do
+            ours[name] = false
+            if writes[name] and D.modded[name] then modded = modded + 1 end
+        end
+        for _, name in ipairs(why) do log('restore skipped ' .. name .. ': another tool changed it since') end
         bar.base = nil
         log('restored the originals')
-        say('The game\'s own files are back. Your values stay saved here (Install puts them in again).', GOOD)
+        say('The game\'s files are back as they were before this editor. Your values stay saved here (Install puts them in again).'
+            .. (modded > 0 and string.format(' %d of them still hold another mod\'s changes: Steam\'s "Verify integrity of game files" puts back the game\'s own.', modded) or ''), GOOD)
     end
 
     -- ------------------------------------------------------------ updates (update.lua)
@@ -350,13 +435,19 @@ local function main()
         for _, b in ipairs(bar.buttons) do
             if x and x >= b.x0 and x < b.x1 and y >= b.y0 and y < b.y1 then hover = b.key end
         end
+        if #bar.titles > 1 then
+            for _, b in ipairs(bar.titles) do
+                if x and x >= b.x0 and x < b.x1 and y >= b.y0 and y < b.y1 then hover = b.key end
+            end
+        end
         bar.hover = hover
         local down = shim.focused() and shim.key_down(0x01)
         if down and not was_down then armed = hover end
         if not down and was_down and armed and armed == hover and state.phase == 'ready' then
             bar.message = nil
             if hover == 'install' then install() elseif hover == 'restore' then restore()
-            elseif hover == 'update' and update_program() then break end
+            elseif hover == 'update' and update_program() then break
+            elseif hover == 'title_stat' or hover == 'title_enemy' then state.switch_editor(hover == 'title_enemy') end
             armed = nil
         end
         was_down = down
@@ -367,12 +458,13 @@ local function main()
             painted = signature
             paint()
         end
-        shim.sleep(state.phase == 'ready' and 10 or 1)
+        -- while loading, no wait: Windows rounds Sleep(1) up to ~15 ms, which made the ~400 loading steps take ~6 s extra
+        if state.phase == 'ready' then shim.sleep(10) end
     end
     if shim.place then
         I.mkdirs(I.home)
         local f = io.open(PLACE, 'w')
-        if f then f:write(shim.place[1], ' ', shim.place[2], '\n'); f:close() end
+        if f then f:write(shim.place[1], ' ', shim.place[2], shim.place[3] and (' ' .. shim.place[3]) or '', '\n'); f:close() end
     end
     -- the editor saves its values a moment after a change
     local stop = clock() + 1.5

@@ -37,7 +37,7 @@ local RELOC = {
     end,
     [0x30EB6399] = function(P, size, rel)                                                     -- stratagems
         rel(0)
-        for r = 0, u32(P, 8) - 1 do rel(16 + r * 400 + 16); rel(16 + r * 400 + 152) end
+        for r = 0, u32(P, 8) - 1 do rel(16 + r * 400 + 16); rel(16 + r * 400 + 64); rel(16 + r * 400 + 152) end
     end,
 }
 
@@ -143,7 +143,7 @@ end
 -- nothing changed. Resolved fields keep their stored bytes.
 local function changes(f)
     local orig, n = open_base(f.cipher)
-    local changed, words = 0, {}
+    local changed = 0
     local a, b = ffi.cast('uint64_t *', f.p), ffi.cast('uint64_t *', orig)
     for w = 0, math.floor(n / 8) - 1 do
         if a[w] ~= b[w] then
@@ -151,32 +151,23 @@ local function changes(f)
                 if f.p[k] ~= orig[k] and not f.resolved[k] then
                     orig[k] = f.p[k]
                     changed = changed + 1
-                    words[k - k % 4] = true
                 end
             end
         end
     end
     for k = n - n % 8, n - 1 do
-        if f.p[k] ~= orig[k] and not f.resolved[k] then orig[k] = f.p[k]; changed = changed + 1; words[k - k % 4] = true end
+        if f.p[k] ~= orig[k] and not f.resolved[k] then orig[k] = f.p[k]; changed = changed + 1 end
     end
     if changed == 0 then G.free(orig); return nil end
-    -- floats among the changed words (a salt for one-table files): a value with decimals between 1e-4 and 1e7
-    local floats = {}
-    for o in pairs(words) do
-        local v = ffi.cast('float *', orig + o)[0]
-        local i = u32(orig, o)
-        if v == v and math.abs(v) >= 1e-4 and math.abs(v) < 1e7 and i >= 0x38D1B717 then floats[#floats + 1] = o end
-    end
-    table.sort(floats)
-    return orig, n, changed, floats
+    return orig, n, changed
 end
 
--- every file whose plain text differs from its original: { name, plain, n, bytes, floats }
+-- every file whose plain text differs from its original: { name, plain, n, bytes }
 function M.diff()
     local out = {}
     for name, f in pairs(M.files) do
-        local plain, n, count, floats = changes(f)
-        if plain then out[#out + 1] = { name = name, plain = plain, n = n, bytes = count, floats = floats, hash = f.hash } end
+        local plain, n, count = changes(f)
+        if plain then out[#out + 1] = { name = name, plain = plain, n = n, bytes = count, hash = f.hash } end
     end
     table.sort(out, function(x, y) return x.name < y.name end)
     return out
@@ -244,7 +235,7 @@ function M.stack(changes, stacks, log, own_off)
     if not c then
         local plain, n = open_base(f.cipher)
         if not plain then return nil, f.name .. ': ' .. tostring(n) end
-        c = { name = f.name, plain = plain, n = n, bytes = 0, floats = {}, hash = f.hash }
+        c = { name = f.name, plain = plain, n = n, bytes = 0, hash = f.hash }
         changes[#changes + 1] = c
         table.sort(changes, function(x, y) return x.name < y.name end)
     end
@@ -317,29 +308,117 @@ function M.stack(changes, stacks, log, own_off)
     local grown = G.alloc(#s)
     ffi.copy(grown, s, #s)
     G.free(c.plain)
-    -- the edited floats moved: the other headers' reserved bytes salt the hash correction
-    c.plain, c.n, c.bytes, c.floats = grown, #s, c.bytes + #s - n, {}
+    c.plain, c.n, c.bytes = grown, #s, c.bytes + #s - n
+    return true
+end
+
+-- ---------------------------------------------------------------- stratagem codes
+-- StratagemInfo (rows of 400 bytes, the stratagem type at +0) +64: its call-in code, the payload offset of a u32
+-- per arrow (1 up, 2 right, 3 down, 4 left), +72 the arrow count. A code no longer than the game's goes over its
+-- own; a longer one is appended to its table, which grows (by whole 16 bytes, so the tables after keep their
+-- alignment). codes: stratagem type -> { arrow, ... } (1 to 9: the game's code readers take 9 at most).
+-- Adds to / changes `changes` (from M.diff) in place.
+local STRATAGEM = 0x30EB6399
+function M.codes(changes, codes, log)
+    log, codes = log or function() end, codes or {}
+    if not next(codes) then return true end
+    local f
+    for _, file in pairs(M.files) do
+        for _, h in ipairs(G.headers(file.p, file.n)) do if h.type == STRATAGEM then f = file; break end end
+        if f then break end
+    end
+    if not f then return nil, 'the stratagem file is not loaded' end
+    local c
+    for _, x in ipairs(changes) do if x.name == f.name then c = x end end
+    if not c then
+        local plain, n = open_base(f.cipher)
+        if not plain then return nil, f.name .. ': ' .. tostring(n) end
+        c = { name = f.name, plain = plain, n = n, bytes = 0, hash = f.hash }
+        changes[#changes + 1] = c
+        table.sort(changes, function(x, y) return x.name < y.name end)
+    end
+    local p, n = c.plain, c.n
+    local hs = G.headers(p, n)
+    local out, grown, done = { ffi.string(p, hs[1].at) }, 0, 0
+    for k, h in ipairs(hs) do
+        local P = h.at + 24
+        local block_end = k < #hs and hs[k + 1].at or n
+        local extra = {}   -- longer codes, appended after the payload
+        if h.type == STRATAGEM and h.size >= 16 then
+            local rows = u32(p, P + 8)
+            for r = 0, rows - 1 do
+                local R = P + 16 + r * 400
+                local code = R + 400 <= P + h.size and codes[u32(p, R)]
+                local ok = type(code) == 'table' and #code >= 1 and #code <= 9
+                for _, a in ipairs(ok and code or {}) do ok = ok and (a == 1 or a == 2 or a == 3 or a == 4) end
+                if code and not ok then
+                    log('stratagem ' .. u32(p, R) .. ': code left as it is (1 to 9 arrows, 1-4 each)')
+                elseif code then
+                    local at, count = tonumber(ffi.cast(u64p, p + R + 64)[0]), u32(p, R + 72)
+                    if at < 16 + rows * 400 or at + count * 4 > h.size then
+                        log('stratagem ' .. u32(p, R) .. ': its code is not where it should be: left as it is')
+                    else
+                        if #code > count then   -- appended: 8-aligned, after the payload and earlier ones
+                            local size = h.size
+                            for _, s in ipairs(extra) do size = size + #s end
+                            local pad = (8 - size % 8) % 8
+                            extra[#extra + 1] = string.rep('\0', pad)
+                            at = size + pad
+                            ffi.cast(u64p, p + R + 64)[0] = at
+                            local arrows = {}
+                            for j, a in ipairs(code) do arrows[j] = string.char(a, 0, 0, 0) end
+                            extra[#extra + 1] = table.concat(arrows)
+                        else
+                            for j, a in ipairs(code) do ffi.cast('uint32_t *', p + P + at)[j - 1] = a end
+                        end
+                        ffi.cast('uint32_t *', p + R + 72)[0] = #code
+                        done = done + 1
+                        log(string.format('stratagem %d: code of %d arrows (was %d)%s', u32(p, R), #code, count,
+                            #code > count and ', appended to its table' or ''))
+                    end
+                end
+            end
+        end
+        if #extra > 0 then
+            local add = table.concat(extra)
+            add = add .. string.rep('\0', (16 - #add % 16) % 16)
+            local head = ffi.new('uint8_t[24]')
+            ffi.copy(head, p + h.at, 24)
+            ffi.cast('uint32_t *', head + 12)[0] = h.size + #add                                 -- block size
+            out[#out + 1] = ffi.string(head, 24) .. ffi.string(p + P, h.size) .. add
+            out[#out + 1] = ffi.string(p + P + h.size, block_end - P - h.size)                   -- any padding after
+            grown = grown + #add
+        else
+            out[#out + 1] = ffi.string(p + h.at, block_end - h.at)
+        end
+    end
+    c.bytes = c.bytes + done
+    if grown == 0 then return true end
+    local s = table.concat(out)
+    local bigger = G.alloc(#s)
+    ffi.copy(bigger, s, #s)
+    G.free(c.plain)
+    c.plain, c.n = bigger, #s
     return true
 end
 
 -- seal one changed file: { name, sealed } or nil, why
 function M.build(change, log)
     log = log or function() end
-    -- a one-table file whose changes hold no float to vary (whole numbers, zeros): nothing in it may vary for the
-    -- hash correction, so its table grows by 16 zero bytes after everything it holds (the game reads only what
-    -- its offsets name; grown tables load, as stacked passives do), and those vary instead
+    -- the last table grows over any bytes after it plus one word (the game reads only what its offsets name; grown
+    -- tables load, as stacked passives do), solved for the hash: no search, and no edited value nudged
     local hs = G.headers(change.plain, change.n)
-    if #change.floats == 0 and #hs == 1 and hs[1].at + 24 + hs[1].size == change.n then
-        local n = change.n
-        local salt = n + (8 - n % 8) % 8                -- a word of its own (the native search needs the words whole)
-        local grown = G.alloc(salt + 16)               -- (zeroed)
-        ffi.copy(grown, change.plain, n)
-        ffi.cast('uint32_t *', grown + hs[1].at + 12)[0] = salt + 16 - hs[1].at - 24
-        G.free(change.plain)
-        change.plain, change.n, change.floats = grown, salt + 16, { salt }
-        log(string.format('no float among the changes: the table grows by %d bytes for the hash correction', salt + 16 - n))
-    end
-    local ok, why = G.correct(change.plain, change.n, change.hash, change.floats, log)
+    local last = hs[#hs]
+    if not last then G.free(change.plain); return nil, 'no blocks' end
+    local n = change.n
+    local word = n + (8 - n % 8) % 8
+    local grown = G.alloc(word + 8)                    -- (zeroed)
+    ffi.copy(grown, change.plain, n)
+    ffi.cast('uint32_t *', grown + last.at + 12)[0] = word + 8 - last.at - 24
+    G.free(change.plain)
+    change.plain, change.n = grown, word + 8
+    local ok, why = G.correct_tail(change.plain, change.n, change.hash), 'hash correction did not verify'
+    log(string.format('hash corrected: the last table grows by %d bytes', change.n - n))
     if not ok then G.free(change.plain); return nil, why end
     local sealed = G.seal(change.plain, change.n)
     local back, m = G.open_sealed(sealed)

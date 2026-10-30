@@ -14,16 +14,19 @@ files = {
     'libsodium.dll': os.path.join(HERE, 'runtime', 'libsodium.dll'),
     'shodan_hash.dll': os.path.join(HERE, 'launcher', 'shodan_hash.dll'),
     'app/stat_editor.lua': PANEL,
+    'app/icons.bin': os.path.join(HERE, 'icons.bin'),   # the pages' HUD icons (tools/hud_icons.py)
 }
-for m in ('host', 'engine_shim', 'install', 'gamedata', 'hostdata', 'update'):
+for m in ('host', 'engine_shim', 'install', 'gamedata', 'hostdata', 'update', 'vehicles'):
     files['app/%s.lua' % m] = os.path.join(HERE, m + '.lua')
 DEV = re.compile(r'[ \t]*--\[\[DEV\]\].*?--\[\[/DEV\]\][^\n]*\n', re.S)   # test hooks: not in the package
 VERSION = re.search(r"version = '([\d.]+)'", open(PANEL, encoding='utf-8').read()).group(1)
 readme = r"""SHODAN Stat Editor Offline v{version}  (SSEO)
 by SHODAN - https://github.com/SHODAN-HORAI/SHODAN-Stat-Editor
 
-Change the stats of weapons, throwables, stratagems, vehicles, attachments and armor passives in Helldivers 2's
-own data files. No mod loader, and the game does not need to run: the changes apply when the game starts.
+Change the stats of weapons, throwables, stratagems, vehicles, boosters, attachments and armor passives in
+Helldivers 2's own data files. The Enemy Editor (click "SHODAN Enemy Editor" at the top left) changes every
+enemy, your SEAF allies and how they spawn, and keeps custom difficulties as presets. No mod loader, and the
+game does not need to run: the changes apply when the game starts.
 
 HOW TO USE
 1. Close Helldivers 2.
@@ -37,6 +40,16 @@ HOW TO USE
 %LOCALAPPDATA%\SHODAN\StatEditor\originals, with your values, presets and logs.
 After a game update, or Steam's "Verify integrity of game files", the game's own files are back:
 start SSEO and press Install again.
+
+OTHER MODS
+SSEO should work alongside mods that change the same game files (other stat or stratagem tools) without
+conflict, as long as they go in first: SSEO keeps their changes and adds yours on top. This is not
+thoroughly tested yet.
+1. Install or apply the other mod.
+2. Start SSEO and press Install.
+3. To change or remove the other mod later, press Restore in SSEO first, change the other mod, then
+   press Install in SSEO again.
+Where both change the same stat, SSEO's value wins.
 
 UPDATES
 At start SSEO asks GitHub for its latest release. When there is a newer one, "Update to v..." appears at the
@@ -73,7 +86,7 @@ name = sys.argv[1] if len(sys.argv) > 1 else 'SHODAN-Stat-Editor-Offline-v' + VE
 out = os.path.join(RELEASE, name + '.zip')
 with zipfile.ZipFile(out, 'w', zipfile.ZIP_DEFLATED, compresslevel=9) as z:
     for arc, src in sorted(files.items()):
-        if arc.startswith('app/') and arc != 'app/stat_editor.lua':
+        if arc.startswith('app/') and arc.endswith('.lua') and arc != 'app/stat_editor.lua':
             text = DEV.sub('', open(src, encoding='utf-8').read())
             assert 'DEV' not in text and 'SHODAN_HOST_TEST' not in text, arc
             z.writestr(TOP + '/' + arc, text)

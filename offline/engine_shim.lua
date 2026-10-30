@@ -61,6 +61,9 @@ for _, declaration in ipairs({
     'int TextOutW(void *dc, int x, int y, const uint16_t *text, int count);',
     'int GetTextExtentPoint32W(void *dc, const uint16_t *text, int count, int32_t *size);',
     'int GdiFlush(void);',
+    'uint64_t GetTickCount64(void);',
+    'typedef struct { void *hwnd; uint32_t message; uint32_t pad; uintptr_t wparam; intptr_t lparam;'
+        .. ' uint32_t time, x, y, private_; } host_msg;',
 }) do pcall(ffi.cdef, declaration) end
 
 local user, gdi, kernel = ffi.load('user32'), ffi.load('gdi32'), ffi.C
@@ -81,13 +84,64 @@ function M.message_box(text, kind)   -- kind: 0x10 error, 0x30 warning, 0x40 inf
 end
 
 -- ---------------------------------------------------------------- the window and its back buffer
-local PANEL_W, PANEL_H = 1060, 1080   -- the panel (1000 wide) and its margins, in 1080p units
-local STYLE = 0x00CA0000   -- WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX (no resizing)
+-- ---------------------------------------------------------------- text typed into the window
+-- The window procedure is Windows' own, so the characters the window receives arrive as WM_CHAR: the keyboard's,
+-- and an input method's Chinese or any other script. They are taken out of the message queue in pump() and
+-- handed to the panel, which uses them instead of reading the keys: an input method takes the keys it composes
+-- with before they make characters, so keys read on their own would type the pinyin (and the digit that picks a
+-- candidate) next to the character the input method commits, and a Chinese input method takes the digits too.
+local typed, typed_at, typed_high = {}, 0, nil
+local TYPED_KEEP = 2   -- seconds a character waits for the panel (dropped if the panel was not there)
 
--- the client for a work area (left, top, right, bottom) and a frame `extra_h` tall: as tall as it allows (at most
--- 1350 px), panel-shaped
-local function client_for(work, extra_h)
-    local ch = math.floor(math.min(work[3] - work[1] - extra_h, 1.25 * 1080) * 0.95)
+local function now_ms() return tonumber(kernel.GetTickCount64()) end
+
+local function utf8_of(code)
+    if code < 0x80 then return string.char(code) end
+    if code < 0x800 then return string.char(0xC0 + math.floor(code / 0x40), 0x80 + code % 0x40) end
+    if code < 0x10000 then
+        return string.char(0xE0 + math.floor(code / 0x1000), 0x80 + math.floor(code / 0x40) % 0x40,
+                           0x80 + code % 0x40)
+    end
+    return string.char(0xF0 + math.floor(code / 0x40000), 0x80 + math.floor(code / 0x1000) % 0x40,
+                       0x80 + math.floor(code / 0x40) % 0x40, 0x80 + code % 0x40)
+end
+
+-- One UTF-16 code unit of WM_CHAR (a surrogate pair arrives as two). Control characters are dropped: Enter,
+-- Tab and the like are keys the panel reads itself, not text.
+function M.push_typed(code)
+    if not code or code < 0x20 or code == 0x7F then return end
+    if code >= 0xD800 and code < 0xDC00 then typed_high = code; return end
+    local point = code
+    if code >= 0xDC00 and code < 0xE000 then
+        if not typed_high then return end
+        point, typed_high = 0x10000 + (typed_high - 0xD800) * 0x400 + (code - 0xDC00), nil
+    else
+        typed_high = nil
+    end
+    typed[#typed + 1] = utf8_of(point)
+    while #typed > 64 do table.remove(typed, 1) end
+    typed_at = now_ms()
+end
+
+-- The characters typed since the last call ('' when there were none)
+function M.take_typed()
+    if #typed == 0 then return '' end
+    local text = table.concat(typed)
+    for k = #typed, 1, -1 do typed[k] = nil end
+    typed_high = nil
+    if now_ms() - typed_at > TYPED_KEEP * 1000 then return '' end
+    return text
+end
+
+local PANEL_W, PANEL_H = 1060, 1080   -- the panel (1000 wide) and its margins, in 1080p units
+local STYLE = 0x00CE0000   -- WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | WS_THICKFRAME (issue #110)
+
+-- the client for a work area (left, top, right, bottom) and a frame `extra_w` x `extra_h`: panel-shaped, `want` px
+-- tall (the size the user dragged it to) as far as the work area allows, else as tall as it allows (at most 1350 px)
+local function client_for(work, extra_w, extra_h, want)
+    local room = math.min(work[3] - work[1] - extra_h, (work[2] - work[0] - extra_w) * PANEL_H / PANEL_W)
+    local ch = want and math.max(400, want) or math.min(work[3] - work[1] - extra_h, 1.25 * 1080) * 0.95
+    ch = math.floor(math.min(ch, room))
     return math.floor(ch * PANEL_W / PANEL_H + 0.5), ch
 end
 
@@ -124,7 +178,7 @@ local function fit()
     user.GetClientRect(M.window, client_rect)
     local extra_w = window_rect[2] - window_rect[0] - client_rect[2]
     local extra_h = window_rect[3] - window_rect[1] - client_rect[3]
-    local cw, ch = client_for(work, extra_h)
+    local cw, ch = client_for(work, extra_w, extra_h, M.want)
     local w, h = cw + extra_w, ch + extra_h
     local x = math.max(work[0], math.min(window_rect[0], work[2] - w))
     local y = math.max(work[1], math.min(window_rect[1], work[3] - h))
@@ -163,7 +217,8 @@ function M.open(title, place)
     local frame = ffi.new('int32_t[4]', 0, 0, 100, 100)
     user.AdjustWindowRectEx(frame, STYLE, 0, 0)
     local extra_w, extra_h = frame[2] - frame[0] - 100, frame[3] - frame[1] - 100
-    local cw, ch = client_for(work, extra_h)
+    M.want = place and place[3]
+    local cw, ch = client_for(work, extra_w, extra_h, M.want)
     local x = place and place[1] or work[0] + math.floor((work[2] - work[0] - cw - extra_w) / 2)
     local y = place and place[2] or work[1] + math.floor((work[3] - work[1] - ch - extra_h) / 2)
     M.window = user.CreateWindowExW(0, name, (wide(M.title)), STYLE, x, y, cw + extra_w, ch + extra_h, nil, nil, instance, nil)
@@ -181,20 +236,32 @@ function M.open(title, place)
     return M.window
 end
 
-local msg = ffi.new('uint8_t[64]')
+local msg = ffi.new('host_msg')
 -- Handles the window's messages; false once the window is closed. A window moved onto another screen is sized
 -- for that one (moving it is Windows' own loop inside DispatchMessageW: this runs once it is let go).
--- M.place: the window's top left, while it is not minimized.
+-- A window the user resized (Windows' loop too, let go before this runs) takes the panel's shape again, as tall
+-- as the side they dragged most asks for. M.place: the window's top left and client height, while not minimized.
 function M.pump()
     while user.PeekMessageW(msg, nil, 0, 0, 1) ~= 0 do
-        user.TranslateMessage(msg)
-        user.DispatchMessageW(msg)
+        if msg.message == 0x0102 then   -- WM_CHAR: a character for the panel, an input method's own included
+            M.push_typed(tonumber(msg.wparam))
+        else
+            user.TranslateMessage(msg)
+            user.DispatchMessageW(msg)
+        end
     end
     if M.window == nil or user.IsWindow(M.window) == 0 then return false end
     if user.IsIconic(M.window) == 0 then
-        if handle(user.MonitorFromWindow(M.window, 2)) ~= M.monitor then fit() end
+        user.GetClientRect(M.window, client_rect)
+        local cw, ch = client_rect[2], client_rect[3]
+        if cw > 0 and ch > 0 and (cw ~= M.w or ch ~= M.h) then
+            local tall = math.abs(ch - M.h) / M.h >= math.abs(cw - M.w) / M.w
+            M.want = tall and ch or math.floor(cw * PANEL_H / PANEL_W + 0.5)
+            fit()
+            M.want = M.h   -- (what the screen allowed)
+        elseif handle(user.MonitorFromWindow(M.window, 2)) ~= M.monitor then fit() end
         user.GetWindowRect(M.window, window_rect)
-        M.place = { window_rect[0], window_rect[1] }
+        M.place = { window_rect[0], window_rect[1], M.want }
     end
     return true
 end
@@ -279,6 +346,88 @@ end
 
 function M.flush() gdi.GdiFlush() end
 
+-- the pages' icons (the HUD's weapon icons): icons.bin next to this file (tools/hud_icons.py has its layout), read
+-- once; a page's icon unpacked the first time it is drawn. Its width and height (pixels), or nil: none for that page.
+local icon_pack = nil
+function M.icon_size(name)
+    if icon_pack == nil then
+        icon_pack = { pages = {}, images = {} }
+        local f = io.open((debug.getinfo(1, 'S').source:match('^@(.*[/\\])') or './') .. 'icons.bin', 'rb')
+        local data = f and f:read('*a')
+        if f then f:close() end
+        local function u16(o) return data:byte(o + 1) + data:byte(o + 2) * 256 end
+        local function u32(o) return u16(o) + u16(o + 2) * 65536 end
+        if data and #data >= 16 and data:sub(1, 4) == 'SSIC' and u32(4) == 2 then
+            local images, pages, at = u32(8), u32(12), 16
+            for _ = 1, pages do
+                icon_pack.pages[data:sub(at + 1, at + 16)] = u16(at + 16) + 1
+                at = at + 18
+            end
+            for k = 1, images do
+                if at + 8 > #data then break end
+                local i = { w = u16(at), h = u16(at + 2), rgb = { data:byte(at + 5, at + 7) }, masks = {} }
+                local count = data:byte(at + 8)
+                at = at + 8
+                for m = 1, count do
+                    if at + 4 > #data then break end
+                    local n = u32(at)
+                    i.masks[m] = { runs = data:sub(at + 5, at + 4 + n) }
+                    at = at + 4 + n
+                end
+                icon_pack.images[k] = i
+            end
+        end
+    end
+    local i = icon_pack.images[icon_pack.pages[name] or 0]
+    if not i then return nil end
+    for _, m in ipairs(i.masks) do
+        if not m.px then
+            m.px = ffi.new('uint8_t[?]', i.w * i.h)
+            local runs, at = m.runs, 0
+            for k = 1, #runs - 1, 2 do
+                local n, v = runs:byte(k, k + 1)
+                if at + n > i.w * i.h then break end
+                ffi.fill(m.px + at, n, v)
+                at = at + n
+            end
+        end
+    end
+    return i.w, i.h, i
+end
+
+-- a page's icon fitted into the box x0..x1, y0..y1 at its right, each pixel the average of those it covers: its first
+-- mask in its own colour times c, its second (stratagems: the white part) in c on top
+function M.icon(name, x0, y0, x1, y1, c)
+    local _, _, i = M.icon_size(name)
+    if not i then return false end
+    local k = math.min((x1 - x0) / i.w, (y1 - y0) / i.h)
+    local dw, dh = math.floor(i.w * k), math.floor(i.h * k)
+    local left, top = math.floor(x1 - dw + 0.5), math.floor(y0 + ((y1 - y0) - dh) / 2 + 0.5)
+    local bits, a = M.bits, (c[1] or 255) / 255
+    for m, mask in ipairs(i.masks) do
+        local px, cr, cg, cb = mask.px, c[2], c[3], c[4]
+        if m == 1 then cr, cg, cb = cr * i.rgb[1] / 255, cg * i.rgb[2] / 255, cb * i.rgb[3] / 255 end
+        for y = math.max(0, top), math.min(M.h, top + dh) - 1 do
+            local sy0, sy1 = math.floor((y - top) / k), math.max(math.floor((y - top) / k) + 1, math.floor((y - top + 1) / k))
+            for x = math.max(0, left), math.min(M.w, left + dw) - 1 do
+                local sx0, sx1 = math.floor((x - left) / k), math.max(math.floor((x - left) / k) + 1, math.floor((x - left + 1) / k))
+                local sum, n = 0, 0
+                for sy = sy0, math.min(sy1, i.h) - 1 do
+                    for sx = sx0, math.min(sx1, i.w) - 1 do sum, n = sum + px[sy * i.w + sx], n + 1 end
+                end
+                local q = n > 0 and sum / n / 255 * a or 0
+                if q > 0 then
+                    local p = bits[y * M.w + x]
+                    local pr, pg, pb = bit.band(bit.rshift(p, 16), 255), bit.band(bit.rshift(p, 8), 255), bit.band(p, 255)
+                    bits[y * M.w + x] = bit.bor(bit.lshift(math.floor(pr + (cr - pr) * q), 16), bit.lshift(math.floor(pg + (cg - pg) * q), 8),
+                                                math.floor(pb + (cb - pb) * q))
+                end
+            end
+        end
+    end
+    return true
+end
+
 -- the back buffer as a .bmp (tests)
 function M.save_bmp(path)
     gdi.GdiFlush()
@@ -331,6 +480,8 @@ function M.engine()
             main_world = function() return main_world end,
             worlds = function() return { main_world, overlay_world } end,
             can_get = function() return true end,
+            -- the characters typed into the window (an input method's Chinese included; see take_typed)
+            typed_text = function() return M.take_typed() end,
         },
         World = {
             create_screen_gui = function(world)
@@ -358,6 +509,13 @@ function M.engine()
                 return Vector3(0, -size * 0.2, 0), Vector3(M.text_width(tostring(text), size), size * 0.8, 0)
             end,
             material = function() return 'material' end,
+            -- offline only: a page's icon (icons.bin, M.icon) fitted into the box at its right; icon_size: its
+            -- width and height in pixels and whether it is a stratagem's (two masks, drawn bigger), or nil (none)
+            icon = function(gui, name, pos, size, color)
+                add(gui, { kind = 'icon', z = pos[3] or 0, x = pos[1], y = pos[2], w = size[1], h = size[2], name = name,
+                           c = color or { 255, 255, 255, 255 } })
+            end,
+            icon_size = function(name) local w, h, i = M.icon_size(name) return w, h, i and #i.masks > 1 end,
         },
         Material = { set_texture = function() end },
         Mouse = {
@@ -378,9 +536,10 @@ function M.paint_guis(background)
     table.sort(items, function(a, b) if a.z ~= b.z then return a.z < b.z end return a.n < b.n end)
     local texting = false
     for _, item in ipairs(items) do
-        if item.kind == 'rect' then
+        if item.kind == 'rect' or item.kind == 'icon' then
             if texting then gdi.GdiFlush(); texting = false end
-            M.fill(item.x, M.h - item.y - item.h, item.x + item.w, M.h - item.y, item.c)
+            if item.kind == 'rect' then M.fill(item.x, M.h - item.y - item.h, item.x + item.w, M.h - item.y, item.c)
+            else M.icon(item.name, item.x, M.h - item.y - item.h, item.x + item.w, M.h - item.y, item.c) end
         else
             M.text(item.text, item.x, M.h - item.y, item.size, item.c)
             texting = true

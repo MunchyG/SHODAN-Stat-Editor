@@ -10,6 +10,8 @@ local G = require('gamedata')
 
 for _, declaration in ipairs({
     'int MoveFileExA(const char *from, const char *to, uint32_t flags);',
+    'int SetFileAttributesA(const char *path, uint32_t attributes);',
+    'uint32_t GetLastError(void);',
     'int CreateDirectoryA(const char *path, void *security);',
     'int DeleteFileA(const char *path);',
     'uint32_t GetEnvironmentVariableA(const char *name, char *out, uint32_t size);',
@@ -222,9 +224,25 @@ function M.originals(game)
 end
 
 -- ---------------------------------------------------------------- writing
--- writes: name -> bytes (a changed file, or the original for one going back); originals: name -> original bytes
-function M.write_files(game, writes, originals)
+-- writes: name -> bytes (a changed file, or the original for one going back); originals: name -> original bytes.
+-- A game file another tool changed after this editor read it (neither its original nor written by an install,
+-- issue #90) is never written over: skip_changed (Restore) leaves it be and returns its name, Install stops.
+function M.write_files(game, writes, originals, skip_changed)
     if M.game_running() then return nil, 'Helldivers 2 is running: close it first.' end
+    local list, changed = load_list(), {}
+    for name in pairs(writes) do
+        local current = read(game .. '/' .. name)
+        if current and current ~= originals[name] and not (list[name] and list[name][hash_of(current)]) then
+            changed[#changed + 1] = name
+        end
+    end
+    table.sort(changed)
+    if #changed > 0 and not skip_changed then
+        return nil, 'another tool changed ' .. table.concat(changed, ', ') .. ' after this editor opened. '
+                    .. 'Close and reopen the editor, then Install.'
+    end
+    for _, name in ipairs(changed) do writes[name] = nil end
+    if not next(writes) then return true, changed end
     mkdirs(M.originals_dir)
     for name in pairs(writes) do
         local path = M.originals_dir .. '/' .. name
@@ -233,7 +251,6 @@ function M.write_files(game, writes, originals)
             if not ok then return nil, 'could not keep the original of ' .. name .. ': ' .. tostring(why) end
         end
     end
-    local list = load_list()
     local staged = {}
     for name, data in pairs(writes) do
         local tmp = game .. '/' .. name .. '.shodan-new'
@@ -255,8 +272,13 @@ function M.write_files(game, writes, originals)
     local failed = {}
     for _, s in ipairs(staged) do
         -- MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH
-        if kernel.MoveFileExA(s.tmp, game .. '/' .. s.name, 0x9) == 0 or read(game .. '/' .. s.name) ~= s.data then
-            failed[#failed + 1] = s.name
+        local target = game .. '/' .. s.name
+        kernel.SetFileAttributesA(target, 0x80)   -- FILE_ATTRIBUTE_NORMAL: a read-only game file refuses the move (#114)
+        local moved = kernel.MoveFileExA(s.tmp, target, 0x9) ~= 0
+        local code = not moved and kernel.GetLastError()
+        if not moved or read(target) ~= s.data then
+            failed[#failed + 1] = s.name .. (code == 5 and ' (access denied)' or code == 32 and ' (in use by another program)'
+                                             or code and ' (Windows error ' .. tostring(code) .. ')' or '')
             os.remove(s.tmp)
         elseif s.data == originals[s.name] then
             list[s.name] = nil
@@ -266,7 +288,46 @@ function M.write_files(game, writes, originals)
     end
     save_list(list)
     if #failed > 0 then return nil, 'could not replace ' .. table.concat(failed, ', ') end
-    return true
+    return true, changed
+end
+
+-- ---------------------------------------------------------------- the vehicle patch
+-- The changed vehicle physics (vehicles.lua) go into a patch archive of this editor's own in data\ (one up from
+-- data\game): <base>.patch_N at the lowest free N, with the empty .stream and .gpu_resources the game expects.
+-- installed.txt lists it as ../<name>. Every Install takes the old one out first, so it moves down into a slot
+-- another mod left free. data nil: only taken out. Returns the file name (nil when none).
+local PATCH_PARTS = { '', '.stream', '.gpu_resources' }
+
+function M.patch_installed(game)
+    for name, hashes in pairs(load_list()) do
+        local current = name:match('^%.%./.-%.patch_%d+$') and read(game .. '/' .. name)
+        if current and hashes[hash_of(current)] then return name end
+    end
+    return nil
+end
+
+function M.write_patch(game, base, data)
+    if M.game_running() then return nil, 'Helldivers 2 is running: close it first.' end
+    local list = load_list()
+    local old = M.patch_installed(game)
+    if old then
+        for _, part in ipairs(PATCH_PARTS) do os.remove(game .. '/' .. old .. part) end
+        if exists(game .. '/' .. old) then return nil, 'could not remove ' .. old end
+    end
+    for name in pairs(list) do if name:match('^%.%./.-%.patch_%d+$') then list[name] = nil end end
+    if not data then save_list(list); return true, nil end
+    local n = 0
+    while exists(game .. '/../' .. base .. '.patch_' .. n) do n = n + 1 end
+    local name = '../' .. base .. '.patch_' .. n
+    list[name] = { [hash_of(data)] = true }
+    if not save_list(list) then return nil, 'could not write ' .. LIST end
+    local ok, why = write(game .. '/' .. name, data)
+    for k = 2, #PATCH_PARTS do ok = ok and write(game .. '/' .. name .. PATCH_PARTS[k], '') end
+    if not ok then
+        for _, part in ipairs(PATCH_PARTS) do os.remove(game .. '/' .. name .. part) end
+        return nil, 'could not write ' .. name:sub(4) .. ' (' .. tostring(why) .. ')'
+    end
+    return true, name
 end
 
 -- the files written by an install (now in the game)
