@@ -2249,6 +2249,7 @@ MOD.langs = {
       ['None'] = '无',
       ['Normal projectile'] = '常规弹丸',
       ['Not offered by the game: a laser built on the Scythe.'] = '游戏本身未提供：基于“长柄镰”改造的激光武器。',
+      ['Not offered on backpack weapons: their backpack does not attach when the weapon is in your primary slot.'] = '背包武器不提供此项：武器在主武器栏时背包无法连接。',
       ['Not used by any weapon or stratagem in this list.'] = '本列表中的武器与战备都没有用到它。',
       ['Nothing matches.'] = '没有匹配项。',
       ['Nothing to install: your values are the game\'s own.'] = '无需写入：所有数值均为游戏原值。',
@@ -6044,6 +6045,7 @@ MOD.langs = {
       ['None'] = '無',
       ['Normal projectile'] = '常規射彈',
       ['Not offered by the game: a laser built on the Scythe.'] = '遊戲本身未提供：基於「長柄鐮」改造的雷射武器。',
+      ['Not offered on backpack weapons: their backpack does not attach when the weapon is in your primary slot.'] = '背包武器不提供此項：武器在主武器欄時背包無法連線。',
       ['Not used by any weapon or stratagem in this list.'] = '本列表中的武器與戰備都沒有用到它。',
       ['Nothing matches.'] = '沒有符合項。',
       ['Nothing to install: your values are the game\'s own.'] = '無需寫入：所有數值均為遊戲原值。',
@@ -9785,6 +9787,7 @@ MOD.langs = {
       ['None'] = 'Нет',
       ['Normal projectile'] = 'Обычный снаряд',
       ['Not offered by the game: a laser built on the Scythe.'] = 'Игра его не предлагает: лазер на основе «Косы».',
+      ['Not offered on backpack weapons: their backpack does not attach when the weapon is in your primary slot.'] = 'Нет у оружия с рюкзаком: рюкзак не подключается, если оружие в основном слоте.',
       ['Not used by any weapon or stratagem in this list.'] = 'Ни одно оружие или стратагема в этом списке его не использует.',
       ['Nothing matches.'] = 'Ничего не найдено.',
       ['Nothing to install: your values are the game\'s own.'] = 'Устанавливать нечего: ваши значения совпадают с игровыми.',
@@ -12803,6 +12806,7 @@ MOD.langs = {
       ['None'] = 'Ninguno',
       ['Normal projectile'] = 'Proyectil normal',
       ['Not offered by the game: a laser built on the Scythe.'] = 'El juego no lo ofrece: un láser hecho a partir del Scythe.',
+      ['Not offered on backpack weapons: their backpack does not attach when the weapon is in your primary slot.'] = 'No aparece en las armas con mochila: la mochila no se conecta si el arma está en tu espacio principal.',
       ['Not used by any weapon or stratagem in this list.'] = 'No lo usa ninguna arma ni estratagema de esta lista.',
       ['Nothing matches.'] = 'Nada coincide.',
       ['Nothing to install: your values are the game\'s own.'] = 'Nada que instalar: tus valores son los del juego.',
@@ -15782,6 +15786,7 @@ MOD.langs = {
       ['None'] = 'Nenhum',
       ['Normal projectile'] = 'Projétil normal',
       ['Not offered by the game: a laser built on the Scythe.'] = 'Não oferecido pelo jogo: um laser feito a partir do Scythe.',
+      ['Not offered on backpack weapons: their backpack does not attach when the weapon is in your primary slot.'] = 'Não aparece nas armas com mochila: a mochila não se conecta se a arma estiver no seu espaço principal.',
       ['Not used by any weapon or stratagem in this list.'] = 'Não é usado por nenhuma arma ou estratégia desta lista.',
       ['Nothing matches.'] = 'Nada encontrado.',
       ['Nothing to install: your values are the game\'s own.'] = 'Nada para instalar: seus valores são os do jogo.',
@@ -20476,7 +20481,8 @@ local function resolve_gun(weapon, key)
     if weapon.key == key and weapon.slot == 'Support' then
         local pack = KINDS[TYPES.rack].pack(key)
         if pack then KINDS[TYPES.jumppack].backpack(weapon, pack, true) end
-        MOD.slot.pickup_row(weapon, key)
+        -- not on backpack-fed weapons: the backpack does not attach to a primary-slot weapon (issue #115)
+        if not pack then MOD.slot.pickup_row(weapon, key) end
     end
     if weapon.key == key then
         KINDS[T_PROJECTILE].swap_row(weapon, sources, shots, fire, extra)
@@ -24399,7 +24405,8 @@ function MOD.slot.pickup_row(weapon, key)
     local r = add_row(weapon, 'Pickup', 'pickup_slot', 'Picked up into', 'u32', { p }, 1, 3, 2, 2)
     r.only = { [1] = true, [3] = true }
     r.label_of = function() return 'Picked up into: ' .. (read_field(p.field) == 1 and 'Primary slot' or 'Support slot') end
-    r.tip = { 'Picking it up puts it in your primary slot instead (1), in place of your primary. 3 = the support slot.' }
+    r.tip = { 'Picking it up puts it in your primary slot instead (1), in place of your primary. 3 = the support slot.',
+              'Not offered on backpack weapons: their backpack does not attach when the weapon is in your primary slot.' }
 end
 
 function MOD.slot.row(weapon)
