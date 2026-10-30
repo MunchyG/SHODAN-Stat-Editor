@@ -77,7 +77,6 @@ local function main()
               .. I.home:gsub('/', '\\') .. '\\game folder.txt\nand start again.')
     end
     log('game: ' .. game)
-    log('hash search: ' .. (G.native and 'native, every core' or 'Lua (shodan_hash.dll not found)'))
     screen({ 'SHODAN Stat Editor Offline', 'Reading the game\'s data files...' })
     shim.pump()
     local originals, ours, problems, count = I.originals(game)

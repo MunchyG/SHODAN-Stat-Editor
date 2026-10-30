@@ -143,7 +143,7 @@ end
 -- nothing changed. Resolved fields keep their stored bytes.
 local function changes(f)
     local orig, n = open_base(f.cipher)
-    local changed, words = 0, {}
+    local changed = 0
     local a, b = ffi.cast('uint64_t *', f.p), ffi.cast('uint64_t *', orig)
     for w = 0, math.floor(n / 8) - 1 do
         if a[w] ~= b[w] then
@@ -151,32 +151,23 @@ local function changes(f)
                 if f.p[k] ~= orig[k] and not f.resolved[k] then
                     orig[k] = f.p[k]
                     changed = changed + 1
-                    words[k - k % 4] = true
                 end
             end
         end
     end
     for k = n - n % 8, n - 1 do
-        if f.p[k] ~= orig[k] and not f.resolved[k] then orig[k] = f.p[k]; changed = changed + 1; words[k - k % 4] = true end
+        if f.p[k] ~= orig[k] and not f.resolved[k] then orig[k] = f.p[k]; changed = changed + 1 end
     end
     if changed == 0 then G.free(orig); return nil end
-    -- floats among the changed words (a salt for one-table files): a value with decimals between 1e-4 and 1e7
-    local floats = {}
-    for o in pairs(words) do
-        -- by the bits (|v| from 1e-4 up to 1e7, NaN out): LuaJIT reads the float FFFFFFFF (a -1 or none) as nil
-        local a = bit.band(u32(orig, o), 0x7FFFFFFF)
-        if a >= 0x38D1B718 and a < 0x4B189680 then floats[#floats + 1] = o end
-    end
-    table.sort(floats)
-    return orig, n, changed, floats
+    return orig, n, changed
 end
 
--- every file whose plain text differs from its original: { name, plain, n, bytes, floats }
+-- every file whose plain text differs from its original: { name, plain, n, bytes }
 function M.diff()
     local out = {}
     for name, f in pairs(M.files) do
-        local plain, n, count, floats = changes(f)
-        if plain then out[#out + 1] = { name = name, plain = plain, n = n, bytes = count, floats = floats, hash = f.hash } end
+        local plain, n, count = changes(f)
+        if plain then out[#out + 1] = { name = name, plain = plain, n = n, bytes = count, hash = f.hash } end
     end
     table.sort(out, function(x, y) return x.name < y.name end)
     return out
@@ -244,7 +235,7 @@ function M.stack(changes, stacks, log, own_off)
     if not c then
         local plain, n = open_base(f.cipher)
         if not plain then return nil, f.name .. ': ' .. tostring(n) end
-        c = { name = f.name, plain = plain, n = n, bytes = 0, floats = {}, hash = f.hash }
+        c = { name = f.name, plain = plain, n = n, bytes = 0, hash = f.hash }
         changes[#changes + 1] = c
         table.sort(changes, function(x, y) return x.name < y.name end)
     end
@@ -317,8 +308,7 @@ function M.stack(changes, stacks, log, own_off)
     local grown = G.alloc(#s)
     ffi.copy(grown, s, #s)
     G.free(c.plain)
-    -- the edited floats moved: the other headers' reserved bytes salt the hash correction
-    c.plain, c.n, c.bytes, c.floats = grown, #s, c.bytes + #s - n, {}
+    c.plain, c.n, c.bytes = grown, #s, c.bytes + #s - n
     return true
 end
 
@@ -343,7 +333,7 @@ function M.codes(changes, codes, log)
     if not c then
         local plain, n = open_base(f.cipher)
         if not plain then return nil, f.name .. ': ' .. tostring(n) end
-        c = { name = f.name, plain = plain, n = n, bytes = 0, floats = {}, hash = f.hash }
+        c = { name = f.name, plain = plain, n = n, bytes = 0, hash = f.hash }
         changes[#changes + 1] = c
         table.sort(changes, function(x, y) return x.name < y.name end)
     end
@@ -408,29 +398,27 @@ function M.codes(changes, codes, log)
     local bigger = G.alloc(#s)
     ffi.copy(bigger, s, #s)
     G.free(c.plain)
-    -- the edited floats moved: the other headers' reserved bytes salt the hash correction
-    c.plain, c.n, c.floats = bigger, #s, {}
+    c.plain, c.n = bigger, #s
     return true
 end
 
 -- seal one changed file: { name, sealed } or nil, why
 function M.build(change, log)
     log = log or function() end
-    -- a one-table file whose changes hold no float to vary (whole numbers, zeros): nothing in it may vary for the
-    -- hash correction, so its table grows by 16 zero bytes after everything it holds (the game reads only what
-    -- its offsets name; grown tables load, as stacked passives do), and those vary instead
+    -- the last table grows over any bytes after it plus one word (the game reads only what its offsets name; grown
+    -- tables load, as stacked passives do), solved for the hash: no search, and no edited value nudged
     local hs = G.headers(change.plain, change.n)
-    if #change.floats == 0 and #hs == 1 and hs[1].at + 24 + hs[1].size == change.n then
-        local n = change.n
-        local salt = n + (8 - n % 8) % 8                -- a word of its own (the native search needs the words whole)
-        local grown = G.alloc(salt + 16)               -- (zeroed)
-        ffi.copy(grown, change.plain, n)
-        ffi.cast('uint32_t *', grown + hs[1].at + 12)[0] = salt + 16 - hs[1].at - 24
-        G.free(change.plain)
-        change.plain, change.n, change.floats = grown, salt + 16, { salt }
-        log(string.format('no float among the changes: the table grows by %d bytes for the hash correction', salt + 16 - n))
-    end
-    local ok, why = G.correct(change.plain, change.n, change.hash, change.floats, log)
+    local last = hs[#hs]
+    if not last then G.free(change.plain); return nil, 'no blocks' end
+    local n = change.n
+    local word = n + (8 - n % 8) % 8
+    local grown = G.alloc(word + 8)                    -- (zeroed)
+    ffi.copy(grown, change.plain, n)
+    ffi.cast('uint32_t *', grown + last.at + 12)[0] = word + 8 - last.at - 24
+    G.free(change.plain)
+    change.plain, change.n = grown, word + 8
+    local ok, why = G.correct_tail(change.plain, change.n, change.hash), 'hash correction did not verify'
+    log(string.format('hash corrected: the last table grows by %d bytes', change.n - n))
     if not ok then G.free(change.plain); return nil, why end
     local sealed = G.seal(change.plain, change.n)
     local back, m = G.open_sealed(sealed)
